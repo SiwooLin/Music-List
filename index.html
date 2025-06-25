@@ -7,16 +7,19 @@
 <link href="https://fonts.googleapis.com/css2?family=Jua&family=Do+Hyeon&display=swap" rel="stylesheet"/>
 <style>
   :root {
-    --category-bg: #f47ea1;
-    --category-bg-hover: #f9a9c1;
-    --category-text: #9b165d;
-    --text-soft: #a06d3b;
-    --siwoolin: #d32aa6;
-    --book-pink: #ffcce5;
-    --deep-purple: #774c82;
-    --hover-pink: #ffd6e8;
-    --soft-yellow: #fff7b3;
-    --border-pink: #ffcce5;
+    --category-bg: #f9d1e3;       /* 연한 핑크 (카테고리 기본) */
+    --category-bg-active: #b43371; /* 진한 핑크 (활성 카테고리) */
+    --category-text: #b43371;     /* 진한 핑크 글씨 (비활성 카테고리) */
+    --category-text-active: #fff; /* 흰색 글씨 (활성 카테고리) */
+    --header-bg: #b43371;         /* 표 헤더 배경 진한 핑크 */
+    --header-text: #fff;          /* 표 헤더 글씨 흰색 */
+    --row-bg-even: #faf0e4;       /* 표 행 배경 연한 베이지 */
+    --row-text: #8a6f4d;          /* 표 행 글씨 연한 갈색 */
+    --hover-bg: #f6d1e0;          /* 표 행 호버 시 연한 분홍 */
+    --notice-bg: #fff0f6;
+    --notice-border: #b43371;
+    --text-soft: #8a6f4d;
+    --border-pink: #ff99cc;       /* 점선 핑크 색상 */
   }
   body {
     margin: 0;
@@ -34,8 +37,8 @@
     margin: 0.5em 0 0.3em;
     cursor: pointer;
   }
-  h1 .siwoolin { color: var(--siwoolin); }
-  h1 .book { color: var(--book-pink); }
+  h1 .siwoolin { color: var(--category-bg-active); }
+  h1 .book { color: var(--category-bg); }
   .search-wrapper {
     display: flex;
     justify-content: center;
@@ -47,7 +50,7 @@
   }
   .search-wrapper input {
     padding: 0.7em 2.5em 0.7em 1.2em;
-    border: 2px solid var(--category-bg);
+    border: 2px solid var(--category-bg-active);
     border-radius: 999px;
     font-size: 1em;
     color: var(--text-soft);
@@ -86,21 +89,20 @@
     font-weight: bold;
     transition: background-color 0.3s, color 0.3s;
   }
-  .category-btn:hover,
-  .category-btn.active:hover {
-    background-color: var(--category-bg-hover);
+  .category-btn:hover {
+    background-color: var(--hover-bg);
     color: var(--category-text);
   }
   .category-btn.active {
-    background-color: var(--category-bg);
-    color: var(--category-text);
+    background-color: var(--category-bg-active);
+    color: var(--category-text-active);
     font-weight: bolder;
   }
   .sort-btn {
     font-family: 'Jua', sans-serif;
     font-size: 0.9em;
-    background-color: var(--soft-yellow);
-    color: var(--text-soft);
+    background-color: var(--category-bg-active);
+    color: var(--category-text-active);
     padding: 0.4em 1em;
     border: none;
     border-radius: 999px;
@@ -112,12 +114,12 @@
     width: max-content;
   }
   .sort-btn:hover {
-    background-color: #fffbcf;
+    background-color: #ce4a8d;
   }
   .notice {
-    background-color: #fff0f6;
+    background-color: var(--notice-bg);
     padding: 1em;
-    border-left: 5px solid var(--category-bg);
+    border-left: 5px solid var(--notice-border);
     margin: 1em;
     border-radius: 6px;
     font-size: 1.1em;
@@ -132,44 +134,43 @@
   table {
     width: 100%;
     border-collapse: collapse;
-    background: rgba(255, 255, 255, 0.9);
+    background: white;
     font-size: 1.1em;
     font-family: 'Jua', sans-serif;
-    border: 2px dotted var(--border-pink);
+    border: 2px dotted var(--category-bg-active);
     box-shadow: 4px 4px 0px #ccc;
     margin-bottom: 4em;
     border-radius: 12px;
     overflow: hidden;
   }
   th {
-    background-color: var(--category-bg);
-    color: var(--category-text);
+    background-color: var(--header-bg);
+    color: var(--header-text);
     padding: 0.8em;
-    border: 2px solid white;
     user-select: none;
-    border-right: 1px dotted var(--border-pink);
+    border-right: 2px dotted var(--border-pink);
   }
   td {
     text-align: center;
     padding: 0.7em;
-    background-color: white;
+    background-color: var(--row-bg-even);
     user-select: text;
-    border-right: 1px dotted var(--border-pink);
-    color: var(--category-text);
+    border-right: 2px dotted var(--border-pink);
+    color: var(--row-text);
     transition: background-color 0.3s;
   }
   th:last-child, td:last-child {
     border-right: none;
   }
-  tr:nth-child(even) td {
-    background-color: #fff0f6;
+  tr:nth-child(odd) td {
+    background-color: white;
   }
   tr:not(:first-child):hover td {
-    background-color: var(--hover-pink);
+    background-color: var(--hover-bg);
   }
   .no-result {
     text-align: center;
-    color: var(--deep-purple);
+    color: var(--category-bg-active);
     font-weight: bold;
     margin-top: 2em;
     display: none;
