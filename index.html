@@ -7,26 +7,23 @@
 <link href="https://fonts.googleapis.com/css2?family=Jua&family=Do+Hyeon&display=swap" rel="stylesheet"/>
 <style>
   :root {
-    --category-bg: #f9d1e3;       /* 연한 핑크 (카테고리 기본) */
-    --category-bg-active: #b43371; /* 진한 핑크 (활성 카테고리) */
-    --category-text: #b43371;     /* 진한 핑크 글씨 (비활성 카테고리) */
-    --category-text-active: #fff; /* 흰색 글씨 (활성 카테고리) */
-    --header-bg: #b43371;         /* 표 헤더 배경 진한 핑크 */
-    --header-text: #fff;          /* 표 헤더 글씨 흰색 */
-    --row-bg-even: #faf0e4;       /* 표 행 배경 연한 베이지 */
-    --row-text: #8a6f4d;          /* 표 행 글씨 연한 갈색 */
-    --hover-bg: #f6d1e0;          /* 표 행 호버 시 연한 분홍 */
-    --notice-bg: #fff0f6;
-    --notice-border: #b43371;
-    --text-soft: #8a6f4d;
-    --border-pink: #ff99cc;       /* 점선 핑크 색상 */
+    --category-bg: #f47ea1;          /* 코랄핑크 계열 카테고리 기본 배경 */
+    --category-bg-hover: #f9a9c1;    /* 카테고리 호버 시 연한 핑크 */
+    --category-text: #9b165d;        /* 카테고리 기본 글씨 진한 핑크 */
+    --category-text-active: #fff;    /* 활성 카테고리 흰색 글씨 */
+    --header-bg: #b43371;            /* 표 헤더 진한 핑크 */
+    --header-text: #fff;             /* 표 헤더 흰 글씨 */
+    --row-bg-even: #f8f1f4;          /* 표 행 연한 핑크/베이지 */
+    --row-text: #8a6f4d;             /* 표 행 글씨 연한 갈색 */
+    --hover-bg: #f7d1dd;             /* 표 행 호버 시 연한 핑크 */
+    --border-pink: #f8aac4;          /* 점선 구분선 핑크색 */
   }
   body {
     margin: 0;
     font-family: 'Jua', sans-serif;
     background: url('images/bgmain.png') no-repeat center center fixed;
     background-size: cover;
-    color: var(--text-soft);
+    color: var(--row-text);
     overflow-x: hidden;
     min-height: 100vh;
   }
@@ -37,7 +34,7 @@
     margin: 0.5em 0 0.3em;
     cursor: pointer;
   }
-  h1 .siwoolin { color: var(--category-bg-active); }
+  h1 .siwoolin { color: var(--category-text); }
   h1 .book { color: var(--category-bg); }
   .search-wrapper {
     display: flex;
@@ -50,10 +47,10 @@
   }
   .search-wrapper input {
     padding: 0.7em 2.5em 0.7em 1.2em;
-    border: 2px solid var(--category-bg-active);
+    border: 2px solid var(--category-text);
     border-radius: 999px;
     font-size: 1em;
-    color: var(--text-soft);
+    color: var(--row-text);
     width: 100%;
     text-align: center;
   }
@@ -90,18 +87,18 @@
     transition: background-color 0.3s, color 0.3s;
   }
   .category-btn:hover {
-    background-color: var(--hover-bg);
+    background-color: var(--category-bg-hover);
     color: var(--category-text);
   }
   .category-btn.active {
-    background-color: var(--category-bg-active);
-    color: var(--category-text-active);
+    background-color: var(--category-text); /* 진한 핑크 배경 */
+    color: var(--category-text-active);     /* 흰색 글씨 */
     font-weight: bolder;
   }
   .sort-btn {
     font-family: 'Jua', sans-serif;
     font-size: 0.9em;
-    background-color: var(--category-bg-active);
+    background-color: var(--category-text);
     color: var(--category-text-active);
     padding: 0.4em 1em;
     border: none;
@@ -117,12 +114,13 @@
     background-color: #ce4a8d;
   }
   .notice {
-    background-color: var(--notice-bg);
+    background-color: #fff0f6;
     padding: 1em;
-    border-left: 5px solid var(--notice-border);
+    border-left: 5px solid var(--category-text);
     margin: 1em;
     border-radius: 6px;
     font-size: 1.1em;
+    color: var(--category-text);
   }
   .category-section {
     padding: 0 1em;
@@ -137,7 +135,7 @@
     background: white;
     font-size: 1.1em;
     font-family: 'Jua', sans-serif;
-    border: 2px dotted var(--category-bg-active);
+    border: 2px dotted var(--category-bg-hover);
     box-shadow: 4px 4px 0px #ccc;
     margin-bottom: 4em;
     border-radius: 12px;
@@ -170,7 +168,7 @@
   }
   .no-result {
     text-align: center;
-    color: var(--category-bg-active);
+    color: var(--category-text);
     font-weight: bold;
     margin-top: 2em;
     display: none;
