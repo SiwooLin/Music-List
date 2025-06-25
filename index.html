@@ -1,234 +1,236 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>시우린의 노래책 🎵</title>
-  <link href="https://fonts.googleapis.com/css2?family=Jua&family=Do+Hyeon&display=swap" rel="stylesheet"/>
-  <style>
-    :root {
-      --main-pink: #ff99cc;
-      --light-pink: #fff0f6;
-      --text-soft: #a06d3b;
-      --siwoolin: #d32aa6;
-      --book-pink: #ffcce5;
-      --deep-purple: #774c82;
-      --hover-pink: #ffd6e8;
-      --header-pink: #ff90c2;
-      --soft-yellow: #fff7b3;
-    }
-    body {
-      margin: 0;
-      font-family: 'Jua', sans-serif;
-      background: url('images/bgmain.png') no-repeat center center fixed;
-      background-size: cover;
-      color: var(--text-soft);
-      overflow-x: hidden;
-      position: relative;
-      min-height: 100vh;
-    }
-    h1 {
-      font-family: 'Do Hyeon', sans-serif;
-      font-size: 3.5em;
-      text-align: center;
-      margin: 0.5em 0 0.3em;
-      cursor: pointer;
-      position: relative;
-      z-index: 10;
-    }
-    h1 .siwoolin { color: var(--siwoolin); }
-    h1 .book { color: var(--book-pink); }
-    .search-wrapper {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 1em;
-      position: relative;
-      z-index: 10;
-    }
-    .search-wrapper input {
-      padding: 0.7em 2.5em 0.7em 1.2em;
-      border: 2px solid var(--main-pink);
-      border-radius: 999px;
-      font-size: 1em;
-      color: var(--text-soft);
-      width: 90%;
-      max-width: 400px;
-      text-align: center;
-      position: relative;
-      z-index: 10;
-    }
-    .search-wrapper input::placeholder {
-      color: #c4a3b1;
-    }
-    .search-wrapper .search-icon {
-      position: absolute;
-      right: 15%;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 1.2em;
-      color: #c4a3b1;
-      pointer-events: none;
-      z-index: 11;
-    }
-    .category-nav {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 0.5em;
-      font-weight: bold;
-      margin-bottom: 0.8em;
-      position: relative;
-      z-index: 10;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
-        Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    }
-    .category-btn {
-      background-color: var(--light-pink);
-      color: var(--main-pink);
-      padding: 0.5em 1em;
-      border-radius: 20px;
-      border: none;
-      cursor: pointer;
-      font-weight: bold;
-      transition: background-color 0.2s;
-      font-family: inherit;
-    }
-    .category-btn:hover {
-      background-color: #ffddee;
-    }
-    .category-btn.active {
-      background-color: var(--main-pink);
-      color: white;
-    }
-    .sort-btn {
-      font-family: 'Jua', sans-serif;
-      font-size: 0.9em;
-      background-color: var(--soft-yellow);
-      color: var(--text-soft);
-      padding: 0.4em 1em;
-      border: none;
-      border-radius: 999px;
-      cursor: pointer;
-      margin: 0 auto 2em;
-      display: block;
-      font-weight: bold;
-      transition: background-color 0.3s;
-      position: relative;
-      z-index: 10;
-      width: max-content;
-    }
-    .sort-btn:hover {
-      background-color: #fffbcf;
-    }
-    .notice {
-      background-color: #fff0f6;
-      padding: 1em;
-      border-left: 5px solid var(--main-pink);
-      margin: 1em;
-      border-radius: 6px;
-      font-size: 1.1em;
-      position: relative;
-      z-index: 10;
-    }
-    .category-section {
-      padding: 0 1em;
-      display: none;
-      position: relative;
-      z-index: 10;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      background: rgba(255, 255, 255, 0.9);
-      font-size: 1.1em;
-      font-family: 'Jua', sans-serif;
-      border: 2px dotted #ffb3d9;
-      box-shadow: 4px 4px 0px #ccc;
-      margin-bottom: 4em;
-      border-radius: 12px;
-      overflow: hidden;
-    }
-    th {
-      background-color: var(--header-pink);
-      color: white;
-      padding: 0.8em;
-      border: 2px solid white;
-      user-select: none;
-      border-right: 1px dotted #ffcce5;
-    }
-    td {
-      text-align: center;
-      padding: 0.7em;
-      background-color: white;
-      user-select: text;
-      border-right: 1px dotted #ffcce5;
-    }
-    th:last-child, td:last-child {
-      border-right: none;
-    }
-    tr:nth-child(even) td {
-      background-color: #fff0f6;
-    }
-    tr:hover td {
-      background-color: var(--hover-pink);
-    }
-    .no-result {
-      text-align: center;
-      color: var(--deep-purple);
-      font-weight: bold;
-      margin-top: 2em;
-      display: none;
-      position: relative;
-      z-index: 10;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>시우린의 노래책 🎵</title>
+<link href="https://fonts.googleapis.com/css2?family=Jua&family=Do+Hyeon&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --main-pink: #ff99cc;
+    --light-pink: #fff0f6;
+    --text-soft: #a06d3b;
+    --siwoolin: #d32aa6;
+    --book-pink: #ffcce5;
+    --deep-purple: #774c82;
+    --hover-pink: #ffd6e8;
+    --header-pink: #ff90c2;
+    --soft-yellow: #fff7b3;
+    --border-pink: #ffcce5;
+  }
+  body {
+    margin: 0;
+    font-family: 'Jua', sans-serif;
+    background: url('images/bgmain.png') no-repeat center center fixed;
+    background-size: cover;
+    color: var(--text-soft);
+    overflow-x: hidden;
+    position: relative;
+    min-height: 100vh;
+  }
+  h1 {
+    font-family: 'Do Hyeon', sans-serif;
+    font-size: 3.5em;
+    text-align: center;
+    margin: 0.5em 0 0.3em;
+    cursor: pointer;
+    position: relative;
+    z-index: 10;
+  }
+  h1 .siwoolin { color: var(--siwoolin); }
+  h1 .book { color: var(--book-pink); }
+  .search-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1em;
+    position: relative;
+    z-index: 10;
+  }
+  .search-wrapper input {
+    padding: 0.7em 2.5em 0.7em 1.2em;
+    border: 2px solid var(--main-pink);
+    border-radius: 999px;
+    font-size: 1em;
+    color: var(--text-soft);
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    position: relative;
+    z-index: 10;
+  }
+  .search-wrapper input::placeholder {
+    color: #c4a3b1;
+  }
+  .search-wrapper .search-icon {
+    position: absolute;
+    right: 15%;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.2em;
+    color: #c4a3b1;
+    pointer-events: none;
+    z-index: 11;
+  }
+  /* 카테고리: 볼드 + 시스템 기본 폰트 */
+  .category-nav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.5em;
+    font-weight: bold;
+    margin-bottom: 0.8em;
+    position: relative;
+    z-index: 10;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+      Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  }
+  .category-btn {
+    background-color: var(--light-pink);
+    color: var(--main-pink);
+    padding: 0.5em 1em;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s;
+    font-family: inherit;
+  }
+  .category-btn:hover {
+    background-color: #ffddee;
+  }
+  .category-btn.active {
+    background-color: var(--main-pink);
+    color: white;
+  }
+  .sort-btn {
+    font-family: 'Jua', sans-serif;
+    font-size: 0.9em;
+    background-color: var(--soft-yellow);
+    color: var(--text-soft);
+    padding: 0.4em 1em;
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+    margin: 0 auto 2em;
+    display: block;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    position: relative;
+    z-index: 10;
+    width: max-content;
+  }
+  .sort-btn:hover {
+    background-color: #fffbcf;
+  }
+  .notice {
+    background-color: #fff0f6;
+    padding: 1em;
+    border-left: 5px solid var(--main-pink);
+    margin: 1em;
+    border-radius: 6px;
+    font-size: 1.1em;
+    position: relative;
+    z-index: 10;
+  }
+  .category-section {
+    padding: 0 1em;
+    display: none;
+    position: relative;
+    z-index: 10;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: rgba(255, 255, 255, 0.9);
+    font-size: 1.1em;
+    font-family: 'Jua', sans-serif;
+    border: 2px dotted var(--border-pink);
+    box-shadow: 4px 4px 0px #ccc;
+    margin-bottom: 4em;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  th {
+    background-color: var(--header-pink);
+    color: white;
+    padding: 0.8em;
+    border: 2px solid white;
+    user-select: none;
+    border-right: 1px dotted var(--border-pink);
+  }
+  td {
+    text-align: center;
+    padding: 0.7em;
+    background-color: white;
+    user-select: text;
+    border-right: 1px dotted var(--border-pink);
+  }
+  th:last-child, td:last-child {
+    border-right: none;
+  }
+  tr:nth-child(even) td {
+    background-color: #fff0f6;
+  }
+  tr:hover td {
+    background-color: var(--hover-pink);
+  }
+  .no-result {
+    text-align: center;
+    color: var(--deep-purple);
+    font-weight: bold;
+    margin-top: 2em;
+    display: none;
+    position: relative;
+    z-index: 10;
+  }
 
-    /* 이미지 및 애니메이션 */
-    .character, .headset, .bg-element {
-      position: absolute;
-      animation: float 4s ease-in-out infinite;
-      z-index: 5;
-    }
-    .character.left { top: 50px; left: 10px; width: 140px; }
-    .character.right { top: 50px; right: 10px; width: 140px; }
-    .headset {
-      position: fixed;
-      bottom: 10%;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 80%;
-      z-index: 6;
-      animation: float 6s ease-in-out infinite;
-    }
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-15px); }
-    }
-    .bg-element.shooting {
-      animation: fall 6s linear infinite;
-      top: 0;
-      z-index: 4;
-    }
-    @keyframes fall {
-      0% { transform: translate(100vw, -10vh); opacity: 0.8; }
-      100% { transform: translate(-10vw, 100vh); opacity: 0; }
-    }
-    /* 둥실 떠다니는 구름, 풍선 */
-    .bg-element.cloud, .bg-element.balloon, .bg-element.star {
-      animation: float 8s ease-in-out infinite;
-      z-index: 3;
-    }
-    /* 풍선과 구름 크기 조절 */
+  /* 이미지 및 애니메이션 */
+  .character, .headset, .bg-element {
+    position: absolute;
+    animation: float 4s ease-in-out infinite;
+    z-index: 5;
+  }
+  .character.left { top: 50px; left: 10px; width: 140px; }
+  .character.right { top: 50px; right: 10px; width: 140px; }
+  .headset {
+    position: fixed;
+    bottom: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    z-index: 6;
+    animation: float 6s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+  }
+  .bg-element.shooting {
+    animation: fall 6s linear infinite;
+    top: 0;
+    z-index: 4;
+  }
+  @keyframes fall {
+    0% { transform: translate(100vw, -10vh); opacity: 0.8; }
+    100% { transform: translate(-10vw, 100vh); opacity: 0; }
+  }
+  /* 둥실 떠다니는 구름, 풍선 */
+  .bg-element.cloud, .bg-element.balloon, .bg-element.star {
+    animation: float 8s ease-in-out infinite;
+    z-index: 3;
+  }
+  /* 풍선과 구름 크기 조절 */
+  .bg-element.cloud,
+  .bg-element.balloon {
+    width: 80px;
+  }
+  @media (min-width: 768px) {
     .bg-element.cloud,
     .bg-element.balloon {
-      width: 80px; /* 기본 크기 */
+      width: 130px;
     }
-    @media (min-width: 768px) {
-      .bg-element.cloud,
-      .bg-element.balloon {
-        width: 130px; /* 데스크톱 이상에서 더 크게 */
-      }
-    }
-  </style>
+  }
+</style>
 </head>
 <body>
   <!-- 캐릭터 -->
