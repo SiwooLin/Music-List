@@ -121,7 +121,6 @@
   .sort-btn:hover {
     background-color: #fffbcf;
   }
-  /* 필독 공지 항상 보이게 메인 최상단에 */
   .notice {
     background-color: #fff0f6;
     padding: 1em;
@@ -183,8 +182,6 @@
     position: relative;
     z-index: 15;
   }
-
-  /* 캐릭터 위치 및 스크롤 따라다님/고정 분기 */
   .character {
     animation: float 4s ease-in-out infinite;
     z-index: 12;
@@ -200,7 +197,6 @@
     right: 10px;
   }
   @media (min-width: 768px) {
-    /* 데스크톱 이상: 캐릭터 스크롤 따라 움직임 (absolute) */
     .character {
       position: absolute;
     }
@@ -212,7 +208,6 @@
     }
   }
   @media (max-width: 767px) {
-    /* 모바일: 캐릭터 고정 (fixed) */
     .character {
       position: fixed;
       width: 120px;
@@ -222,13 +217,11 @@
       top: 90px;
     }
   }
-
-  /* 풍선과 구름 항상 fixed (스크롤 고정) 아래로 z-index 낮게 */
   .bg-element.cloud,
   .bg-element.balloon {
     position: fixed;
     animation: float 4s ease-in-out infinite;
-    z-index: 3; /* 캐릭터(12), 헤드셋(10)보다 낮게 */
+    z-index: 3;
     width: 80px;
   }
   @media (min-width: 768px) {
@@ -237,8 +230,6 @@
       width: 130px;
     }
   }
-
-  /* 헤드셋 */
   .headset {
     position: fixed;
     bottom: 10%;
@@ -248,8 +239,6 @@
     z-index: 10;
     animation: float 6s ease-in-out infinite;
   }
-
-  /* 유성우 애니메이션 */
   .bg-element.shooting {
     position: fixed;
     top: -10vh;
@@ -276,13 +265,13 @@
 </style>
 </head>
 <body>
-  <!-- 캐릭터 -->
   <img src="images/fan.png" class="character left" alt="팬캐릭터" />
   <img src="images/siwoolin.png" class="character right" alt="시우린" />
-  <!-- 헤드셋 -->
   <img src="images/headset.png" class="headset" alt="헤드셋" />
   
   <!-- 유성우 여러 개 -->
+  <img src="images/shootingstar.png" class="bg-element shooting" alt="유성우" />
+  <img src="images/shootingstar.png" class="bg-element shooting" alt="유성우" />
   <img src="images/shootingstar.png" class="bg-element shooting" alt="유성우" />
   <img src="images/shootingstar.png" class="bg-element shooting" alt="유성우" />
   <img src="images/shootingstar.png" class="bg-element shooting" alt="유성우" />
@@ -433,7 +422,15 @@
 
   sortBtn.addEventListener('click', sortByLevel);
 
-  // 유성우 랜덤 위치 및 애니메이션 딜레이 설정
+  // 유성우 랜덤 위치 및 애니메이션 딜레이 설정 (화면내에서 다르게)
   function randomizeShootingStars() {
     shootingStars.forEach((star, index) => {
-      // 화면 내 랜덤 좌표 (vw
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
+      // 왼쪽에서 너무 치우치지 않도록 최소 10vw ~ 최대 90vw
+      const leftPos = Math.random() * 80 + 10;
+      star.style.left = leftPos + 'vw';
+
+      // 애니메이션 딜레이 시간차
+      star.style.animationDelay = (index * 1.8) + '
+    
