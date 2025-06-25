@@ -9,8 +9,10 @@
     :root {
       --siwoolin: #d32aa6;
       --category-bg: #fbe1f2;
-      --category-hover-bg: #d32aa6;
-      --category-hover-text: white;
+      --category-hover-bg: #ffd6f2;
+      --category-hover-text: #d32aa6;
+      --no-result-color: #5a2a7b;
+      --header-bg: #ffb0d4;
     }
     body {
       margin: 0;
@@ -19,19 +21,26 @@
       background-size: cover;
       overflow-x: hidden;
       color: #5a2a45;
+      position: relative;
+      min-height: 100vh;
     }
     h1 {
       font-family: 'Do Hyeon', sans-serif;
       font-size: 3.5em;
       text-align: center;
       margin: 1em 0 0.5em;
+      cursor: pointer;
+      position: relative;
+      z-index: 15;
     }
     h1 span:first-child { color: var(--siwoolin); }
-    h1 span:last-child { color: pink; }
+    h1 span:last-child { color: var(--header-bg); }
 
     .search-wrapper {
       text-align: center;
       margin-bottom: 1em;
+      position: relative;
+      z-index: 15;
     }
     .search-wrapper input {
       padding: 0.6em 1.2em;
@@ -44,6 +53,8 @@
     .category-nav {
       text-align: center;
       margin-bottom: 1em;
+      position: relative;
+      z-index: 15;
     }
     .category-btn {
       background-color: var(--category-bg);
@@ -74,6 +85,8 @@
       border: none;
       cursor: pointer;
       font-weight: bold;
+      position: relative;
+      z-index: 15;
     }
 
     table {
@@ -82,13 +95,17 @@
       border-collapse: collapse;
       background: white;
       box-shadow: 4px 4px 12px rgba(0,0,0,0.1);
-      z-index: 30;
       position: relative;
+      z-index: 30;
+      font-family: 'Jua', sans-serif;
     }
     th, td {
       padding: 0.8em;
       text-align: center;
-      border-bottom: 1px solid #f0cadd;
+      border-right: 1px dotted #aaa;
+    }
+    th:last-child, td:last-child {
+      border-right: none;
     }
     th {
       background-color: #ffcce5;
@@ -102,7 +119,7 @@
       width: 120px;
       position: absolute;
       top: 60px;
-      z-index: 10;
+      z-index: 20;
       animation: float 4s ease-in-out infinite;
     }
     .left { left: 10px; }
@@ -114,7 +131,7 @@
       bottom: 10%;
       left: 50%;
       transform: translateX(-50%);
-      z-index: 8;
+      z-index: 15;
       animation: float 6s ease-in-out infinite;
     }
 
@@ -124,8 +141,9 @@
       width: 50px;
       animation: diagonal-fall 6s linear infinite;
       opacity: 0.8;
-      z-index: 2;
+      z-index: 2; /* 버튼들 아래 */
     }
+
     @keyframes float {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-15px); }
@@ -134,17 +152,29 @@
       0% { transform: translateX(0) translateY(0); opacity: 0.8; }
       100% { transform: translateX(-100vw) translateY(100vh); opacity: 0; }
     }
+
+    #noResult {
+      text-align: center;
+      margin: 2em;
+      font-weight: bold;
+      color: var(--no-result-color);
+      display: none;
+      position: relative;
+      z-index: 15;
+    }
   </style>
 </head>
 <body>
+  <!-- 캐릭터 & 장식 이미지 -->
   <img src="images/fan.png" class="character left" alt="팬캐릭터">
   <img src="images/siwoolin.png" class="character right" alt="시우린">
   <img src="images/headset.png" class="headset" alt="헤드셋">
+  <!-- 유성우: 버튼들 아래에 위치 -->
   <img src="images/shootingstar.png" class="shooting" style="left: 20vw;">
   <img src="images/shootingstar.png" class="shooting" style="left: 50vw;">
   <img src="images/shootingstar.png" class="shooting" style="left: 80vw;">
 
-  <h1><span>시우린</span><span>의 노래책</span></h1>
+  <h1 onclick="showCategory('kpop')"><span>시우린</span><span>의 노래책</span></h1>
 
   <div class="search-wrapper">
     <input type="text" id="searchInput" placeholder="노래 제목 또는 가수 검색...">
@@ -160,100 +190,110 @@
 
   <button class="sort-btn" id="sortBtn">숙련도 높은 순 정렬</button>
 
+  <!-- 카테고리 섹션들 -->
   <div class="category-section" id="kpop">
     <table>
-      <thead><tr><th>제목</th><th>가수</th><th>숙련도</th></tr></thead>
-      <tbody>
-        <tr><td>Love Dive</td><td>IVE</td><td>★☆☆</td></tr>
-        <tr><td>Dynamite</td><td>BTS</td><td>★★★</td></tr>
-        <tr><td>Ditto</td><td>NewJeans</td><td>★★☆</td></tr>
-      </tbody>
+      <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
+      <tr><td>Love Dive</td><td>IVE</td><td>★☆☆</td></tr>
+      <tr><td>Dynamite</td><td>BTS</td><td>★★★</td></tr>
+      <tr><td>Ditto</td><td>NewJeans</td><td>★★☆</td></tr>
+    </table>
+  </div>
+  <div class="category-section" id="jpop">
+    <table>
+      <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
+      <tr><td>Pretender</td><td>Official髭男dism</td><td>★★☆</td></tr>
+    </table>
+  </div>
+  <div class="category-section" id="pop">
+    <table>
+      <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
+      <tr><td>Shape of You</td><td>Ed Sheeran</td><td>★★★</td></tr>
+    </table>
+  </div>
+  <div class="category-section" id="cute">
+    <table>
+      <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
+      <tr><td>오또케송</td><td>아이유</td><td>★★☆</td></tr>
+    </table>
+  </div>
+  <div class="category-section" id="practice">
+    <table>
+      <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
+      <tr><td>야생화</td><td>박효신</td><td>★★★</td></tr>
     </table>
   </div>
 
-  <div class="category-section" id="jpop" style="display:none">
-    <table><thead><tr><th>제목</th><th>가수</th><th>숙련도</th></tr></thead>
-      <tbody><tr><td>Pretender</td><td>Official髭男dism</td><td>★★☆</td></tr></tbody>
-    </table>
-  </div>
-
-  <div class="category-section" id="pop" style="display:none">
-    <table><thead><tr><th>제목</th><th>가수</th><th>숙련도</th></tr></thead>
-      <tbody><tr><td>Shape of You</td><td>Ed Sheeran</td><td>★★★</td></tr></tbody>
-    </table>
-  </div>
-
-  <div class="category-section" id="cute" style="display:none">
-    <table><thead><tr><th>제목</th><th>가수</th><th>숙련도</th></tr></thead>
-      <tbody><tr><td>오또케송</td><td>아이유</td><td>★★☆</td></tr></tbody>
-    </table>
-  </div>
-
-  <div class="category-section" id="practice" style="display:none">
-    <table><thead><tr><th>제목</th><th>가수</th><th>숙련도</th></tr></thead>
-      <tbody><tr><td>야생화</td><td>박효신</td><td>★★★</td></tr></tbody>
-    </table>
-  </div>
-
-  <div id="noResult" style="text-align:center; display:none; margin:2em; font-weight:bold; color:#a06d3b;">
-    검색 결과가 없어요 😢<br>없는 노래는 채팅으로 신청해주세요!
-  </div>
+  <div id="noResult">검색 결과가 없어요 😢<br>없는 노래는 채팅으로 신청해주세요!</div>
 
   <script>
     const buttons = document.querySelectorAll('.category-btn');
     const sections = document.querySelectorAll('.category-section');
-    const search = document.getElementById('searchInput');
+    const searchInput = document.getElementById('searchInput');
     const sortBtn = document.getElementById('sortBtn');
     const noResult = document.getElementById('noResult');
 
+    // 전체 검색: 모든 카테고리 대상
     function showCategory(id) {
-      sections.forEach(sec => {
-        sec.style.display = sec.id === id ? 'block' : 'none';
+      sections.forEach(section => {
+        section.style.display = (section.id === id) ? 'block' : 'none';
       });
       buttons.forEach(btn => {
         btn.classList.toggle('active', btn.dataset.category === id);
       });
-      search.value = '';
       noResult.style.display = 'none';
+      searchInput.value = '';
     }
 
     buttons.forEach(btn => {
       btn.addEventListener('click', () => showCategory(btn.dataset.category));
     });
 
-    search.addEventListener('input', function () {
+    // 초기: K-pop 보이기
+    showCategory('kpop');
+
+    searchInput.addEventListener('input', function () {
       const filter = this.value.toLowerCase();
-      let matchCount = 0;
+      let totalMatch = 0;
       sections.forEach(section => {
-        if (section.style.display === 'block') {
-          const rows = section.querySelectorAll("tbody tr");
-          rows.forEach(row => {
-            const text = row.textContent.toLowerCase();
-            const matched = text.includes(filter);
-            row.style.display = matched ? "" : "none";
-            if (matched) matchCount++;
-          });
-        }
+        // 검색: 모든 카테고리를 대상으로 탐색
+        const rows = section.querySelectorAll("table tr");
+        let hasMatch = false;
+        rows.forEach((row, index) => {
+          if (index === 0) return; // 헤더 제외
+          const text = row.textContent.toLowerCase();
+          const match = text.includes(filter);
+          row.style.display = match ? "" : "none";
+          if (match) {
+            hasMatch = true;
+            totalMatch++;
+          }
+        });
+        // 카테고리 전환 없이 검색 시, 모든 카테고리 보이기 or 숨기기
+        section.style.display = filter === "" ? (section.id === 'kpop' ? 'block' : 'none') 
+                                : (hasMatch ? 'block' : 'none');
       });
-      noResult.style.display = filter && matchCount === 0 ? 'block' : 'none';
+      // NoResult 처리: 전체 검색 결과 없을 때
+      noResult.style.display = (filter.length > 0 && totalMatch === 0) ? 'block' : 'none';
+      // 카테고리 버튼 스타일: 검색 중에는 비활성화 시각 강조 해제
+      buttons.forEach(btn => btn.classList.remove('active'));
     });
 
-    sortBtn.addEventListener('click', () => {
+    sortBtn.addEventListener('click', function () {
       sections.forEach(section => {
+        // 정렬: 현재 보이는 섹션뿐 아니라, 검색 결과가 보이는 테이블들을 정렬
         if (section.style.display === 'block') {
-          const tbody = section.querySelector('tbody');
-          const rows = Array.from(tbody.querySelectorAll('tr'));
+          const table = section.querySelector("table");
+          const rows = Array.from(table.querySelectorAll("tr")).slice(1);
           rows.sort((a, b) => {
             const starsA = (a.cells[2].textContent.match(/★/g) || []).length;
             const starsB = (b.cells[2].textContent.match(/★/g) || []).length;
             return starsB - starsA;
           });
-          rows.forEach(row => tbody.appendChild(row));
+          rows.forEach(row => table.appendChild(row));
         }
       });
     });
-
-    showCategory("kpop");
   </script>
 </body>
 </html>
