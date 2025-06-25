@@ -14,8 +14,8 @@
     --book-pink: #ffcce5;
     --deep-purple: #774c82;
     --hover-pink: #ffd6e8;
-    --header-pink: #ff6f61; /* 코랄핑크 */
-    --header-pink-hover: #ff8a7a;
+    --header-pink: #f474a0; /* 핑크+주황 섞은 코랄핑크 느낌 */
+    --header-pink-hover: #ff7ebf;
     --soft-yellow: #fff7b3;
     --border-pink: #ffcce5;
   }
@@ -102,7 +102,7 @@
     color: white;
   }
   .category-btn.active {
-    background-color: #ff4c3b;
+    background-color: #ff5aa8;
     color: white;
   }
   .sort-btn {
@@ -410,4 +410,25 @@
     const activeSection = document.querySelector('.category-section[style*="block"]');
     if (!activeSection) return;
 
-    const
+    const table = activeSection.querySelector('table');
+    const rows = Array.from(table.rows).slice(1);
+
+    function countStars(starStr) {
+      return (starStr.match(/★/g) || []).length;
+    }
+
+    rows.sort((a, b) => {
+      return countStars(b.cells[2].textContent) - countStars(a.cells[2].textContent);
+    });
+
+    rows.forEach(row => table.appendChild(row));
+  }
+
+  sortBtn.addEventListener('click', sortByLevel);
+
+  // 유성우 위치와 딜레이 랜덤화
+  function randomizeShootingStars() {
+    shootingStars.forEach((star, index) => {
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
+      const leftPos = Math.random() * 80 + 10; // 10vw~90vw
