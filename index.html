@@ -13,6 +13,7 @@
       --category-hover-text: #d32aa6;
       --no-result-color: #5a2a7b;
       --header-bg: #ffb0d4;
+      --light-pink: #fff0f6;
     }
     body {
       margin: 0;
@@ -31,7 +32,7 @@
       margin: 1em 0 0.5em;
       cursor: pointer;
       position: relative;
-      z-index: 20;
+      z-index: 30;
     }
     h1 span:first-child { color: var(--siwoolin); }
     h1 span:last-child { color: var(--header-bg); }
@@ -40,7 +41,7 @@
       text-align: center;
       margin-bottom: 1em;
       position: relative;
-      z-index: 20;
+      z-index: 30;
     }
     .search-wrapper input {
       padding: 0.6em 1.2em;
@@ -54,7 +55,7 @@
       text-align: center;
       margin-bottom: 1em;
       position: relative;
-      z-index: 20;
+      z-index: 30;
     }
     .category-btn {
       background-color: var(--category-bg);
@@ -67,7 +68,7 @@
       cursor: pointer;
       transition: 0.3s;
       position: relative;
-      z-index: 20;
+      z-index: 30;
     }
     .category-btn:hover {
       background-color: var(--category-hover-bg);
@@ -88,7 +89,20 @@
       cursor: pointer;
       font-weight: bold;
       position: relative;
-      z-index: 20;
+      z-index: 30;
+    }
+
+    .notice {
+      background-color: var(--light-pink);
+      padding: 1em;
+      border-left: 5px solid var(--siwoolin);
+      margin: 1em auto;
+      border-radius: 6px;
+      font-size: 1.1em;
+      max-width: 90%;
+      text-align: center;
+      position: relative;
+      z-index: 30;
     }
 
     table {
@@ -98,13 +112,13 @@
       background: white;
       box-shadow: 4px 4px 12px rgba(0,0,0,0.1);
       position: relative;
-      z-index: 25; /* 표는 가장 위에 */
+      z-index: 35;
       font-family: 'Jua', sans-serif;
     }
     th, td {
       padding: 0.8em;
       text-align: center;
-      border-right: 1px dotted #aaa; /* 세로 점선 */
+      border-right: 1px dotted #aaa;
     }
     th:last-child, td:last-child {
       border-right: none;
@@ -121,11 +135,21 @@
       width: 120px;
       position: absolute;
       top: 60px;
-      z-index: 10; /* 버튼들(z-index:20) 아래 */
+      z-index: 10; /* 버튼/검색/UI 요소 아래 */
       animation: float 4s ease-in-out infinite;
     }
     .left { left: 10px; }
     .right { right: 10px; }
+
+    /* 모바일에서 캐릭터 스크롤 고정 */
+    @media (max-width: 767px) {
+      .character {
+        position: fixed;
+        top: 60px;
+      }
+      .left { left: 10px; }
+      .right { right: 10px; }
+    }
 
     .headset {
       width: 80%;
@@ -142,8 +166,9 @@
       top: -10vh;
       width: 50px;
       animation: diagonal-fall 6s linear infinite;
+      animation-fill-mode: both;
       opacity: 0.8;
-      z-index: 5; /* 버튼들 아래 */
+      z-index: 5; /* 버튼/검색/UI 요소 아래 */
     }
 
     @keyframes float {
@@ -162,17 +187,7 @@
       color: var(--no-result-color);
       display: none;
       position: relative;
-      z-index: 20;
-    }
-
-    /* 모바일에서 캐릭터 스크롤 고정 */
-    @media (max-width: 767px) {
-      .character {
-        position: fixed;
-        top: 60px; /* 화면 상단에서 고정 위치 */
-      }
-      .left { left: 10px; }
-      .right { right: 10px; }
+      z-index: 30;
     }
   </style>
 </head>
@@ -181,12 +196,15 @@
   <img src="images/fan.png" class="character left" alt="팬캐릭터">
   <img src="images/siwoolin.png" class="character right" alt="시우린">
   <img src="images/headset.png" class="headset" alt="헤드셋">
-  <!-- 유성우: 버튼들 아래에 위치 -->
-  <img src="images/shootingstar.png" class="shooting" style="left: 20vw;">
-  <img src="images/shootingstar.png" class="shooting" style="left: 50vw;">
-  <img src="images/shootingstar.png" class="shooting" style="left: 80vw;">
+  <!-- 유성우: 버튼들 아래에 위치, 각각 다른 애니메이션 딜레이 -->
+  <img src="images/shootingstar.png" class="shooting" style="left:20vw; animation-delay:0s;" alt="별똥별">
+  <img src="images/shootingstar.png" class="shooting" style="left:50vw; animation-delay:2s;" alt="별똥별">
+  <img src="images/shootingstar.png" class="shooting" style="left:80vw; animation-delay:4s;" alt="별똥별">
 
   <h1 onclick="showCategory('kpop')"><span>시우린</span><span>의 노래책</span></h1>
+
+  <!-- 필독 공지 -->
+  <div class="notice">🌧️ 필독 공지: 이 리스트는 연습용으로 제작되었습니다. 무단 배포를 금합니다!</div>
 
   <div class="search-wrapper">
     <input type="text" id="searchInput" placeholder="노래 제목 또는 가수 검색...">
@@ -245,7 +263,7 @@
     const sortBtn = document.getElementById('sortBtn');
     const noResult = document.getElementById('noResult');
 
-    // 전체 검색: 모든 카테고리 대상
+    // 카테고리 표시 함수
     function showCategory(id) {
       sections.forEach(section => {
         section.style.display = (section.id === id) ? 'block' : 'none';
@@ -257,6 +275,7 @@
       searchInput.value = '';
     }
 
+    // 버튼 클릭으로 카테고리 전환
     buttons.forEach(btn => {
       btn.addEventListener('click', () => showCategory(btn.dataset.category));
     });
@@ -264,6 +283,7 @@
     // 초기: K-pop 보이기
     showCategory('kpop');
 
+    // 전체 검색: 모든 카테고리 대상
     searchInput.addEventListener('input', function () {
       const filter = this.value.toLowerCase();
       let totalMatch = 0;
@@ -271,7 +291,7 @@
         const rows = section.querySelectorAll("table tr");
         let hasMatch = false;
         rows.forEach((row, index) => {
-          if (index === 0) return; // 헤더 제외
+          if (index === 0) return;
           const text = row.textContent.toLowerCase();
           const match = text.includes(filter);
           row.style.display = match ? "" : "none";
@@ -280,9 +300,7 @@
             totalMatch++;
           }
         });
-        // 검색 시: 필터가 비어있으면 선택된 카테고리만 보이게, 아니면 매칭된 카테고리 보이게
         if (filter === "") {
-          // 초기 선택된 카테고리(버튼 active)에 해당 섹션만
           const activeBtn = document.querySelector('.category-btn.active');
           const activeCat = activeBtn ? activeBtn.dataset.category : 'kpop';
           section.style.display = (section.id === activeCat) ? 'block' : 'none';
@@ -290,13 +308,10 @@
           section.style.display = hasMatch ? 'block' : 'none';
         }
       });
-      // NoResult 처리: 전체 검색 결과 없을 때
       noResult.style.display = (filter.length > 0 && totalMatch === 0) ? 'block' : 'none';
-      // 검색 중에는 버튼 active 비활성화
       if (filter.length > 0) {
         buttons.forEach(btn => btn.classList.remove('active'));
       } else {
-        // 검색이 비어질 때, active 버튼 복원
         const activeBtn = document.querySelector('.category-btn.active');
         if (!activeBtn) {
           showCategory('kpop');
@@ -304,9 +319,9 @@
       }
     });
 
+    // 숙련도 정렬
     sortBtn.addEventListener('click', function () {
       sections.forEach(section => {
-        // 현재 보이는 섹션(검색 결과 또는 선택된 카테고리)
         if (section.style.display === 'block') {
           const table = section.querySelector("table");
           const rows = Array.from(table.querySelectorAll("tr")).slice(1);
