@@ -7,21 +7,21 @@
   <link href="https://fonts.googleapis.com/css2?family=Dongle&family=Pretendard:wght@400;700&display=swap" rel="stylesheet"/>
   <style>
     :root {
-      --main-pink: #ff7ea5;
-      --light-pink: #fff1f7;
-      --bg-color: #fffdfd;
-      --shadow: 0 4px 10px rgba(0,0,0,0.05);
-      --lemon: #fff2b2;
-      --text-dark: #a06d3b;
+      --main-pink: #ff99cc;
+      --light-pink: #fff0f6;
+      --neon-pink: #ff7fe0;
+      --cloud-white: #fffdfd;
+      --text-soft: #a06d3b;
+      --lemon: #fff7b3;
     }
 
     * { box-sizing: border-box; }
 
     body {
       margin: 0;
-      background: var(--bg-color);
       font-family: 'Pretendard', sans-serif;
-      color: var(--text-dark);
+      background: linear-gradient(to bottom, #ffeef8, #e4d1ff);
+      color: var(--text-soft);
     }
 
     header {
@@ -30,36 +30,31 @@
     }
 
     h1 {
-      color: var(--main-pink);
-      font-size: 3em;
-      margin-bottom: 0.6em;
       font-family: 'Dongle', cursive;
-    }
-
-    h1 a {
-      text-decoration: none;
-      color: var(--main-pink);
-      transition: 0.2s;
-    }
-
-    h1 a:hover {
-      color: #ff4f8a;
+      font-size: 3.2em;
+      color: var(--neon-pink);
+      text-shadow: 0 0 5px #ffbde7;
+      cursor: pointer;
     }
 
     .search-wrapper {
       display: flex;
       justify-content: center;
-      margin-bottom: 1.5em;
+      margin: 1em auto;
     }
 
     .search-wrapper input {
       width: 90%;
       max-width: 400px;
-      padding: 0.7em 1em;
+      padding: 0.7em 1.2em;
       border: 2px solid var(--main-pink);
       border-radius: 999px;
       font-size: 1em;
-      outline: none;
+      color: var(--text-soft);
+    }
+
+    .search-wrapper input::placeholder {
+      color: #c4a3b1;
     }
 
     .category-nav {
@@ -67,7 +62,7 @@
       justify-content: center;
       gap: 0.5em;
       flex-wrap: wrap;
-      margin-bottom: 1em;
+      margin: 1em;
     }
 
     .category-btn {
@@ -77,10 +72,12 @@
       padding: 0.5em 1em;
       border-radius: 20px;
       cursor: pointer;
-      font-weight: 600;
-      box-shadow: var(--shadow);
-      font-family: 'Pretendard', sans-serif;
-      transition: 0.2s ease;
+      transition: 0.2s;
+      font-weight: bold;
+    }
+
+    .category-btn:hover {
+      background-color: #ffddee;
     }
 
     .category-btn.active {
@@ -88,30 +85,22 @@
       color: white;
     }
 
-    .category-btn:hover {
-      background-color: #ffd6e5;
-      transform: scale(1.05);
-    }
-
     .sort-btn {
-      display: block;
-      margin: 0 auto 2em auto;
+      font-size: 0.85em;
       background-color: var(--lemon);
-      color: var(--text-dark);
+      color: var(--text-soft);
       padding: 0.4em 1em;
       border: none;
       border-radius: 999px;
-      font-size: 0.85em;
       cursor: pointer;
-      box-shadow: var(--shadow);
-      font-weight: bold;
-      font-family: 'Pretendard', sans-serif;
+      margin: 0 auto 2em;
+      display: block;
     }
 
     .category-section {
       display: none;
-      animation: fadeIn 0.4s ease;
       padding: 0 1em;
+      animation: fadeIn 0.3s ease;
     }
 
     table {
@@ -120,21 +109,17 @@
       background: white;
       border-radius: 12px;
       overflow: hidden;
-      box-shadow: var(--shadow);
       font-family: 'Dongle', cursive;
+      font-size: 1.6em;
     }
 
     th, td {
       padding: 0.6em;
       text-align: center;
-      font-family: 'Dongle', cursive;
-      font-size: 1.5em;
     }
 
     th {
-      background-color: var(--main-pink);
-      color: white;
-      font-weight: bold;
+      border-bottom: 2px solid var(--main-pink);
     }
 
     td:not(:last-child) {
@@ -168,29 +153,15 @@
       font-family: 'Dongle', cursive;
     }
 
-    footer {
-      text-align: center;
-      padding: 2em 1em;
-      font-size: 0.9em;
-      color: #aaa;
-    }
-
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
-    }
-
-    @media (max-width: 600px) {
-      .category-nav {
-        flex-direction: column;
-        align-items: center;
-      }
     }
   </style>
 </head>
 <body>
   <header>
-    <h1><a href="#" onclick="showCategory('kpop')">🎵 시우린의 노래책</a></h1>
+    <h1 onclick="showCategory('kpop')">🎵 시우린의 노래책</h1>
     <div class="search-wrapper">
       <input type="text" id="searchInput" placeholder="노래 제목 또는 가수 검색... 🔍">
     </div>
@@ -245,10 +216,6 @@
     <div class="no-result" id="noResult">검색 결과가 없어요 😢<br>없는 노래는 채팅으로 신청해주세요!</div>
   </main>
 
-  <footer>
-    <p>© 2025 시우린의 노래책</p>
-  </footer>
-
   <script>
     const buttons = document.querySelectorAll('.category-btn');
     const sections = document.querySelectorAll('.category-section');
@@ -272,11 +239,8 @@
 
     showCategory('kpop');
 
-    // 검색 기능
-    const searchInput = document.getElementById('searchInput');
-    searchInput.addEventListener('input', function () {
+    document.getElementById('searchInput').addEventListener('input', function () {
       const filter = this.value.toLowerCase();
-      const isSearching = filter.trim() !== "";
       let totalMatch = 0;
 
       sections.forEach(section => {
@@ -284,30 +248,23 @@
         let hasMatch = false;
 
         rows.forEach((row, index) => {
-          if (index === 0) {
-            row.style.display = "";
-            return;
-          }
+          if (index === 0) return;
           const text = row.textContent.toLowerCase();
           const match = text.includes(filter);
           row.style.display = match ? "" : "none";
-          if (match) {
-            hasMatch = true;
-            totalMatch++;
-          }
+          if (match) hasMatch = true, totalMatch++;
         });
 
-        section.style.display = isSearching ? (hasMatch ? "block" : "none") : (section.id === "kpop" ? "block" : "none");
+        section.style.display = filter ? (hasMatch ? "block" : "none") : (section.id === "kpop" ? "block" : "none");
       });
 
       buttons.forEach(btn => {
-        btn.classList.toggle("active", !isSearching && btn.dataset.category === "kpop");
+        btn.classList.toggle("active", !filter && btn.dataset.category === "kpop");
       });
 
-      noResult.style.display = (isSearching && totalMatch === 0) ? "block" : "none";
+      noResult.style.display = (filter && totalMatch === 0) ? "block" : "none";
     });
 
-    // 숙련도 정렬
     function sortByLevel() {
       const activeSection = document.querySelector('.category-section[style*="block"]');
       if (!activeSection) return;
