@@ -7,13 +7,13 @@
 <link href="https://fonts.googleapis.com/css2?family=Jua&family=Do+Hyeon&display=swap" rel="stylesheet"/>
 <style>
   :root {
-    --main-pink: #ff99cc;
-    --light-pink: #fff0f6;
+    --main-pink: #d32aa6; /* 진한 핑크 */
+    --light-pink: #fff0f6; /* 연한 핑크 */
+    --hover-bg-pink: #ffddee; /* 호버 연한 핑크 */
+    --hover-text-pink: #d32aa6; /* 호버 진한 핑크 */
     --text-soft: #a06d3b;
-    --siwoolin: #d32aa6;
     --book-pink: #ffcce5;
     --deep-purple: #774c82;
-    --hover-pink: #ffd6e8;
     --header-pink: #ff90c2;
     --soft-yellow: #fff7b3;
     --border-pink: #ffcce5;
@@ -37,7 +37,7 @@
     position: relative;
     z-index: 15;
   }
-  h1 .siwoolin { color: var(--siwoolin); }
+  h1 .siwoolin { color: var(--main-pink); }
   h1 .book { color: var(--book-pink); }
   .search-wrapper {
     display: flex;
@@ -85,20 +85,24 @@
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
       Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   }
+  /* 카테고리 버튼 기본 진한 핑크 배경, 흰색 글씨 */
   .category-btn {
-    background-color: var(--light-pink);
-    color: var(--main-pink);
+    background-color: var(--main-pink);
+    color: white;
     padding: 0.5em 1em;
     border-radius: 20px;
     border: none;
     cursor: pointer;
     font-weight: bold;
-    transition: background-color 0.2s;
+    transition: background-color 0.2s, color 0.2s;
     font-family: inherit;
   }
+  /* 호버 시 배경 연한 핑크, 글씨 진한 핑크 */
   .category-btn:hover {
-    background-color: #ffddee;
+    background-color: var(--hover-bg-pink);
+    color: var(--hover-text-pink);
   }
+  /* active 상태도 기본과 동일 */
   .category-btn.active {
     background-color: var(--main-pink);
     color: white;
@@ -124,7 +128,7 @@
     background-color: #fffbcf;
   }
   .notice {
-    background-color: #fff0f6;
+    background-color: var(--light-pink);
     padding: 1em;
     border-left: 5px solid var(--main-pink);
     margin: 1em;
@@ -170,10 +174,10 @@
     border-right: none;
   }
   tr:nth-child(even) td {
-    background-color: #fff0f6;
+    background-color: var(--light-pink);
   }
   tr:hover td {
-    background-color: var(--hover-pink);
+    background-color: var(--hover-bg-pink);
   }
   .no-result {
     text-align: center;
@@ -296,7 +300,8 @@
   <main>
     <div class="notice" role="alert" aria-live="polite">🌧️ 필독 공지: 이 리스트는 연습용으로 제작되었습니다. 무단 배포를 금합니다!</div>
 
-    <section class="category-section" id="kpop" aria-label="K-pop 노래 리스트">
+    <!-- 카테고리별 섹션 -->
+    <section class="category-section" id="kpop" aria-label="K-pop 노래 리스트" style="display:block;">
       <table>
         <thead>
           <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
@@ -374,18 +379,4 @@
           <tr><td>눈의 꽃</td><td>박효신</td><td>★★☆</td></tr>
           <tr><td>내 마음에 비친 내 모습</td><td>유재하</td><td>★★☆</td></tr>
           <tr><td>봄날</td><td>BTS</td><td>★★★</td></tr>
-          <tr><td>벚꽃 엔딩</td><td>버스커 버스커</td><td>★★☆</td></tr>
-          <tr><td>첫눈처럼 너에게 가겠다</td><td>에일리</td><td>★★★</td></tr>
-        </tbody>
-      </table>
-    </section>
-  </main>
-
-  <div class="no-result" id="noResult" role="alert" aria-live="polite">검색 결과가 없어요 😢<br>없는 노래는 채팅으로 신청해주세요!</div>
-
-<script>
-  const buttons = document.querySelectorAll('.category-btn');
-  const sections = document.querySelectorAll('.category-section');
-  const noResult = document.getElementById('noResult');
-  const sortBtn = document.getElementById('sortBtn');
-  const shootingStars = document
+          <tr><td>벚꽃 엔딩</td><td>버스커 버스커</
