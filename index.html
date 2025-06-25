@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>시우린의 노래책 🎶</title>
+  <title>시우린의 노래책 🎵</title>
 
   <!-- Pretendard 웹폰트 -->
   <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;700&display=swap" rel="stylesheet"/>
@@ -48,16 +48,32 @@
       color: #ff4f8a;
     }
 
+    /* 검색창 + 아이콘 */
+    .search-wrapper {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      margin-bottom: 1.5em;
+    }
+
     #searchInput {
       width: 90%;
       max-width: 400px;
       padding: 0.7em 1em;
-      margin: 0 auto 1.5em auto;
       border: 2px solid var(--main-pink);
       border-radius: 999px;
-      display: block;
       font-size: 1em;
       outline: none;
+    }
+
+    .search-wrapper::after {
+      content: '🔍';
+      position: absolute;
+      right: 8%;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.1em;
+      color: #aaa;
     }
 
     .category-nav {
@@ -126,6 +142,14 @@
       border-bottom: 2px solid #f7a9c3;
     }
 
+    td:not(:last-child) {
+      border-right: 1px solid #f4c5d6;
+    }
+
+    tr:nth-child(even) {
+      background-color: #fff5f9;
+    }
+
     tr:last-child td {
       border-bottom: none;
     }
@@ -134,19 +158,19 @@
       background-color: #ffeaf0;
     }
 
-    footer {
-      text-align: center;
-      padding: 2em 1em;
-      font-size: 0.9em;
-      color: #aaa;
-    }
-
     .notice {
       background-color: #fff0f6;
       padding: 1em;
       border-left: 5px solid var(--main-pink);
       margin-bottom: 1em;
       border-radius: 6px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2em 1em;
+      font-size: 0.9em;
+      color: #aaa;
     }
 
     @keyframes fadeIn {
@@ -164,8 +188,10 @@
 </head>
 <body>
   <header>
-    <h1><a href="#" onclick="showCategory('kpop')">시우린의 노래책</a></h1>
-    <input type="text" id="searchInput" placeholder="노래 제목 또는 가수 검색...">
+    <h1><a href="#" onclick="showCategory('kpop')">🎵 시우린의 노래책</a></h1>
+    <div class="search-wrapper">
+      <input type="text" id="searchInput" placeholder="노래 제목 또는 가수 검색...">
+    </div>
     <nav class="category-nav">
       <button class="category-btn active" data-category="kpop">K-pop</button>
       <button class="category-btn" data-category="jpop">J-pop</button>
@@ -178,39 +204,39 @@
 
   <main>
     <section class="category-section" id="kpop">
-      <div class="notice">📌 필독 공지: 이 리스트는 연습용으로 제작되었습니다. 무단 배포를 금합니다!</div>
+      <div class="notice">🌧️ 필독 공지: 이 리스트는 연습용으로 제작되었습니다. 무단 배포를 금합니다!</div>
       <table>
         <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
-        <tr><td>Love Dive</td><td>IVE</td><td>★☆☆☆☆</td></tr>
-        <tr><td>Dynamite</td><td>BTS</td><td>★★★☆☆</td></tr>
+        <tr><td>Love Dive</td><td>IVE</td><td>★☆☆</td></tr>
+        <tr><td>Dynamite</td><td>BTS</td><td>★★★</td></tr>
       </table>
     </section>
 
     <section class="category-section" id="jpop">
       <table>
         <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
-        <tr><td>Pretender</td><td>Official髭男dism</td><td>★★★☆☆</td></tr>
+        <tr><td>Pretender</td><td>Official髭男dism</td><td>★★☆</td></tr>
       </table>
     </section>
 
     <section class="category-section" id="pop">
       <table>
         <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
-        <tr><td>Shape of You</td><td>Ed Sheeran</td><td>★★★☆☆</td></tr>
+        <tr><td>Shape of You</td><td>Ed Sheeran</td><td>★★★</td></tr>
       </table>
     </section>
 
     <section class="category-section" id="cute">
       <table>
         <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
-        <tr><td>오또케송</td><td>아이유</td><td>★★☆☆☆</td></tr>
+        <tr><td>오또케송</td><td>아이유</td><td>★★☆</td></tr>
       </table>
     </section>
 
     <section class="category-section" id="practice">
       <table>
         <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
-        <tr><td>기억을 걷는 시간</td><td>넬</td><td>★★★★☆</td></tr>
+        <tr><td>기억을 걷는 시간</td><td>넬</td><td>★★★</td></tr>
       </table>
     </section>
   </main>
@@ -227,7 +253,6 @@
       sections.forEach(sec => {
         sec.style.display = sec.id === id ? 'block' : 'none';
       });
-
       buttons.forEach(btn => {
         btn.classList.toggle('active', btn.dataset.category === id);
       });
@@ -247,13 +272,13 @@
       const filter = this.value.toLowerCase();
       const rows = document.querySelectorAll('main table tr');
       rows.forEach((row, index) => {
-        if (index === 0) return; // 헤더는 항상 보이기
+        if (index === 0) return;
         const text = row.textContent.toLowerCase();
         row.style.display = text.includes(filter) ? '' : 'none';
       });
     });
 
-    // 숙련도 정렬
+    // 숙련도 정렬 (별 3개 기준)
     function sortByLevel() {
       const activeSection = document.querySelector('.category-section[style*="block"]');
       if (!activeSection) return;
