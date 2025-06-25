@@ -4,21 +4,18 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>시우린의 노래책 🎵</title>
-
-  <!-- Pretendard 웹폰트 -->
-  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;700&display=swap" rel="stylesheet"/>
-
+  <!-- 구글폰트: 귀여운 + 기본 -->
+  <link href="https://fonts.googleapis.com/css2?family=Gamja+Flower&family=Pretendard:wght@400;700&display=swap" rel="stylesheet"/>
   <style>
     :root {
       --main-pink: #ff7ea5;
       --light-pink: #fff1f7;
       --bg-color: #fffdfd;
       --shadow: 0 4px 10px rgba(0,0,0,0.05);
+      --lemon: #ffe066;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -34,8 +31,9 @@
 
     h1 {
       color: var(--main-pink);
-      font-size: 2.2em;
+      font-size: 2.4em;
       margin-bottom: 0.6em;
+      font-family: 'Gamja Flower', cursive;
     }
 
     h1 a {
@@ -48,7 +46,6 @@
       color: #ff4f8a;
     }
 
-    /* 검색창 + 아이콘 */
     .search-wrapper {
       position: relative;
       display: flex;
@@ -56,24 +53,24 @@
       margin-bottom: 1.5em;
     }
 
-    #searchInput {
-      width: 90%;
-      max-width: 400px;
-      padding: 0.7em 1em;
-      border: 2px solid var(--main-pink);
-      border-radius: 999px;
-      font-size: 1em;
-      outline: none;
-    }
-
-    .search-wrapper::after {
+    .search-wrapper::before {
       content: '🔍';
       position: absolute;
-      right: 8%;
+      left: 8%;
       top: 50%;
       transform: translateY(-50%);
       font-size: 1.1em;
       color: #aaa;
+    }
+
+    #searchInput {
+      width: 90%;
+      max-width: 400px;
+      padding: 0.7em 1em 0.7em 2.5em;
+      border: 2px solid var(--main-pink);
+      border-radius: 999px;
+      font-size: 1em;
+      outline: none;
     }
 
     .category-nav {
@@ -94,6 +91,7 @@
       font-weight: 600;
       transition: 0.2s;
       box-shadow: var(--shadow);
+      font-family: 'Pretendard', sans-serif;
     }
 
     .category-btn.active {
@@ -104,14 +102,16 @@
     .sort-btn {
       display: block;
       margin: 0 auto 2em auto;
-      background-color: var(--main-pink);
-      color: white;
+      background-color: var(--lemon);
+      color: #444;
       padding: 0.5em 1.2em;
       border: none;
       border-radius: 999px;
       font-size: 0.95em;
       cursor: pointer;
       box-shadow: var(--shadow);
+      font-weight: bold;
+      font-family: 'Pretendard', sans-serif;
     }
 
     .category-section {
@@ -127,19 +127,20 @@
       border-radius: 12px;
       overflow: hidden;
       box-shadow: var(--shadow);
+      font-family: 'Gamja Flower', cursive;
     }
 
     th, td {
       padding: 1em;
       text-align: center;
-      border-bottom: 1px solid #f4c5d6;
+      font-family: 'Gamja Flower', cursive;
+      font-size: 1.1em;
     }
 
     th {
       background-color: var(--main-pink);
       color: white;
       font-weight: bold;
-      border-bottom: 2px solid #f7a9c3;
     }
 
     td:not(:last-child) {
@@ -148,10 +149,6 @@
 
     tr:nth-child(even) {
       background-color: #fff5f9;
-    }
-
-    tr:last-child td {
-      border-bottom: none;
     }
 
     tr:hover {
@@ -164,6 +161,17 @@
       border-left: 5px solid var(--main-pink);
       margin-bottom: 1em;
       border-radius: 6px;
+      font-family: 'Gamja Flower', cursive;
+      font-size: 1.1em;
+    }
+
+    .no-result {
+      text-align: center;
+      font-size: 1em;
+      color: #999;
+      margin-top: 2em;
+      display: none;
+      font-family: 'Gamja Flower', cursive;
     }
 
     footer {
@@ -182,6 +190,10 @@
       .category-nav {
         flex-direction: column;
         align-items: center;
+      }
+
+      .search-wrapper::before {
+        left: 12%;
       }
     }
   </style>
@@ -239,6 +251,8 @@
         <tr><td>기억을 걷는 시간</td><td>넬</td><td>★★★</td></tr>
       </table>
     </section>
+
+    <div class="no-result" id="noResult">검색 결과가 없어요 😢<br>없는 노래는 채팅으로 신청해주세요!</div>
   </main>
 
   <footer>
@@ -248,6 +262,7 @@
   <script>
     const buttons = document.querySelectorAll('.category-btn');
     const sections = document.querySelectorAll('.category-section');
+    const noResult = document.getElementById('noResult');
 
     function showCategory(id) {
       sections.forEach(sec => {
@@ -256,6 +271,7 @@
       buttons.forEach(btn => {
         btn.classList.toggle('active', btn.dataset.category === id);
       });
+      noResult.style.display = 'none';
     }
 
     buttons.forEach(btn => {
@@ -266,19 +282,42 @@
 
     showCategory('kpop');
 
-    // 검색 기능
+    // 검색 기능 (전체 카테고리 대상)
     const searchInput = document.getElementById('searchInput');
     searchInput.addEventListener('input', function () {
       const filter = this.value.toLowerCase();
-      const rows = document.querySelectorAll('main table tr');
-      rows.forEach((row, index) => {
-        if (index === 0) return;
-        const text = row.textContent.toLowerCase();
-        row.style.display = text.includes(filter) ? '' : 'none';
+      const isSearching = filter.trim() !== "";
+      let totalMatch = 0;
+
+      sections.forEach(section => {
+        const rows = section.querySelectorAll("table tr");
+        let hasMatch = false;
+
+        rows.forEach((row, index) => {
+          if (index === 0) {
+            row.style.display = "";
+            return;
+          }
+          const text = row.textContent.toLowerCase();
+          const match = text.includes(filter);
+          row.style.display = match ? "" : "none";
+          if (match) {
+            hasMatch = true;
+            totalMatch++;
+          }
+        });
+
+        section.style.display = isSearching ? (hasMatch ? "block" : "none") : (section.id === "kpop" ? "block" : "none");
       });
+
+      buttons.forEach(btn => {
+        btn.classList.toggle("active", !isSearching && btn.dataset.category === "kpop");
+      });
+
+      noResult.style.display = (isSearching && totalMatch === 0) ? "block" : "none";
     });
 
-    // 숙련도 정렬 (별 3개 기준)
+    // 숙련도 정렬
     function sortByLevel() {
       const activeSection = document.querySelector('.category-section[style*="block"]');
       if (!activeSection) return;
