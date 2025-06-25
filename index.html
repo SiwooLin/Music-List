@@ -3,302 +3,338 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>시우린의 노래책</title>
-  
-  <!-- 구글 폰트 -->
-  <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Jua&display=swap" rel="stylesheet">
-
-  <!-- 기본 스타일 -->
+  <title>시우린의 노래책 🎵</title>
+  <link href="https://fonts.googleapis.com/css2?family=Jua&family=Pretendard&display=swap" rel="stylesheet"/>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    :root {
+      --main-pink: #ff99cc;
+      --light-pink: #fff0f6;
+      --neon-pink: #ff7fe0;
+      --cloud-white: #fffdfd;
+      --text-soft: #a06d3b;
+      --lemon: #fff7b3;
     }
 
+    * { box-sizing: border-box; }
+
     body {
+      margin: 0;
+      font-family: 'Pretendard', sans-serif;
       background: url('images/bgmain.png') no-repeat center center fixed;
       background-size: cover;
-      font-family: 'Gowun Dodum', sans-serif;
+      color: var(--text-soft);
       overflow-x: hidden;
     }
 
     header {
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      text-align: center;
+      padding: 2em 1em 1em;
       position: relative;
-      margin-top: 40px;
     }
 
-    #title {
+    h1 {
       font-family: 'Jua', sans-serif;
-      font-size: 2.5em;
-      color: #ff66b2;
-      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+      font-size: 3.2em;
+      color: var(--neon-pink);
+      text-shadow: 0 0 5px #ffbde7;
       cursor: pointer;
+      display: inline-block;
     }
 
-    #title:hover {
-      color: #ff8fc2;
-    }
-
-    .char {
-      width: 80px;
-      animation: float 3s ease-in-out infinite;
-    }
-
-    .char-left {
+    .character {
       position: absolute;
-      left: 10%;
+      top: 10px;
+      width: 90px;
+      animation: float 4s ease-in-out infinite;
+      z-index: 2;
+    }
+    .character.fan {
+      left: 10px;
+    }
+    .character.siwoolin {
+      right: 10px;
     }
 
-    .char-right {
-      position: absolute;
-      right: 10%;
+    .headset {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: 250px;
+      transform: translate(-50%, -50%);
+      z-index: 0;
+      animation: float 6s ease-in-out infinite;
     }
 
-    @keyframes float {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-10px); }
-    }
-
-    nav {
+    .search-wrapper {
       display: flex;
       justify-content: center;
-      gap: 10px;
-      margin-top: 30px;
+      margin: 1em auto;
     }
 
-    .category {
-      padding: 8px 14px;
-      background: #ffd6eb;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
+    .search-wrapper input {
+      width: 90%;
+      max-width: 400px;
+      padding: 0.7em 1.2em;
+      border: 2px solid var(--main-pink);
+      border-radius: 999px;
       font-size: 1em;
-      transition: all 0.2s;
+      color: var(--text-soft);
     }
 
-    .category:hover {
-      background: #ffb9e1;
-      transform: scale(1.05);
+    .search-wrapper input::placeholder {
+      color: #c4a3b1;
     }
 
-    .category.active {
-      background: #ff8fc2;
+    .category-nav {
+      display: flex;
+      justify-content: center;
+      gap: 0.5em;
+      flex-wrap: wrap;
+      margin: 1em;
+    }
+
+    .category-btn {
+      background-color: var(--light-pink);
+      border: none;
+      color: var(--main-pink);
+      padding: 0.5em 1em;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: 0.2s;
+      font-weight: bold;
+    }
+
+    .category-btn:hover {
+      background-color: #ffddee;
+    }
+
+    .category-btn.active {
+      background-color: var(--main-pink);
       color: white;
     }
 
-    .sort-button {
+    .sort-btn {
       font-size: 0.85em;
-      background: #fff2a8;
-      color: #a87100;
+      background-color: var(--lemon);
+      color: var(--text-soft);
+      padding: 0.4em 1em;
       border: none;
-      padding: 6px 12px;
-      margin-left: 20px;
-      border-radius: 6px;
+      border-radius: 999px;
       cursor: pointer;
+      margin: 0 auto 2em;
+      display: block;
     }
 
-    .search-container {
-      margin: 30px auto;
-      display: flex;
-      justify-content: center;
-    }
-
-    .search-container input {
-      width: 250px;
-      padding: 8px 12px;
-      padding-right: 40px;
-      border: 1px solid #ccc;
-      border-radius: 25px;
-      font-size: 0.9em;
-    }
-
-    .search-container input::placeholder {
-      color: #aaa;
-      font-style: italic;
-      background: url('data:image/svg+xml;utf8,<svg fill="%23ccc" viewBox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg"><path d="M21 20l-5.2-5.2a7 7 0 1 0-1.4 1.4L20 21z"/></svg>') no-repeat;
-      background-position: right 10px center;
-      background-size: 18px;
-    }
-
-    .notice {
-      font-family: 'Jua', sans-serif;
-      text-align: center;
-      margin-top: 20px;
-      font-size: 1.3em;
-      color: #6a006a;
-    }
-
-    .table-wrapper {
-      margin: 40px auto;
-      width: 90%;
-      max-width: 800px;
-      background: rgba(255,255,255,0.6);
-      padding: 20px;
-      border-radius: 20px;
+    .category-section {
+      display: none;
+      padding: 0 1em;
+      animation: fadeIn 0.3s ease;
+      z-index: 3;
       position: relative;
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 1.05em;
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      font-family: 'Jua', sans-serif;
+      font-size: 1.6em;
     }
 
-    thead {
-      font-weight: bold;
-      border-bottom: 2px solid #c38eb4;
-    }
-
-    thead th {
-      padding: 12px 0;
-      border-right: 1px solid #ccc;
-    }
-
-    thead th:last-child {
-      border-right: none;
-    }
-
-    tbody tr:nth-child(even) {
-      background: #ffeaf4;
-    }
-
-    tbody tr:nth-child(odd) {
-      background: #fff7fb;
-    }
-
-    tbody td {
+    th, td {
+      padding: 0.6em;
       text-align: center;
-      padding: 10px;
-      border-right: 1px solid #ddd;
     }
 
-    tbody td:last-child {
-      border-right: none;
+    th {
+      border-bottom: 2px solid var(--main-pink);
     }
 
-    .star {
-      color: gold;
+    td:not(:last-child) {
+      border-right: 1px solid #f4c5d6;
+    }
+
+    tr:nth-child(even) {
+      background-color: #fff5f9;
+    }
+
+    tr:hover {
+      background-color: #ffeaf0;
+    }
+
+    .notice {
+      background-color: #fff0f6;
+      padding: 1em;
+      border-left: 5px solid var(--main-pink);
+      margin-bottom: 1em;
+      border-radius: 6px;
+      font-family: 'Jua', sans-serif;
+      font-size: 1.3em;
+    }
+
+    .no-result {
+      text-align: center;
+      font-size: 1.3em;
+      color: #999;
+      margin-top: 2em;
+      display: none;
+      font-family: 'Jua', sans-serif;
     }
 
     .floating {
       position: absolute;
       animation: float 6s ease-in-out infinite;
+      z-index: 1;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .star, .balloon, .cloud {
+      position: absolute;
+      animation: float 8s ease-in-out infinite;
       pointer-events: none;
     }
 
     .shooting-star {
+      position: absolute;
       animation: shoot 4s linear infinite;
     }
 
     @keyframes shoot {
-      0% { transform: translate(0, 0) scale(0.5); opacity: 0; }
+      0% { opacity: 0; transform: translateY(-50px) translateX(0); }
       30% { opacity: 1; }
-      100% { transform: translate(-300px, 300px) scale(1.2); opacity: 0; }
+      100% { opacity: 0; transform: translateY(600px) translateX(100px); }
     }
-
   </style>
 </head>
-
 <body>
+  <img src="images/headset.png" class="headset" alt="headset">
+  <img src="images/fan.png" class="character fan">
+  <img src="images/siwoolin.png" class="character siwoolin">
+
   <header>
-    <img src="images/siwoolin.png" alt="주인공" class="char char-left">
-    <h1 id="title" onclick="location.reload()">시우린의 노래책</h1>
-    <img src="images/fan.png" alt="팬캐릭터" class="char char-right">
+    <h1 onclick="showCategory('kpop')">🎵 시우린의 노래책</h1>
+    <div class="search-wrapper">
+      <input type="text" id="searchInput" placeholder="노래 제목 또는 가수 검색... 🔍">
+    </div>
+    <nav class="category-nav">
+      <button class="category-btn active" data-category="kpop">K-pop</button>
+      <button class="category-btn" data-category="jpop">J-pop</button>
+      <button class="category-btn" data-category="pop">Pop</button>
+      <button class="category-btn" data-category="cute">애교송</button>
+      <button class="category-btn" data-category="practice">연습곡</button>
+    </nav>
+    <button class="sort-btn" onclick="sortByLevel()">숙련도 높은 순 정렬</button>
   </header>
 
-  <nav>
-    <button class="category active" onclick="filterCategory('all')">전체</button>
-    <button class="category" onclick="filterCategory('kpop')">KPOP</button>
-    <button class="category" onclick="filterCategory('jpop')">JPOP</button>
-    <button class="category" onclick="filterCategory('pop')">POP</button>
-    <button class="category" onclick="filterCategory('애교송')">애교송</button>
-    <button class="category" onclick="filterCategory('연습곡')">연습곡</button>
-    <button class="category" onclick="filterCategory('필독공지')">필독공지</button>
-    <button class="sort-button" onclick="sortByDifficulty()">숙련도 높은 순</button>
-  </nav>
+  <main>
+    <section class="category-section" id="kpop">
+      <div class="notice">🌧️ 필독 공지: 이 리스트는 연습용으로 제작되었습니다. 무단 배포를 금합니다!</div>
+      <table>
+        <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
+        <tr><td>Love Dive</td><td>IVE</td><td>★☆☆</td></tr>
+        <tr><td>Dynamite</td><td>BTS</td><td>★★★</td></tr>
+      </table>
+    </section>
+    <section class="category-section" id="jpop">
+      <table>
+        <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
+        <tr><td>Pretender</td><td>Official髭男dism</td><td>★★☆</td></tr>
+      </table>
+    </section>
+    <section class="category-section" id="pop">
+      <table>
+        <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
+        <tr><td>Shape of You</td><td>Ed Sheeran</td><td>★★★</td></tr>
+      </table>
+    </section>
+    <section class="category-section" id="cute">
+      <table>
+        <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
+        <tr><td>오또케송</td><td>아이유</td><td>★★☆</td></tr>
+      </table>
+    </section>
+    <section class="category-section" id="practice">
+      <table>
+        <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
+        <tr><td>기억을 걷는 시간</td><td>넬</td><td>★★★</td></tr>
+      </table>
+    </section>
 
-  <div class="search-container">
-    <input type="text" id="search" placeholder="노래 제목 또는 가수 검색..." oninput="searchSongs()">
-  </div>
-
-  <div class="notice">📌 연습 전 꼭 필독해주세요!</div>
-
-  <div class="table-wrapper" id="song-table">
-    <table>
-      <thead>
-        <tr>
-          <th>제목</th>
-          <th>가수</th>
-          <th>숙련도</th>
-        </tr>
-      </thead>
-      <tbody id="song-list">
-        <!-- JavaScript로 채워질 영역 -->
-      </tbody>
-    </table>
-  </div>
-
-  <!-- 배경 애니메이션 요소 (이미지 파일 연결 필요) -->
-  <img src="images/headset.png" class="floating" style="top: 20%; left: 70%; width: 120px;">
-  <img src="images/shootingstar.png" class="floating shooting-star" style="top: 10%; left: 50%; width: 50px;">
-  <img src="images/cloudblue.png" class="floating" style="top: 40%; left: 20%; width: 100px;">
-  <img src="images/balloonheart.png" class="floating" style="top: 60%; left: 35%; width: 80px;">
-  <img src="images/cloudpink.png" class="floating" style="top: 25%; left: 80%; width: 90px;">
-  <img src="images/star.png" class="floating" style="top: 70%; left: 15%; width: 40px;">
+    <div class="no-result" id="noResult">검색 결과가 없어요 😢<br>없는 노래는 채팅으로 신청해주세요!</div>
+  </main>
 
   <script>
-    const songs = [
-      { title: "노래제목1", artist: "가수1", difficulty: 2, category: "kpop" },
-      { title: "노래제목2", artist: "가수2", difficulty: 3, category: "jpop" },
-      { title: "노래제목3", artist: "가수3", difficulty: 1, category: "필독공지" },
-    ];
+    const buttons = document.querySelectorAll('.category-btn');
+    const sections = document.querySelectorAll('.category-section');
+    const noResult = document.getElementById('noResult');
 
-    function renderSongs(list) {
-      const tbody = document.getElementById("song-list");
-      tbody.innerHTML = "";
-      if (list.length === 0) {
-        const row = `<tr><td colspan="3">없는 노래는 채팅으로 신청하기!</td></tr>`;
-        tbody.innerHTML = row;
-        return;
-      }
-      list.forEach(song => {
-        const stars = "★".repeat(song.difficulty) + "☆".repeat(3 - song.difficulty);
-        const row = `
-          <tr>
-            <td>${song.title}</td>
-            <td>${song.artist}</td>
-            <td class="star">${stars}</td>
-          </tr>`;
-        tbody.innerHTML += row;
+    function showCategory(id) {
+      sections.forEach(sec => {
+        sec.style.display = sec.id === id ? 'block' : 'none';
       });
+      buttons.forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.category === id);
+      });
+      noResult.style.display = 'none';
     }
 
-    function filterCategory(cat) {
-      document.querySelectorAll('.category').forEach(btn => btn.classList.remove('active'));
-      event.target.classList.add('active');
-      if (cat === 'all') return renderSongs(songs);
-      renderSongs(songs.filter(s => s.category === cat));
-    }
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        showCategory(btn.dataset.category);
+      });
+    });
 
-    function sortByDifficulty() {
-      const sorted = [...songs].sort((a, b) => b.difficulty - a.difficulty);
-      renderSongs(sorted);
-    }
+    showCategory('kpop');
 
-    function searchSongs() {
-      const keyword = document.getElementById("search").value.toLowerCase();
-      const filtered = songs.filter(s =>
-        s.title.toLowerCase().includes(keyword) ||
-        s.artist.toLowerCase().includes(keyword)
-      );
-      renderSongs(filtered);
-    }
+    document.getElementById('searchInput').addEventListener('input', function () {
+      const filter = this.value.toLowerCase();
+      let totalMatch = 0;
 
-    window.onload = () => renderSongs(songs);
+      sections.forEach(section => {
+        const rows = section.querySelectorAll("table tr");
+        let hasMatch = false;
+
+        rows.forEach((row, index) => {
+          if (index === 0) return;
+          const text = row.textContent.toLowerCase();
+          const match = text.includes(filter);
+          row.style.display = match ? "" : "none";
+          if (match) hasMatch = true, totalMatch++;
+        });
+
+        section.style.display = filter ? (hasMatch ? "block" : "none") : (section.id === "kpop" ? "block" : "none");
+      });
+
+      buttons.forEach(btn => {
+        btn.classList.toggle("active", !filter && btn.dataset.category === "kpop");
+      });
+
+      noResult.style.display = (filter && totalMatch === 0) ? "block" : "none";
+    });
+
+    function sortByLevel() {
+      const activeSection = document.querySelector('.category-section[style*="block"]');
+      if (!activeSection) return;
+      const table = activeSection.querySelector('table');
+      const rows = Array.from(table.rows).slice(1);
+      rows.sort((a, b) => {
+        const aStars = a.cells[2].textContent.split('★').length - 1;
+        const bStars = b.cells[2].textContent.split('★').length - 1;
+        return bStars - aStars;
+      });
+      rows.forEach(row => table.appendChild(row));
+    }
   </script>
 </body>
 </html>
