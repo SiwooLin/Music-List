@@ -251,16 +251,9 @@
     transform-origin: center center;
     animation-timing-function: linear;
   }
-
-  /* 대각선 낙하 애니메이션을 JS에서 랜덤으로 할당 */
   @keyframes float {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-15px); }
-  }
-
-  /* 돋보기 아이콘은 하나만 */
-  .search-wrapper .search-icon {
-    pointer-events: none;
   }
 </style>
 </head>
@@ -269,7 +262,7 @@
   <img src="images/siwoolin.png" class="character right" alt="시우린" />
   <img src="images/headset.png" class="headset" alt="헤드셋" />
   
-  <!-- 유성우 여러 개 (JS에서 위치, 속도, 딜레이 조절) -->
+  <!-- 유성우 여러 개 -->
   <img src="images/shootingstar.png" class="bg-element shooting" alt="유성우" />
   <img src="images/shootingstar.png" class="bg-element shooting" alt="유성우" />
   <img src="images/shootingstar.png" class="bg-element shooting" alt="유성우" />
@@ -315,6 +308,9 @@
           <tr><td>ELEVEN</td><td>IVE</td><td>★★☆</td></tr>
           <tr><td>Butter</td><td>BTS</td><td>★★★</td></tr>
           <tr><td>Antifragile</td><td>LE SSERAFIM</td><td>★★★</td></tr>
+          <tr><td>Butterfly</td><td>이달의 소녀</td><td>★★☆</td></tr>
+          <tr><td>Next Level</td><td>aespa</td><td>★★★</td></tr>
+          <tr><td>Feel Special</td><td>TWICE</td><td>★★☆</td></tr>
         </tbody>
       </table>
     </section>
@@ -328,6 +324,9 @@
           <tr><td>Pretender</td><td>Official髭男dism</td><td>★★☆</td></tr>
           <tr><td>紅蓮華 (Gurenge)</td><td>LiSA</td><td>★★★</td></tr>
           <tr><td>乾杯</td><td>長渕剛 (Nagabuchi Tsuyoshi)</td><td>★★☆</td></tr>
+          <tr><td>Lemon</td><td>米津玄師</td><td>★★★</td></tr>
+          <tr><td>Blue Bird</td><td>嵐</td><td>★★☆</td></tr>
+          <tr><td>夜に駆ける</td><td>YOASOBI</td><td>★★★</td></tr>
         </tbody>
       </table>
     </section>
@@ -341,6 +340,9 @@
           <tr><td>Shape of You</td><td>Ed Sheeran</td><td>★★★</td></tr>
           <tr><td>Let It Go</td><td>Idina Menzel</td><td>★★☆</td></tr>
           <tr><td>Shallow</td><td>Lady Gaga & Bradley Cooper</td><td>★★☆</td></tr>
+          <tr><td>Blinding Lights</td><td>The Weeknd</td><td>★★★</td></tr>
+          <tr><td>Happy</td><td>Pharrell Williams</td><td>★★☆</td></tr>
+          <tr><td>Someone Like You</td><td>Adele</td><td>★★★</td></tr>
         </tbody>
       </table>
     </section>
@@ -354,6 +356,9 @@
           <tr><td>오또케송</td><td>아이유</td><td>★★☆</td></tr>
           <tr><td>하트하트송</td><td>트와이스</td><td>★☆☆</td></tr>
           <tr><td>사랑을 했다</td><td>아이콘</td><td>★☆☆</td></tr>
+          <tr><td>뽀짝뽀짝</td><td>아이린</td><td>★☆☆</td></tr>
+          <tr><td>귀염뽀짝</td><td>엘리스</td><td>★☆☆</td></tr>
+          <tr><td>심쿵해</td><td>볼빨간사춘기</td><td>★★☆</td></tr>
         </tbody>
       </table>
     </section>
@@ -368,6 +373,9 @@
           <tr><td>야생화</td><td>박효신</td><td>★★★</td></tr>
           <tr><td>눈의 꽃</td><td>박효신</td><td>★★☆</td></tr>
           <tr><td>내 마음에 비친 내 모습</td><td>유재하</td><td>★★☆</td></tr>
+          <tr><td>봄날</td><td>BTS</td><td>★★★</td></tr>
+          <tr><td>벚꽃 엔딩</td><td>버스커 버스커</td><td>★★☆</td></tr>
+          <tr><td>첫눈처럼 너에게 가겠다</td><td>에일리</td><td>★★★</td></tr>
         </tbody>
       </table>
     </section>
@@ -380,21 +388,4 @@
   const sections = document.querySelectorAll('.category-section');
   const noResult = document.getElementById('noResult');
   const sortBtn = document.getElementById('sortBtn');
-  const shootingStars = document.querySelectorAll('.bg-element.shooting');
-  const searchInput = document.getElementById('searchInput');
-  const mainTitle = document.getElementById('mainTitle');
-
-  // 카테고리 표시 함수
-  function showCategory(id) {
-    sections.forEach(sec => {
-      sec.style.display = (sec.id === id) ? 'block' : 'none';
-    });
-    buttons.forEach(btn => {
-      btn.classList.toggle('active', btn.dataset.category === id);
-    });
-    noResult.style.display = 'none';
-    searchInput.value = ''; // 검색어 초기화
-  }
-
-  buttons.forEach(btn => {
-    btn.addEvent
+  const shootingStars = document
