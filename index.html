@@ -32,16 +32,17 @@
       margin: 1em 0 0.5em;
       cursor: pointer;
       position: relative;
-      z-index: 30;
+      z-index: 20; /* 검색/공지/버튼 아래? Actually title above characters but below UI? 
+                     We'll keep same as UI: z-index 20 */
     }
     h1 span:first-child { color: var(--siwoolin); }
-    h1 span:last-child { color: var(--header-bg); }
+    h1 span:last-child  { color: var(--header-bg); }
 
     .search-wrapper {
       text-align: center;
       margin-bottom: 1em;
       position: relative;
-      z-index: 30;
+      z-index: 20; /* above characters */
     }
     .search-wrapper input {
       padding: 0.6em 1.2em;
@@ -55,7 +56,7 @@
       text-align: center;
       margin-bottom: 1em;
       position: relative;
-      z-index: 30;
+      z-index: 20; /* above characters */
     }
     .category-btn {
       background-color: var(--category-bg);
@@ -68,7 +69,7 @@
       cursor: pointer;
       transition: 0.3s;
       position: relative;
-      z-index: 30;
+      z-index: 20;
     }
     .category-btn:hover {
       background-color: var(--category-hover-bg);
@@ -89,7 +90,7 @@
       cursor: pointer;
       font-weight: bold;
       position: relative;
-      z-index: 30;
+      z-index: 20;
     }
 
     .notice {
@@ -102,23 +103,23 @@
       max-width: 90%;
       text-align: center;
       position: relative;
-      z-index: 30;
+      z-index: 20; /* above characters */
     }
 
     table {
       width: 90%;
-      margin: 1em auto;
+      margin: 1em auto 3em;
       border-collapse: collapse;
       background: white;
       box-shadow: 4px 4px 12px rgba(0,0,0,0.1);
       position: relative;
-      z-index: 35;
+      z-index: 25; /* 가장 위 */
       font-family: 'Jua', sans-serif;
     }
     th, td {
       padding: 0.8em;
       text-align: center;
-      border-right: 1px dotted #aaa;
+      border-right: 1px dotted #aaa; /* 세로 점선 */
     }
     th:last-child, td:last-child {
       border-right: none;
@@ -135,7 +136,7 @@
       width: 120px;
       position: absolute;
       top: 60px;
-      z-index: 10; /* 버튼/검색/UI 요소 아래 */
+      z-index: 10; /* 검색/버튼/UI 아래, 헤드셋/유성우 위 */
       animation: float 4s ease-in-out infinite;
     }
     .left { left: 10px; }
@@ -157,7 +158,7 @@
       bottom: 10%;
       left: 50%;
       transform: translateX(-50%);
-      z-index: 15;
+      z-index: 5; /* 캐릭터 아래 */
       animation: float 6s ease-in-out infinite;
     }
 
@@ -168,7 +169,8 @@
       animation: diagonal-fall 6s linear infinite;
       animation-fill-mode: both;
       opacity: 0.8;
-      z-index: 5; /* 버튼/검색/UI 요소 아래 */
+      z-index: 5; /* 캐릭터 아래 */
+      /* 개별 딜레이는 inline style로 설정 */
     }
 
     @keyframes float {
@@ -187,24 +189,24 @@
       color: var(--no-result-color);
       display: none;
       position: relative;
-      z-index: 30;
+      z-index: 20;
     }
   </style>
 </head>
 <body>
-  <!-- 캐릭터 & 장식 이미지 -->
-  <img src="images/fan.png" class="character left" alt="팬캐릭터">
-  <img src="images/siwoolin.png" class="character right" alt="시우린">
-  <img src="images/headset.png" class="headset" alt="헤드셋">
   <!-- 유성우: 버튼들 아래에 위치, 각각 다른 애니메이션 딜레이 -->
   <img src="images/shootingstar.png" class="shooting" style="left:20vw; animation-delay:0s;" alt="별똥별">
   <img src="images/shootingstar.png" class="shooting" style="left:50vw; animation-delay:2s;" alt="별똥별">
   <img src="images/shootingstar.png" class="shooting" style="left:80vw; animation-delay:4s;" alt="별똥별">
 
-  <h1 onclick="showCategory('kpop')"><span>시우린</span><span>의 노래책</span></h1>
+  <!-- 헤드셋: 캐릭터 아래 -->
+  <img src="images/headset.png" class="headset" alt="헤드셋">
 
-  <!-- 필독 공지 -->
-  <div class="notice">🌧️ 필독 공지: 이 리스트는 연습용으로 제작되었습니다. 무단 배포를 금합니다!</div>
+  <!-- 캐릭터: 헤드셋/유성우보다 위, UI 요소 아래 -->
+  <img src="images/fan.png" class="character left" alt="팬캐릭터">
+  <img src="images/siwoolin.png" class="character right" alt="시우린">
+
+  <h1 onclick="showCategory('kpop')"><span>시우린</span><span>의 노래책</span></h1>
 
   <div class="search-wrapper">
     <input type="text" id="searchInput" placeholder="노래 제목 또는 가수 검색...">
@@ -219,6 +221,9 @@
   </div>
 
   <button class="sort-btn" id="sortBtn">숙련도 높은 순 정렬</button>
+
+  <!-- 필독 공지: 정렬 순 버튼 아래에 위치 -->
+  <div class="notice">🌧️ 필독 공지: 이 리스트는 연습용으로 제작되었습니다. 무단 배포를 금합니다!</div>
 
   <!-- 카테고리 섹션들 -->
   <div class="category-section" id="kpop">
