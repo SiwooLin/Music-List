@@ -12,7 +12,7 @@
       --bg-color: #fffdfd;
       --shadow: 0 4px 10px rgba(0,0,0,0.05);
       --lemon: #fff2b2;
-      --text-dark: #6b4e2d;
+      --text-dark: #a06d3b;
     }
 
     * { box-sizing: border-box; }
@@ -31,7 +31,7 @@
 
     h1 {
       color: var(--main-pink);
-      font-size: 2.4em;
+      font-size: 3em;
       margin-bottom: 0.6em;
       font-family: 'Dongle', cursive;
     }
@@ -47,7 +47,6 @@
     }
 
     .search-wrapper {
-      position: relative;
       display: flex;
       justify-content: center;
       margin-bottom: 1.5em;
@@ -56,21 +55,11 @@
     .search-wrapper input {
       width: 90%;
       max-width: 400px;
-      padding: 0.7em 2.5em 0.7em 1em;
+      padding: 0.7em 1em;
       border: 2px solid var(--main-pink);
       border-radius: 999px;
       font-size: 1em;
       outline: none;
-    }
-
-    .search-icon {
-      position: absolute;
-      right: 7%;
-      top: 50%;
-      transform: translateY(-50%);
-      pointer-events: none;
-      color: #aaa;
-      font-size: 1.1em;
     }
 
     .category-nav {
@@ -109,10 +98,10 @@
       margin: 0 auto 2em auto;
       background-color: var(--lemon);
       color: var(--text-dark);
-      padding: 0.5em 1.2em;
+      padding: 0.4em 1em;
       border: none;
       border-radius: 999px;
-      font-size: 0.95em;
+      font-size: 0.85em;
       cursor: pointer;
       box-shadow: var(--shadow);
       font-weight: bold;
@@ -136,10 +125,10 @@
     }
 
     th, td {
-      padding: 1em;
+      padding: 0.6em;
       text-align: center;
       font-family: 'Dongle', cursive;
-      font-size: 1.6em;
+      font-size: 1.5em;
     }
 
     th {
@@ -196,10 +185,6 @@
         flex-direction: column;
         align-items: center;
       }
-
-      .search-icon {
-        right: 10%;
-      }
     }
   </style>
 </head>
@@ -207,8 +192,7 @@
   <header>
     <h1><a href="#" onclick="showCategory('kpop')">🎵 시우린의 노래책</a></h1>
     <div class="search-wrapper">
-      <input type="text" id="searchInput" placeholder="노래 제목 또는 가수 검색...">
-      <span class="search-icon">🔍</span>
+      <input type="text" id="searchInput" placeholder="노래 제목 또는 가수 검색... 🔍">
     </div>
     <nav class="category-nav">
       <button class="category-btn active" data-category="kpop">K-pop</button>
