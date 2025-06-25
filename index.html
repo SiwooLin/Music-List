@@ -254,17 +254,18 @@
     position: fixed;
     top: -10vh;
     width: 50px;
-    animation: fall 6s linear infinite;
+    animation: diagonal-fall 6s linear infinite;
     opacity: 0.8;
     z-index: 4;
+    transform-origin: center center;
   }
-  @keyframes fall {
+  @keyframes diagonal-fall {
     0% {
-      transform: translateY(0) rotate(0deg);
+      transform: translateX(0) translateY(0) rotate(0deg);
       opacity: 0.8;
     }
     100% {
-      transform: translateY(110vh) rotate(180deg);
+      transform: translateX(-100vw) translateY(110vh) rotate(0deg);
       opacity: 0;
     }
   }
@@ -435,7 +436,5 @@
   // 유성우 랜덤 위치 및 애니메이션 딜레이 설정
   function randomizeShootingStars() {
     shootingStars.forEach((star, index) => {
-      const randomLeft = Math.random() * 90; // 0~90vw 사이
-      star.style.left = randomLeft + 'vw';
-      star.style.animationDelay = (index * 2) + 's'; // 서로 딜레이 다르게
-   
+      star.style.left = Math.random() * 90 + 'vw'; // 0~90vw 사이
+      star.style.animationDelay = (index * 2
