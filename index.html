@@ -121,6 +121,7 @@
   .sort-btn:hover {
     background-color: #fffbcf;
   }
+  /* 필독 공지 항상 보이게 메인 최상단에 */
   .notice {
     background-color: #fff0f6;
     padding: 1em;
@@ -183,79 +184,88 @@
     z-index: 10;
   }
 
-  /* 캐릭터와 배경 요소 */
-  .character, .bg-element {
-    position: absolute;
+  /* 캐릭터 위치 및 스크롤 따라다님/고정 분기 */
+  .character {
     animation: float 4s ease-in-out infinite;
-    z-index: 6; /* 캐릭터 위 */
+    z-index: 6;
+    width: 140px;
+    transition: all 0.3s ease;
   }
   .character.left {
     top: 50px;
     left: 10px;
-    width: 140px;
-    transition: all 0.3s ease;
   }
   .character.right {
     top: 50px;
     right: 10px;
-    width: 140px;
-    transition: all 0.3s ease;
-  }
-  .headset {
-    position: fixed;
-    bottom: 10%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80%;
-    z-index: 3; /* 헤드셋 아래 */
-    animation: float 6s ease-in-out infinite;
-  }
-  /* 유성우 애니메이션 */
-  .bg-element.shooting {
-    animation: fall 6s linear infinite;
-    top: 0;
-    z-index: 4;
-    opacity: 0.8;
-  }
-  @keyframes fall {
-    0% {
-      transform: translate(100vw, -10vh);
-      opacity: 0.8;
-    }
-    100% {
-      transform: translate(-10vw, 100vh);
-      opacity: 0;
-    }
-  }
-  /* 둥실 떠다니는 구름, 풍선 */
-  .bg-element.cloud, .bg-element.balloon, .bg-element.star {
-    animation: float 8s ease-in-out infinite;
-    z-index: 3;
-  }
-  .bg-element.cloud,
-  .bg-element.balloon {
-    width: 80px;
   }
   @media (min-width: 768px) {
-    /* 컴퓨터 화면일 때 캐릭터를 좀 더 안쪽으로 */
+    /* 데스크톱 이상: 캐릭터 스크롤 따라 움직임 (absolute) */
+    .character {
+      position: absolute;
+    }
     .character.left {
       left: 30px;
     }
     .character.right {
       right: 30px;
     }
-    /* 풍선/구름 더 크게 */
+  }
+  @media (max-width: 767px) {
+    /* 모바일: 캐릭터 고정 (fixed) */
+    .character {
+      position: fixed;
+      width: 120px;
+    }
+    .character.left,
+    .character.right {
+      top: 90px;
+    }
+  }
+
+  /* 풍선과 구름 항상 fixed (스크롤 고정) */
+  .bg-element.cloud,
+  .bg-element.balloon {
+    position: fixed;
+    animation: float 4s ease-in-out infinite;
+    z-index: 6;
+    width: 80px;
+  }
+  @media (min-width: 768px) {
     .bg-element.cloud,
     .bg-element.balloon {
       width: 130px;
     }
   }
-  @media (max-width: 767px) {
-    /* 모바일 화면일 때 캐릭터 좀 아래로 */
-    .character.left,
-    .character.right {
-      top: 90px;
-      width: 120px;
+
+  /* 헤드셋 */
+  .headset {
+    position: fixed;
+    bottom: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    z-index: 3;
+    animation: float 6s ease-in-out infinite;
+  }
+
+  /* 유성우 애니메이션 */
+  .bg-element.shooting {
+    position: fixed;
+    top: -10vh;
+    width: 50px;
+    animation: fall 6s linear infinite;
+    opacity: 0.8;
+    z-index: 4;
+  }
+  @keyframes fall {
+    0% {
+      transform: translateY(0) rotate(0deg);
+      opacity: 0.8;
+    }
+    100% {
+      transform: translateY(110vh) rotate(180deg);
+      opacity: 0;
     }
   }
   @keyframes float {
@@ -270,16 +280,18 @@
   <img src="images/siwoolin.png" class="character right" alt="시우린" />
   <!-- 헤드셋 -->
   <img src="images/headset.png" class="headset" alt="헤드셋" />
-  <!-- 배경 요소: 유성우 여러 개 -->
-  <img src="images/shootingstar.png" class="bg-element shooting" style="left: 70%; width: 80px; animation-delay: 0s;" alt="유성우" />
-  <img src="images/shootingstar.png" class="bg-element shooting" style="left: 50%; width: 60px; animation-delay: 2s;" alt="유성우" />
-  <img src="images/shootingstar.png" class="bg-element shooting" style="left: 30%; width: 70px; animation-delay: 4s;" alt="유성우" />
-  <img src="images/shootingstar.png" class="bg-element shooting" style="left: 85%; width: 50px; animation-delay: 3s;" alt="유성우" />
+  
+  <!-- 유성우 여러 개 -->
+  <img src="images/shootingstar.png" class="bg-element shooting" alt="유성우" />
+  <img src="images/shootingstar.png" class="bg-element shooting" alt="유성우" />
+  <img src="images/shootingstar.png" class="bg-element shooting" alt="유성우" />
+  <img src="images/shootingstar.png" class="bg-element shooting" alt="유성우" />
+
   <!-- 구름과 풍선 -->
-  <img src="images/cloudpink.png" class="bg-element cloud" style="top: 20%; left: 20%; width: 100px;" alt="분홍 구름" />
-  <img src="images/cloudblue.png" class="bg-element cloud" style="top: 50%; left: 60%; width: 120px;" alt="파란 구름" />
-  <img src="images/balloonholo.png" class="bg-element balloon" style="top: 60%; left: 30%; width: 80px;" alt="홀로그램 풍선" />
-  <img src="images/balloonpink.png" class="bg-element balloon" style="top: 40%; left: 80%; width: 100px;" alt="핑크 풍선" />
+  <img src="images/cloudpink.png" class="bg-element cloud" style="top: 20%; left: 20%;" alt="분홍 구름" />
+  <img src="images/cloudblue.png" class="bg-element cloud" style="top: 50%; left: 60%;" alt="파란 구름" />
+  <img src="images/balloonholo.png" class="bg-element balloon" style="top: 60%; left: 30%;" alt="홀로그램 풍선" />
+  <img src="images/balloonpink.png" class="bg-element balloon" style="top: 40%; left: 80%;" alt="핑크 풍선" />
 
   <h1><span class="siwoolin">시우린</span><span class="book">의 노래책</span></h1>
 
@@ -298,122 +310,132 @@
 
   <button class="sort-btn" id="sortBtn">숙련도 높은 순 정렬</button>
 
-  <section class="category-section" id="kpop">
+  <main>
     <div class="notice">🌧️ 필독 공지: 이 리스트는 연습용으로 제작되었습니다. 무단 배포를 금합니다!</div>
-    <table>
-      <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
-      <tr><td>Love Dive</td><td>IVE</td><td>★☆☆</td></tr>
-      <tr><td>Dynamite</td><td>BTS</td><td>★★★</td></tr>
-      <tr><td>Ditto</td><td>NewJeans</td><td>★★☆</td></tr>
-      <tr><td>ELEVEN</td><td>IVE</td><td>★★☆</td></tr>
-      <tr><td>Butter</td><td>BTS</td><td>★★★</td></tr>
-      <tr><td>Antifragile</td><td>LE SSERAFIM</td><td>★★★</td></tr>
-    </table>
-  </section>
 
-  <section class="category-section" id="jpop">
-    <table>
-      <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
-      <tr><td>Pretender</td><td>Official髭男dism</td><td>★★☆</td></tr>
-      <tr><td>紅蓮華 (Gurenge)</td><td>LiSA</td><td>★★★</td></tr>
-      <tr><td>乾杯</td><td>長渕剛 (Nagabuchi Tsuyoshi)</td><td>★★☆</td></tr>
-    </table>
-  </section>
+    <section class="category-section" id="kpop">
+      <table>
+        <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
+        <tr><td>Love Dive</td><td>IVE</td><td>★☆☆</td></tr>
+        <tr><td>Dynamite</td><td>BTS</td><td>★★★</td></tr>
+        <tr><td>Ditto</td><td>NewJeans</td><td>★★☆</td></tr>
+        <tr><td>ELEVEN</td><td>IVE</td><td>★★☆</td></tr>
+        <tr><td>Butter</td><td>BTS</td><td>★★★</td></tr>
+        <tr><td>Antifragile</td><td>LE SSERAFIM</td><td>★★★</td></tr>
+      </table>
+    </section>
 
-  <section class="category-section" id="pop">
-    <table>
-      <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
-      <tr><td>Shape of You</td><td>Ed Sheeran</td><td>★★★</td></tr>
-      <tr><td>Let It Go</td><td>Idina Menzel</td><td>★★☆</td></tr>
-      <tr><td>Shallow</td><td>Lady Gaga & Bradley Cooper</td><td>★★☆</td></tr>
-    </table>
-  </section>
+    <section class="category-section" id="jpop">
+      <table>
+        <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
+        <tr><td>Pretender</td><td>Official髭男dism</td><td>★★☆</td></tr>
+        <tr><td>紅蓮華 (Gurenge)</td><td>LiSA</td><td>★★★</td></tr>
+        <tr><td>乾杯</td><td>長渕剛 (Nagabuchi Tsuyoshi)</td><td>★★☆</td></tr>
+      </table>
+    </section>
 
-  <section class="category-section" id="cute">
-    <table>
-      <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
-      <tr><td>오또케송</td><td>아이유</td><td>★★☆</td></tr>
-      <tr><td>하트하트송</td><td>트와이스</td><td>★☆☆</td></tr>
-      <tr><td>사랑을 했다</td><td>아이콘</td><td>★☆☆</td></tr>
-    </table>
-  </section>
+    <section class="category-section" id="pop">
+      <table>
+        <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
+        <tr><td>Shape of You</td><td>Ed Sheeran</td><td>★★★</td></tr>
+        <tr><td>Let It Go</td><td>Idina Menzel</td><td>★★☆</td></tr>
+        <tr><td>Shallow</td><td>Lady Gaga & Bradley Cooper</td><td>★★☆</td></tr>
+      </table>
+    </section>
 
-  <section class="category-section" id="practice">
-    <table>
-      <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
-      <tr><td>기억을 걷는 시간</td><td>넬</td><td>★★★</td></tr>
-      <tr><td>야생화</td><td>박효신</td><td>★★★</td></tr>
-      <tr><td>눈의 꽃</td><td>박효신</td><td>★★☆</td></tr>
-      <tr><td>내 마음에 비친 내 모습</td><td>유재하</td><td>★★☆</td></tr>
-    </table>
-  </section>
+    <section class="category-section" id="cute">
+      <table>
+        <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
+        <tr><td>오또케송</td><td>아이유</td><td>★★☆</td></tr>
+        <tr><td>하트하트송</td><td>트와이스</td><td>★☆☆</td></tr>
+        <tr><td>사랑을 했다</td><td>아이콘</td><td>★☆☆</td></tr>
+      </table>
+    </section>
+
+    <section class="category-section" id="practice">
+      <table>
+        <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
+        <tr><td>기억을 걷는 시간</td><td>넬</td><td>★★★</td></tr>
+        <tr><td>야생화</td><td>박효신</td><td>★★★</td></tr>
+        <tr><td>눈의 꽃</td><td>박효신</td><td>★★☆</td></tr>
+        <tr><td>내 마음에 비친 내 모습</td><td>유재하</td><td>★★☆</td></tr>
+      </table>
+    </section>
+
+  </main>
 
   <div class="no-result" id="noResult">검색 결과가 없어요 😢<br>없는 노래는 채팅으로 신청해주세요!</div>
 
-  <script>
-    const buttons = document.querySelectorAll('.category-btn');
-    const sections = document.querySelectorAll('.category-section');
-    const noResult = document.getElementById('noResult');
-    const sortBtn = document.getElementById('sortBtn');
+<script>
+  const buttons = document.querySelectorAll('.category-btn');
+  const sections = document.querySelectorAll('.category-section');
+  const noResult = document.getElementById('noResult');
+  const sortBtn = document.getElementById('sortBtn');
+  const shootingStars = document.querySelectorAll('.bg-element.shooting');
 
-    function showCategory(id) {
-      sections.forEach(sec => {
-        sec.style.display = sec.id === id ? 'block' : 'none';
-      });
-      buttons.forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.category === id);
-      });
-      noResult.style.display = 'none';
-    }
-
+  function showCategory(id) {
+    sections.forEach(sec => {
+      sec.style.display = sec.id === id ? 'block' : 'none';
+    });
     buttons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        showCategory(btn.dataset.category);
-      });
+      btn.classList.toggle('active', btn.dataset.category === id);
     });
+    noResult.style.display = 'none';
+  }
 
-    showCategory('kpop');
-
-    document.getElementById('searchInput').addEventListener('input', function () {
-      const filter = this.value.toLowerCase();
-      let totalMatch = 0;
-      sections.forEach(section => {
-        const rows = section.querySelectorAll("table tr");
-        let hasMatch = false;
-        rows.forEach((row, index) => {
-          if (index === 0) return;
-          const text = row.textContent.toLowerCase();
-          const match = text.includes(filter);
-          row.style.display = match ? "" : "none";
-          if (match) hasMatch = true, totalMatch++;
-        });
-        section.style.display = filter ? (hasMatch ? "block" : "none") : (section.id === "kpop" ? "block" : "none");
-      });
-      buttons.forEach(btn => {
-        btn.classList.toggle("active", !filter && btn.dataset.category === "kpop");
-      });
-      noResult.style.display = (filter.length > 0 && totalMatch === 0) ? "block" : "none";
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      showCategory(btn.dataset.category);
     });
+  });
 
-    function sortByLevel() {
-      const activeSection = document.querySelector('.category-section[style*="block"]');
-      if (!activeSection) return;
+  showCategory('kpop');
 
-      const table = activeSection.querySelector('table');
-      const rows = Array.from(table.rows).slice(1);
-
-      function countStars(starStr) {
-        return (starStr.match(/★/g) || []).length;
-      }
-
-      rows.sort((a, b) => {
-        return countStars(b.cells[2].textContent) - countStars(a.cells[2].textContent);
+  document.getElementById('searchInput').addEventListener('input', function () {
+    const filter = this.value.toLowerCase();
+    let totalMatch = 0;
+    sections.forEach(section => {
+      const rows = section.querySelectorAll("table tr");
+      let hasMatch = false;
+      rows.forEach((row, index) => {
+        if (index === 0) return;
+        const text = row.textContent.toLowerCase();
+        const match = text.includes(filter);
+        row.style.display = match ? "" : "none";
+        if (match) hasMatch = true, totalMatch++;
       });
+      section.style.display = filter ? (hasMatch ? "block" : "none") : (section.id === "kpop" ? "block" : "none");
+    });
+    buttons.forEach(btn => {
+      btn.classList.toggle("active", !filter && btn.dataset.category === "kpop");
+    });
+    noResult.style.display = (filter.length > 0 && totalMatch === 0) ? "block" : "none";
+  });
 
-      rows.forEach(row => table.appendChild(row));
+  function sortByLevel() {
+    const activeSection = document.querySelector('.category-section[style*="block"]');
+    if (!activeSection) return;
+
+    const table = activeSection.querySelector('table');
+    const rows = Array.from(table.rows).slice(1);
+
+    function countStars(starStr) {
+      return (starStr.match(/★/g) || []).length;
     }
 
-    sortBtn.addEventListener('click', sortByLevel);
-  </script>
-</body>
-</html>
+    rows.sort((a, b) => {
+      return countStars(b.cells[2].textContent) - countStars(a.cells[2].textContent);
+    });
+
+    rows.forEach(row => table.appendChild(row));
+  }
+
+  sortBtn.addEventListener('click', sortByLevel);
+
+  // 유성우 랜덤 위치 및 애니메이션 딜레이 설정
+  function randomizeShootingStars() {
+    shootingStars.forEach((star, index) => {
+      const randomLeft = Math.random() * 90; // 0~90vw 사이
+      star.style.left = randomLeft + 'vw';
+      star.style.animationDelay = (index * 2) + 's'; // 서로 딜레이 다르게
+   
