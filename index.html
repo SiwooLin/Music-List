@@ -113,3 +113,18 @@
   </table>
 </body>
 </html>
+
+      const activeSection = document.querySelector('.category-section[style*="block"]');
+      if (!activeSection) return;
+      const table = activeSection.querySelector('table');
+      const rows = Array.from(table.rows).slice(1);
+      rows.sort((a, b) => {
+        const aStars = a.cells[2].textContent.split('★').length - 1;
+        const bStars = b.cells[2].textContent.split('★').length - 1;
+        return bStars - aStars;
+      });
+      rows.forEach(row => table.appendChild(row));
+    }
+  </script>
+</body>
+</html>
