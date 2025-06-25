@@ -7,108 +7,131 @@
   <link href="https://fonts.googleapis.com/css2?family=Dongle&family=Pretendard:wght@400;700&display=swap" rel="stylesheet"/>
   <style>
     :root {
-      --main-pink: #ff99cc;
-      --light-pink: #fff0f6;
+      --main-pink: #ff9ddf;
+      --pastel-purple: #e0caff;
       --neon-pink: #ff7fe0;
-      --cloud-white: #fffdfd;
-      --text-soft: #a06d3b;
-      --lemon: #fff7b3;
+      --soft-brown: #a06d3b;
+      --light-orange: #d9a26c;
+      --highlight-yellow: #fff8d6;
     }
 
     * { box-sizing: border-box; }
 
-    body {
-      margin: 0;
+    html, body {
+      margin: 0; padding: 0;
       font-family: 'Pretendard', sans-serif;
-      background: linear-gradient(to bottom, #ffeef8, #e4d1ff);
-      color: var(--text-soft);
+      color: var(--soft-brown);
+      background: url('background.png') no-repeat center center fixed;
+      background-size: cover;
+      overflow-x: hidden;
     }
 
     header {
       text-align: center;
       padding: 2em 1em 1em;
+      position: relative;
+      z-index: 6;
     }
 
     h1 {
       font-family: 'Dongle', cursive;
-      font-size: 3.2em;
-      color: var(--neon-pink);
-      text-shadow: 0 0 5px #ffbde7;
-      cursor: pointer;
+      font-size: 3.5em;
+      color: #fff7b2;
+      text-shadow: 0 0 8px rgba(255, 161, 222, 0.8);
+      margin-bottom: 0.3em;
+    }
+
+    h1 a {
+      text-decoration: none;
+      color: inherit;
     }
 
     .search-wrapper {
       display: flex;
       justify-content: center;
       margin: 1em auto;
+      position: relative;
+      z-index: 6;
     }
 
     .search-wrapper input {
       width: 90%;
       max-width: 400px;
-      padding: 0.7em 1.2em;
-      border: 2px solid var(--main-pink);
+      padding: 0.7em 1em;
+      border: 2px solid var(--neon-pink);
       border-radius: 999px;
       font-size: 1em;
-      color: var(--text-soft);
+      outline: none;
+      color: var(--soft-brown);
     }
 
     .search-wrapper input::placeholder {
-      color: #c4a3b1;
+      color: #c9a8bb;
+    }
+
+    .search-wrapper::after {
+      content: '🔍';
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1em;
+      color: #c9a8bb;
     }
 
     .category-nav {
       display: flex;
       justify-content: center;
-      gap: 0.5em;
       flex-wrap: wrap;
-      margin: 1em;
+      gap: 0.5em;
+      margin: 1em auto;
+      z-index: 6;
+      position: relative;
     }
 
     .category-btn {
-      background-color: var(--light-pink);
+      background-color: var(--pastel-purple);
       border: none;
-      color: var(--main-pink);
-      padding: 0.5em 1em;
+      color: var(--neon-pink);
+      padding: 0.5em 1.2em;
       border-radius: 20px;
       cursor: pointer;
-      transition: 0.2s;
-      font-weight: bold;
+      font-weight: 600;
+      font-size: 1em;
+      transition: background 0.3s ease;
     }
 
-    .category-btn:hover {
-      background-color: #ffddee;
-    }
-
-    .category-btn.active {
-      background-color: var(--main-pink);
-      color: white;
-    }
+    .category-btn:hover { background-color: #f4defb; }
+    .category-btn.active { background-color: var(--neon-pink); color: white; }
 
     .sort-btn {
+      background-color: #fffde0;
+      color: var(--light-orange);
+      padding: 0.3em 0.8em;
+      border-radius: 15px;
       font-size: 0.85em;
-      background-color: var(--lemon);
-      color: var(--text-soft);
-      padding: 0.4em 1em;
+      font-weight: bold;
       border: none;
-      border-radius: 999px;
       cursor: pointer;
-      margin: 0 auto 2em;
+      margin: 1em auto 2em;
       display: block;
+      z-index: 6;
+      position: relative;
     }
 
     .category-section {
       display: none;
-      padding: 0 1em;
+      padding: 1em;
       animation: fadeIn 0.3s ease;
+      z-index: 6;
+      position: relative;
     }
 
     table {
-      width: 100%;
+      width: 90%;
+      max-width: 800px;
+      margin: 0 auto;
       border-collapse: collapse;
-      background: white;
-      border-radius: 12px;
-      overflow: hidden;
       font-family: 'Dongle', cursive;
       font-size: 1.6em;
     }
@@ -119,164 +142,155 @@
     }
 
     th {
-      border-bottom: 2px solid var(--main-pink);
+      color: var(--neon-pink);
+      font-weight: bold;
+      font-size: 1.8em;
+      border-bottom: 2px solid #f7c7ef;
+    }
+
+    td {
+      background-color: rgba(255, 255, 255, 0.6);
     }
 
     td:not(:last-child) {
-      border-right: 1px solid #f4c5d6;
+      border-right: 1px solid #f3d7f5;
     }
 
-    tr:nth-child(even) {
-      background-color: #fff5f9;
+    tr:nth-child(even) td {
+      background-color: rgba(255, 255, 255, 0.85);
     }
 
-    tr:hover {
-      background-color: #ffeaf0;
+    tr:hover td {
+      background-color: #ffeaf5;
     }
 
     .notice {
-      background-color: #fff0f6;
+      background-color: #fbe5ff;
+      border-left: 5px solid var(--neon-pink);
       padding: 1em;
-      border-left: 5px solid var(--main-pink);
-      margin-bottom: 1em;
-      border-radius: 6px;
+      border-radius: 8px;
       font-family: 'Dongle', cursive;
-      font-size: 1.5em;
+      font-size: 1.6em;
+      margin-bottom: 1em;
     }
 
     .no-result {
       text-align: center;
-      font-size: 1.3em;
-      color: #999;
+      font-size: 1.2em;
+      color: #d183b7;
       margin-top: 2em;
-      display: none;
-      font-family: 'Dongle', cursive;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
+    .floating {
+      position: absolute;
+      pointer-events: none;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+      100% { transform: translateY(0); }
+    }
+
+    .follow-scroll {
+      position: absolute;
+      top: 200px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 5;
+      width: 300px;
+      opacity: 0.8;
     }
   </style>
 </head>
 <body>
   <header>
-    <h1 onclick="showCategory('kpop')">🎵 시우린의 노래책</h1>
-    <div class="search-wrapper">
-      <input type="text" id="searchInput" placeholder="노래 제목 또는 가수 검색... 🔍">
-    </div>
-    <nav class="category-nav">
-      <button class="category-btn active" data-category="kpop">K-pop</button>
-      <button class="category-btn" data-category="jpop">J-pop</button>
-      <button class="category-btn" data-category="pop">Pop</button>
-      <button class="category-btn" data-category="cute">애교송</button>
-      <button class="category-btn" data-category="practice">연습곡</button>
-    </nav>
-    <button class="sort-btn" onclick="sortByLevel()">숙련도 높은 순 정렬</button>
+    <h1><a href="#">시우린의 노래책 🎵☔</a></h1>
   </header>
 
-  <main>
-    <section class="category-section" id="kpop">
-      <div class="notice">🌧️ 필독 공지: 이 리스트는 스트리머 시우린의 방송용으로 제작되었습니다. 무단 배포를 금합니다!</div>
-      <table>
-        <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
-        <tr><td>Love Dive</td><td>IVE</td><td>★☆☆</td></tr>
-        <tr><td>Dynamite</td><td>BTS</td><td>★★★</td></tr>
-      </table>
-    </section>
+  <div class="search-wrapper">
+    <input type="text" id="search" placeholder="노래 제목 또는 가수 검색..." />
+  </div>
 
-    <section class="category-section" id="jpop">
-      <table>
-        <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
-        <tr><td>Pretender</td><td>Official髭男dism</td><td>★★☆</td></tr>
-      </table>
-    </section>
+  <div class="category-nav">
+    <button class="category-btn active">K-POP</button>
+    <button class="category-btn">J-POP</button>
+    <button class="category-btn">POP</button>
+    <button class="category-btn">애교송</button>
+    <button class="category-btn">연습곡</button>
+  </div>
 
-    <section class="category-section" id="pop">
-      <table>
-        <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
-        <tr><td>Shape of You</td><td>Ed Sheeran</td><td>★★★</td></tr>
-      </table>
-    </section>
+  <button class="sort-btn">★ 숙련도 높은 순</button>
 
-    <section class="category-section" id="cute">
-      <table>
-        <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
-        <tr><td>오또케송</td><td>아이유</td><td>★★☆</td></tr>
-      </table>
-    </section>
+  <section class="category-section" style="display: block;">
+    <div class="notice">📌 필독 공지: 여기에 공지 내용을 넣을 수 있어요.</div>
+    <table>
+      <thead>
+        <tr>
+          <th>제목</th>
+          <th>가수</th>
+          <th>숙련도</th>
+        </tr>
+      </thead>
+      <tbody id="song-list">
+        <tr><td>Love Dive</td><td>IVE</td><td>★★★</td></tr>
+        <tr><td>Hype Boy</td><td>New Jeans</td><td>★★</td></tr>
+      </tbody>
+    </table>
+    <div class="no-result" style="display:none;">❗ 없는 노래는 채팅으로 신청해 주세요!</div>
+  </section>
 
-    <section class="category-section" id="practice">
-      <table>
-        <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
-        <tr><td>기억을 걷는 시간</td><td>넬</td><td>★★★</td></tr>
-      </table>
-    </section>
-
-    <div class="no-result" id="noResult">검색 결과가 없어요 😢<br>없는 노래는 채팅으로 신청해주세요!</div>
-  </main>
+  <img src="headset.png" class="floating follow-scroll" id="headset-img" />
 
   <script>
-    const buttons = document.querySelectorAll('.category-btn');
+    const searchInput = document.getElementById('search');
+    const songList = document.getElementById('song-list');
     const sections = document.querySelectorAll('.category-section');
-    const noResult = document.getElementById('noResult');
+    const categoryBtns = document.querySelectorAll('.category-btn');
+    const sortBtn = document.querySelector('.sort-btn');
+    const noResult = document.querySelector('.no-result');
 
-    function showCategory(id) {
-      sections.forEach(sec => {
-        sec.style.display = sec.id === id ? 'block' : 'none';
-      });
-      buttons.forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.category === id);
-      });
-      noResult.style.display = 'none';
-    }
+    searchInput.addEventListener('input', function () {
+      const keyword = this.value.toLowerCase();
+      const rows = songList.querySelectorAll('tr');
+      let visibleCount = 0;
 
-    buttons.forEach(btn => {
+      rows.forEach(row => {
+        const text = row.innerText.toLowerCase();
+        if (text.includes(keyword)) {
+          row.style.display = '';
+          visibleCount++;
+        } else {
+          row.style.display = 'none';
+        }
+      });
+
+      noResult.style.display = visibleCount === 0 ? 'block' : 'none';
+    });
+
+    categoryBtns.forEach((btn, idx) => {
       btn.addEventListener('click', () => {
-        showCategory(btn.dataset.category);
-      });
-    });
+        categoryBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
 
-    showCategory('kpop');
-
-    document.getElementById('searchInput').addEventListener('input', function () {
-      const filter = this.value.toLowerCase();
-      let totalMatch = 0;
-
-      sections.forEach(section => {
-        const rows = section.querySelectorAll("table tr");
-        let hasMatch = false;
-
-        rows.forEach((row, index) => {
-          if (index === 0) return;
-          const text = row.textContent.toLowerCase();
-          const match = text.includes(filter);
-          row.style.display = match ? "" : "none";
-          if (match) hasMatch = true, totalMatch++;
+        sections.forEach((section, sIdx) => {
+          section.style.display = idx === sIdx ? 'block' : 'none';
         });
-
-        section.style.display = filter ? (hasMatch ? "block" : "none") : (section.id === "kpop" ? "block" : "none");
       });
-
-      buttons.forEach(btn => {
-        btn.classList.toggle("active", !filter && btn.dataset.category === "kpop");
-      });
-
-      noResult.style.display = (filter && totalMatch === 0) ? "block" : "none";
     });
 
-    function sortByLevel() {
-      const activeSection = document.querySelector('.category-section[style*="block"]');
-      if (!activeSection) return;
-      const table = activeSection.querySelector('table');
-      const rows = Array.from(table.rows).slice(1);
-      rows.sort((a, b) => {
-        const aStars = a.cells[2].textContent.split('★').length - 1;
-        const bStars = b.cells[2].textContent.split('★').length - 1;
-        return bStars - aStars;
-      });
-      rows.forEach(row => table.appendChild(row));
-    }
+    sortBtn.addEventListener('click', () => {
+      const rows = Array.from(songList.querySelectorAll('tr'));
+      rows.sort((a, b) => b.cells[2].innerText.length - a.cells[2].innerText.length);
+      rows.forEach(row => songList.appendChild(row));
+    });
+
+    // 헤드셋이 스크롤에 따라 부드럽게 따라감
+    const headset = document.getElementById('headset-img');
+    window.addEventListener('scroll', () => {
+      headset.style.top = (window.scrollY + 200) + 'px';
+    });
   </script>
 </body>
 </html>
