@@ -7,15 +7,14 @@
 <link href="https://fonts.googleapis.com/css2?family=Jua&family=Do+Hyeon&display=swap" rel="stylesheet"/>
 <style>
   :root {
-    --main-pink: #ff99cc;
-    --light-pink: #fff0f6;
+    --category-bg: #f47ea1; /* 부드러운 코랄핑크 */
+    --category-bg-hover: #f9a9c1; /* 연한 핑크 */
+    --category-text: #9b165d; /* 진한 핑크 */
     --text-soft: #a06d3b;
     --siwoolin: #d32aa6;
     --book-pink: #ffcce5;
     --deep-purple: #774c82;
     --hover-pink: #ffd6e8;
-    --category-pink: #f474a0; /* 코랄핑크 느낌 */
-    --category-pink-hover: #ff7ebf;
     --soft-yellow: #fff7b3;
     --border-pink: #ffcce5;
   }
@@ -52,7 +51,7 @@
   }
   .search-wrapper input {
     padding: 0.7em 2.5em 0.7em 1.2em;
-    border: 2px solid var(--main-pink);
+    border: 2px solid var(--category-bg);
     border-radius: 999px;
     font-size: 1em;
     color: var(--text-soft);
@@ -87,8 +86,8 @@
       Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   }
   .category-btn {
-    background-color: var(--category-pink);
-    color: white;
+    background-color: var(--category-bg);
+    color: var(--category-text);
     padding: 0.5em 1em;
     border-radius: 20px;
     border: none;
@@ -98,12 +97,13 @@
     font-family: inherit;
   }
   .category-btn:hover {
-    background-color: var(--category-pink-hover);
-    color: white;
+    background-color: var(--category-bg-hover);
+    color: var(--category-text);
   }
   .category-btn.active {
-    background-color: #ff5aa8;
-    color: white;
+    background-color: var(--category-bg-hover);
+    color: var(--category-text);
+    font-weight: bolder;
   }
   .sort-btn {
     font-family: 'Jua', sans-serif;
@@ -128,7 +128,7 @@
   .notice {
     background-color: #fff0f6;
     padding: 1em;
-    border-left: 5px solid var(--main-pink);
+    border-left: 5px solid var(--category-bg);
     margin: 1em;
     border-radius: 6px;
     font-size: 1.1em;
@@ -154,8 +154,8 @@
     overflow: hidden;
   }
   th {
-    background-color: var(--category-pink);
-    color: white;
+    background-color: var(--category-bg);
+    color: var(--category-text);
     padding: 0.8em;
     border: 2px solid white;
     user-select: none;
@@ -167,6 +167,7 @@
     background-color: white;
     user-select: text;
     border-right: 1px dotted var(--border-pink);
+    color: var(--category-text);
     transition: background-color 0.3s;
   }
   th:last-child, td:last-child {
@@ -310,54 +311,64 @@
 
     <section class="category-section" id="kpop">
       <table>
-        <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
-        <tr><td>Love Dive</td><td>IVE</td><td>★☆☆</td></tr>
-        <tr><td>Dynamite</td><td>BTS</td><td>★★★</td></tr>
-        <tr><td>Ditto</td><td>NewJeans</td><td>★★☆</td></tr>
-        <tr><td>ELEVEN</td><td>IVE</td><td>★★☆</td></tr>
-        <tr><td>Butter</td><td>BTS</td><td>★★★</td></tr>
-        <tr><td>Antifragile</td><td>LE SSERAFIM</td><td>★★★</td></tr>
-        <tr><td>Next Level</td><td>AESPA</td><td>★★★</td></tr>
-        <tr><td>Feel My Rhythm</td><td>Red Velvet</td><td>★★☆</td></tr>
+        <thead><tr><th>제목</th><th>가수</th><th>숙련도</th></tr></thead>
+        <tbody>
+          <tr><td>Love Dive</td><td>IVE</td><td>★☆☆</td></tr>
+          <tr><td>Dynamite</td><td>BTS</td><td>★★★</td></tr>
+          <tr><td>Ditto</td><td>NewJeans</td><td>★★☆</td></tr>
+          <tr><td>ELEVEN</td><td>IVE</td><td>★★☆</td></tr>
+          <tr><td>Butter</td><td>BTS</td><td>★★★</td></tr>
+          <tr><td>Antifragile</td><td>LE SSERAFIM</td><td>★★★</td></tr>
+          <tr><td>Next Level</td><td>AESPA</td><td>★★★</td></tr>
+          <tr><td>Feel My Rhythm</td><td>Red Velvet</td><td>★★☆</td></tr>
+        </tbody>
       </table>
     </section>
 
     <section class="category-section" id="jpop">
       <table>
-        <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
-        <tr><td>Pretender</td><td>Official髭男dism</td><td>★★☆</td></tr>
-        <tr><td>紅蓮華 (Gurenge)</td><td>LiSA</td><td>★★★</td></tr>
-        <tr><td>乾杯</td><td>長渕剛 (Nagabuchi Tsuyoshi)</td><td>★★☆</td></tr>
-        <tr><td>Lemon</td><td>Kenshi Yonezu</td><td>★★★</td></tr>
+        <thead><tr><th>제목</th><th>가수</th><th>숙련도</th></tr></thead>
+        <tbody>
+          <tr><td>Pretender</td><td>Official髭男dism</td><td>★★☆</td></tr>
+          <tr><td>紅蓮華 (Gurenge)</td><td>LiSA</td><td>★★★</td></tr>
+          <tr><td>乾杯</td><td>長渕剛 (Nagabuchi Tsuyoshi)</td><td>★★☆</td></tr>
+          <tr><td>Lemon</td><td>Kenshi Yonezu</td><td>★★★</td></tr>
+        </tbody>
       </table>
     </section>
 
     <section class="category-section" id="pop">
       <table>
-        <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
-        <tr><td>Shape of You</td><td>Ed Sheeran</td><td>★★★</td></tr>
-        <tr><td>Let It Go</td><td>Idina Menzel</td><td>★★☆</td></tr>
-        <tr><td>Shallow</td><td>Lady Gaga & Bradley Cooper</td><td>★★☆</td></tr>
-        <tr><td>Blinding Lights</td><td>The Weeknd</td><td>★★★</td></tr>
+        <thead><tr><th>제목</th><th>가수</th><th>숙련도</th></tr></thead>
+        <tbody>
+          <tr><td>Shape of You</td><td>Ed Sheeran</td><td>★★★</td></tr>
+          <tr><td>Let It Go</td><td>Idina Menzel</td><td>★★☆</td></tr>
+          <tr><td>Shallow</td><td>Lady Gaga & Bradley Cooper</td><td>★★☆</td></tr>
+          <tr><td>Blinding Lights</td><td>The Weeknd</td><td>★★★</td></tr>
+        </tbody>
       </table>
     </section>
 
     <section class="category-section" id="cute">
       <table>
-        <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
-        <tr><td>오또케송</td><td>아이유</td><td>★★☆</td></tr>
-        <tr><td>하트하트송</td><td>트와이스</td><td>★☆☆</td></tr>
-        <tr><td>사랑을 했다</td><td>아이콘</td><td>★☆☆</td></tr>
+        <thead><tr><th>제목</th><th>가수</th><th>숙련도</th></tr></thead>
+        <tbody>
+          <tr><td>오또케송</td><td>아이유</td><td>★★☆</td></tr>
+          <tr><td>하트하트송</td><td>트와이스</td><td>★☆☆</td></tr>
+          <tr><td>사랑을 했다</td><td>아이콘</td><td>★☆☆</td></tr>
+        </tbody>
       </table>
     </section>
 
     <section class="category-section" id="practice">
       <table>
-        <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
-        <tr><td>기억을 걷는 시간</td><td>넬</td><td>★★★</td></tr>
-        <tr><td>야생화</td><td>박효신</td><td>★★★</td></tr>
-        <tr><td>눈의 꽃</td><td>박효신</td><td>★★☆</td></tr>
-        <tr><td>내 마음에 비친 내 모습</td><td>유재하</td><td>★★☆</td></tr>
+        <thead><tr><th>제목</th><th>가수</th><th>숙련도</th></tr></thead>
+        <tbody>
+          <tr><td>기억을 걷는 시간</td><td>넬</td><td>★★★</td></tr>
+          <tr><td>야생화</td><td>박효신</td><td>★★★</td></tr>
+          <tr><td>눈의 꽃</td><td>박효신</td><td>★★☆</td></tr>
+          <tr><td>내 마음에 비친 내 모습</td><td>유재하</td><td>★★☆</td></tr>
+        </tbody>
       </table>
     </section>
   </main>
@@ -393,10 +404,9 @@
     const filter = this.value.toLowerCase();
     let totalMatch = 0;
     sections.forEach(section => {
-      const rows = section.querySelectorAll("table tr");
+      const rows = section.querySelectorAll("table tbody tr");
       let hasMatch = false;
-      rows.forEach((row, index) => {
-        if (index === 0) return;
+      rows.forEach(row => {
         const text = row.textContent.toLowerCase();
         const match = text.includes(filter);
         row.style.display = match ? "" : "none";
@@ -414,12 +424,4 @@
     const activeSection = document.querySelector('.category-section[style*="block"]');
     if (!activeSection) return;
 
-    const table = activeSection.querySelector('table');
-    const rows = Array.from(table.rows).slice(1);
-
-    function countStars(starStr) {
-      return (starStr.match(/★/g) || []).length;
-    }
-
-    rows.sort((a, b) => {
-      return countStars(b.cells[2].textContent) - countStars(a.cells[2].textContent);
+    const table = activeSection.querySelector('table
