@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>시우린의 노래책 🎵</title>
-  <link href="https://fonts.googleapis.com/css2?family=Jua&family=Pretendard&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
   <style>
     :root {
       --main-pink: #ff99cc;
@@ -13,15 +13,15 @@
       --cloud-white: #fffdfd;
       --text-soft: #a06d3b;
       --lemon: #fff7b3;
+      --purple-dark: #693a75;
     }
 
     * { box-sizing: border-box; }
 
     body {
       margin: 0;
-      font-family: 'Pretendard', sans-serif;
-      background: url('images/bgmain.png') no-repeat center center fixed;
-      background-size: cover;
+      font-family: 'Jua', sans-serif;
+      background: linear-gradient(to bottom, #ffeef8, #e4d1ff);
       color: var(--text-soft);
       overflow-x: hidden;
     }
@@ -30,39 +30,35 @@
       text-align: center;
       padding: 2em 1em 1em;
       position: relative;
+      z-index: 10;
     }
 
     h1 {
-      font-family: 'Jua', sans-serif;
       font-size: 3.2em;
       color: var(--neon-pink);
       text-shadow: 0 0 5px #ffbde7;
       cursor: pointer;
-      display: inline-block;
+      margin: 0 1em;
     }
 
-    .character {
+    .characters {
+      position: relative;
+      margin-bottom: -1em;
+    }
+
+    .characters img {
       position: absolute;
-      top: 10px;
-      width: 90px;
+      width: 80px;
+      top: -30px;
       animation: float 4s ease-in-out infinite;
-      z-index: 2;
-    }
-    .character.fan {
-      left: 10px;
-    }
-    .character.siwoolin {
-      right: 10px;
     }
 
-    .headset {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      width: 250px;
-      transform: translate(-50%, -50%);
-      z-index: 0;
-      animation: float 6s ease-in-out infinite;
+    .characters .fan {
+      left: 5%;
+    }
+
+    .characters .siwoolin {
+      right: 5%;
     }
 
     .search-wrapper {
@@ -91,6 +87,7 @@
       gap: 0.5em;
       flex-wrap: wrap;
       margin: 1em;
+      z-index: 10;
     }
 
     .category-btn {
@@ -129,8 +126,6 @@
       display: none;
       padding: 0 1em;
       animation: fadeIn 0.3s ease;
-      z-index: 3;
-      position: relative;
     }
 
     table {
@@ -139,8 +134,8 @@
       background: white;
       border-radius: 12px;
       overflow: hidden;
-      font-family: 'Jua', sans-serif;
       font-size: 1.6em;
+      z-index: 10;
     }
 
     th, td {
@@ -170,28 +165,15 @@
       border-left: 5px solid var(--main-pink);
       margin-bottom: 1em;
       border-radius: 6px;
-      font-family: 'Jua', sans-serif;
-      font-size: 1.3em;
+      font-size: 1.5em;
     }
 
     .no-result {
       text-align: center;
       font-size: 1.3em;
-      color: #999;
+      color: var(--purple-dark);
       margin-top: 2em;
       display: none;
-      font-family: 'Jua', sans-serif;
-    }
-
-    .floating {
-      position: absolute;
-      animation: float 6s ease-in-out infinite;
-      z-index: 1;
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
     }
 
     @keyframes fadeIn {
@@ -199,28 +181,17 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    .star, .balloon, .cloud {
-      position: absolute;
-      animation: float 8s ease-in-out infinite;
-      pointer-events: none;
-    }
-
-    .shooting-star {
-      position: absolute;
-      animation: shoot 4s linear infinite;
-    }
-
-    @keyframes shoot {
-      0% { opacity: 0; transform: translateY(-50px) translateX(0); }
-      30% { opacity: 1; }
-      100% { opacity: 0; transform: translateY(600px) translateX(100px); }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
     }
   </style>
 </head>
 <body>
-  <img src="images/headset.png" class="headset" alt="headset">
-  <img src="images/fan.png" class="character fan">
-  <img src="images/siwoolin.png" class="character siwoolin">
+  <div class="characters">
+    <img src="images/fan.png" alt="팬캐릭터" class="fan">
+    <img src="images/siwoolin.png" alt="시우린" class="siwoolin">
+  </div>
 
   <header>
     <h1 onclick="showCategory('kpop')">🎵 시우린의 노래책</h1>
@@ -246,24 +217,28 @@
         <tr><td>Dynamite</td><td>BTS</td><td>★★★</td></tr>
       </table>
     </section>
+
     <section class="category-section" id="jpop">
       <table>
         <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
         <tr><td>Pretender</td><td>Official髭男dism</td><td>★★☆</td></tr>
       </table>
     </section>
+
     <section class="category-section" id="pop">
       <table>
         <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
         <tr><td>Shape of You</td><td>Ed Sheeran</td><td>★★★</td></tr>
       </table>
     </section>
+
     <section class="category-section" id="cute">
       <table>
         <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
         <tr><td>오또케송</td><td>아이유</td><td>★★☆</td></tr>
       </table>
     </section>
+
     <section class="category-section" id="practice">
       <table>
         <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
