@@ -4,90 +4,52 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>시우린의 노래책 🎵</title>
-  <link href="https://fonts.googleapis.com/css2?family=Jua&family=Poiret+One&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Jua&family=Poiret+One&display=swap" rel="stylesheet"/>
   <style>
     :root {
       --main-pink: #ff99cc;
+      --light-pink: #fff0f6;
       --neon-pink: #ff7fe0;
+      --cloud-white: #fffdfd;
+      --text-soft: #a06d3b;
       --lemon: #fff7b3;
-      --soft-orange: #a06d3b;
-      --dark-purple: #6b3f7d;
-      --pastel-yellow: #fffde8;
+      --soft-yellow: #ffe9b3;
+      --siwoolin: #d32aa6;
+      --book-pink: #ffcce5;
+      --deep-purple: #774c82;
     }
 
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
     body {
       margin: 0;
       font-family: 'Jua', sans-serif;
-      background: url("images/bgmain.png") no-repeat center center fixed;
+      background: url('images/bgmain.png') no-repeat center center fixed;
       background-size: cover;
+      color: var(--text-soft);
       overflow-x: hidden;
     }
 
-    h1 {
-      font-family: 'Poiret One', cursive;
-      font-size: 3.2em;
-      color: magenta;
+    header {
       text-align: center;
-      margin-top: 1em;
-      margin-bottom: 0.3em;
+      padding: 2em 1em 0;
+      position: relative;
+    }
+
+    h1 {
+      font-family: 'Poiret One', sans-serif;
+      font-size: 3.5em;
       cursor: pointer;
     }
 
-    .character {
-      position: fixed;
-      top: 40px;
-      width: 120px;
-      z-index: 20;
-      animation: float 6s ease-in-out infinite;
+    h1 span.siwoolin {
+      color: var(--siwoolin);
     }
 
-    #fan {
-      left: 5vw;
-    }
-
-    #siwoolin {
-      right: 5vw;
-    }
-
-    .headset {
-      position: fixed;
-      top: 30%;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 80vw;
-      z-index: 5;
-      animation: float 8s ease-in-out infinite;
-    }
-
-    .floating {
-      position: absolute;
-      animation: float 10s ease-in-out infinite alternate;
-      z-index: 3;
-    }
-
-    .cloud {
-      width: 150px;
-    }
-
-    .balloon {
-      width: 80px;
-    }
-
-    .shooting-star {
-      position: fixed;
-      width: 100px;
-      top: -100px;
-      animation: shooting 5s linear infinite;
-      z-index: 4;
-    }
-
-    .star {
-      position: absolute;
-      width: 20px;
-      animation: twinkle 3s infinite alternate;
-      z-index: 2;
+    h1 span.book {
+      color: var(--book-pink);
     }
 
     .search-wrapper {
@@ -97,30 +59,33 @@
     }
 
     .search-wrapper input {
-      width: 80%;
+      width: 90%;
       max-width: 400px;
       padding: 0.7em 1.2em;
       border: 2px solid var(--main-pink);
       border-radius: 999px;
       font-size: 1em;
-      color: var(--soft-orange);
+      color: var(--text-soft);
+      text-align: center;
     }
 
     .search-wrapper input::placeholder {
-      color: #cfaac6;
+      color: #c4a3b1;
     }
 
     .category-nav {
       display: flex;
       justify-content: center;
-      flex-wrap: wrap;
       gap: 0.5em;
-      margin: 1em auto;
+      flex-wrap: wrap;
+      margin: 1em;
+      font-weight: bold;
     }
 
     .category-btn {
-      background-color: var(--pastel-yellow);
+      background-color: var(--light-pink);
       border: none;
+      color: var(--main-pink);
       padding: 0.5em 1em;
       border-radius: 20px;
       cursor: pointer;
@@ -128,7 +93,7 @@
     }
 
     .category-btn:hover {
-      background-color: #ffe4f0;
+      background-color: #ffddee;
     }
 
     .category-btn.active {
@@ -137,35 +102,46 @@
     }
 
     .sort-btn {
-      background-color: var(--lemon);
-      color: var(--soft-orange);
-      font-size: 0.85em;
+      font-size: 0.9em;
+      background-color: var(--soft-yellow);
+      color: var(--text-soft);
       padding: 0.4em 1em;
-      border-radius: 999px;
       border: none;
-      margin: 0 auto 1.5em;
+      border-radius: 999px;
+      cursor: pointer;
+      margin: 0 auto 2em;
       display: block;
+      font-weight: bold;
+    }
+
+    .category-section {
+      display: none;
+      padding: 0 1em;
+      animation: fadeIn 0.3s ease;
     }
 
     table {
-      width: 90%;
-      margin: auto;
-      background-color: rgba(255, 255, 255, 0.8);
-      border-radius: 15px;
+      width: 100%;
       border-collapse: collapse;
-      font-size: 1.4em;
-      z-index: 30;
-      position: relative;
+      background: rgba(255, 255, 255, 0.85);
+      border-radius: 12px;
+      overflow: hidden;
+      font-size: 1.2em;
+      margin-bottom: 4em;
     }
 
     th, td {
-      padding: 0.6em;
+      padding: 0.8em;
       text-align: center;
-      border-right: 1px solid #ffcde0;
     }
 
-    th:last-child, td:last-child {
-      border-right: none;
+    th {
+      border-bottom: 2px solid var(--main-pink);
+      font-weight: bold;
+    }
+
+    td:not(:last-child), th:not(:last-child) {
+      border-right: 1px solid #f4c5d6;
     }
 
     tr:nth-child(even) {
@@ -177,101 +153,179 @@
     }
 
     .notice {
-      width: 90%;
-      margin: 1em auto;
-      background: #fff0f6;
-      border-left: 6px solid var(--main-pink);
+      background-color: #fff0f6;
       padding: 1em;
-      border-radius: 10px;
-      font-size: 1.3em;
+      border-left: 5px solid var(--main-pink);
+      margin-bottom: 1em;
+      border-radius: 6px;
+      font-size: 1.1em;
     }
 
     .no-result {
       text-align: center;
-      font-size: 1.3em;
-      color: var(--dark-purple);
-      margin: 2em auto;
-      z-index: 20;
-      font-family: 'Jua', sans-serif;
+      font-size: 1.2em;
+      color: var(--deep-purple);
+      margin-top: 2em;
+      display: none;
+      font-weight: bold;
+      position: relative;
+      z-index: 1000;
     }
 
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* 캐릭터 위치 */
+    .character {
+      position: absolute;
+      top: 30px;
+      width: 120px;
+      z-index: 10;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .character.left {
+      left: 10px;
+    }
+
+    .character.right {
+      right: 10px;
+    }
+
+    /* 헤드셋 */
+    .headset {
+      position: fixed;
+      width: 80%;
+      bottom: 20%;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    /* 둥실 */
     @keyframes float {
-      0% { transform: translateY(0); }
+      0%, 100% { transform: translateY(0) translateX(-50%); }
+      50% { transform: translateY(-10px) translateX(-50%); }
+    }
+
+    /* 배경 요소 */
+    .bg-element {
+      position: absolute;
+      z-index: 0;
+    }
+
+    .shooting-star {
+      width: 100px;
+      animation: fall 8s linear infinite;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translate(100vw, -20vh) rotate(0deg);
+        opacity: 0.8;
+      }
+      100% {
+        transform: translate(-20vw, 100vh) rotate(180deg);
+        opacity: 0;
+      }
+    }
+
+    .cloud, .balloon, .star {
+      animation: floatItem 10s ease-in-out infinite;
+    }
+
+    @keyframes floatItem {
+      0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-15px); }
-      100% { transform: translateY(0); }
     }
 
-    @keyframes shooting {
-      0% { top: -100px; left: 100vw; opacity: 0; }
-      50% { opacity: 1; }
-      100% { top: 100vh; left: -100px; opacity: 0; }
-    }
-
-    @keyframes twinkle {
-      0% { opacity: 0.2; transform: scale(1); }
-      100% { opacity: 1; transform: scale(1.3); }
+    .float-follow {
+      position: absolute;
+      will-change: transform;
     }
   </style>
 </head>
 <body>
-  <h1 onclick="showCategory('kpop')">🎵 <span style="color: magenta;">시우린</span>의 노래책</h1>
-
   <!-- 캐릭터 -->
-  <img src="images/fan.png" class="character" id="fan" />
-  <img src="images/siwoolin.png" class="character" id="siwoolin" />
-  <img src="images/headset.png" class="headset" />
+  <img src="images/fan.png" class="character left" alt="팬캐릭터">
+  <img src="images/siwoolin.png" class="character right" alt="시우린">
 
-  <!-- 떠다니는 요소들 (예: 랜덤 배치) -->
-  <img src="images/cloudblue.png" class="floating cloud" style="top:10%; left:10%;">
-  <img src="images/cloudpink.png" class="floating cloud" style="top:40%; left:70%;">
-  <img src="images/balloonheart.png" class="floating balloon" style="top:50%; left:20%;">
-  <img src="images/balloonholo.png" class="floating balloon" style="top:20%; left:80%;">
-  <img src="images/balloonpink.png" class="floating balloon" style="top:60%; left:50%;">
+  <!-- 헤드셋 -->
+  <img src="images/headset.png" class="headset" alt="헤드셋">
 
-  <!-- 유성우 -->
-  <img src="images/shootingstar.png" class="shooting-star" style="animation-delay: 1s;">
-  <img src="images/shootingstar.png" class="shooting-star" style="animation-delay: 4s;">
-  <img src="images/shootingstar.png" class="shooting-star" style="animation-delay: 7s;">
+  <!-- 별, 구름, 풍선, 유성우 -->
+  <img src="images/star.png" class="bg-element star float-follow" style="top: 10%; left: 15%; width: 40px;">
+  <img src="images/cloudpink.png" class="bg-element cloud float-follow" style="top: 25%; left: 10%; width: 120px;">
+  <img src="images/cloudblue.png" class="bg-element cloud float-follow" style="top: 60%; left: 30%; width: 150px;">
+  <img src="images/balloonpink.png" class="bg-element balloon float-follow" style="top: 40%; left: 70%; width: 100px;">
+  <img src="images/balloonheart.png" class="bg-element balloon float-follow" style="top: 55%; left: 50%; width: 90px;">
+  <img src="images/balloonholo.png" class="bg-element balloon float-follow" style="top: 20%; left: 80%; width: 110px;">
+  <img src="images/shootingstar.png" class="bg-element shooting-star" style="top: 0; left: 80%;">
 
-  <!-- 별 -->
-  <img src="images/star.png" class="star" style="top: 10%; left: 30%;">
-  <img src="images/star.png" class="star" style="top: 25%; left: 70%;">
-  <img src="images/star.png" class="star" style="top: 60%; left: 50%;">
+  <!-- 헤더 -->
+  <header>
+    <h1 onclick="showCategory('kpop')"><span class="siwoolin">시우린</span><span class="book">의 노래책</span></h1>
+    <div class="search-wrapper">
+      <input type="text" id="searchInput" placeholder="노래 제목 또는 가수 검색... 🔍">
+    </div>
+    <nav class="category-nav">
+      <button class="category-btn active" data-category="kpop">K-pop</button>
+      <button class="category-btn" data-category="jpop">J-pop</button>
+      <button class="category-btn" data-category="pop">Pop</button>
+      <button class="category-btn" data-category="cute">애교송</button>
+      <button class="category-btn" data-category="practice">연습곡</button>
+    </nav>
+    <button class="sort-btn" onclick="sortByLevel()">숙련도 높은 순 정렬</button>
+  </header>
 
-  <!-- 검색창 -->
-  <div class="search-wrapper">
-    <input type="text" id="searchInput" placeholder="노래 제목 또는 가수 검색... 🔍">
-  </div>
-
-  <!-- 카테고리 -->
-  <nav class="category-nav">
-    <button class="category-btn active" data-category="kpop">K-pop</button>
-    <button class="category-btn" data-category="jpop">J-pop</button>
-    <button class="category-btn" data-category="pop">Pop</button>
-    <button class="category-btn" data-category="cute">애교송</button>
-    <button class="category-btn" data-category="practice">연습곡</button>
-  </nav>
-
-  <button class="sort-btn" onclick="sortByLevel()">숙련도 높은 순 정렬</button>
-
-  <section id="kpop">
-    <div class="notice">🌧️ 필독 공지: 이 리스트는 연습용으로 제작되었습니다. 무단 배포를 금합니다!</div>
-    <table>
-      <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
-      <tr><td>Love Dive</td><td>IVE</td><td>★☆☆</td></tr>
-      <tr><td>Dynamite</td><td>BTS</td><td>★★★</td></tr>
-    </table>
-  </section>
-
-  <div class="no-result" id="noResult">검색 결과가 없어요 😢<br>없는 노래는 채팅으로 신청해주세요!</div>
+  <main>
+    <section class="category-section" id="kpop">
+      <div class="notice">🌧️ 필독 공지: 이 리스트는 연습용으로 제작되었습니다. 무단 배포를 금합니다!</div>
+      <table>
+        <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
+        <tr><td>Love Dive</td><td>IVE</td><td>★☆☆</td></tr>
+        <tr><td>Dynamite</td><td>BTS</td><td>★★★</td></tr>
+      </table>
+    </section>
+    <section class="category-section" id="jpop">
+      <table>
+        <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
+        <tr><td>Pretender</td><td>Official髭男dism</td><td>★★☆</td></tr>
+      </table>
+    </section>
+    <section class="category-section" id="pop">
+      <table>
+        <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
+        <tr><td>Shape of You</td><td>Ed Sheeran</td><td>★★★</td></tr>
+      </table>
+    </section>
+    <section class="category-section" id="cute">
+      <table>
+        <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
+        <tr><td>오또케송</td><td>아이유</td><td>★★☆</td></tr>
+      </table>
+    </section>
+    <section class="category-section" id="practice">
+      <table>
+        <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
+        <tr><td>기억을 걷는 시간</td><td>넬</td><td>★★★</td></tr>
+      </table>
+    </section>
+    <div class="no-result" id="noResult">검색 결과가 없어요 😢<br>없는 노래는 채팅으로 신청해주세요!</div>
+  </main>
 
   <script>
     const buttons = document.querySelectorAll('.category-btn');
+    const sections = document.querySelectorAll('.category-section');
     const noResult = document.getElementById('noResult');
-    const sections = [document.getElementById('kpop')];
 
     function showCategory(id) {
-      sections.forEach(sec => sec.style.display = sec.id === id ? 'block' : 'none');
+      sections.forEach(sec => {
+        sec.style.display = sec.id === id ? 'block' : 'none';
+      });
       buttons.forEach(btn => {
         btn.classList.toggle('active', btn.dataset.category === id);
       });
@@ -279,7 +333,9 @@
     }
 
     buttons.forEach(btn => {
-      btn.addEventListener('click', () => showCategory(btn.dataset.category));
+      btn.addEventListener('click', () => {
+        showCategory(btn.dataset.category);
+      });
     });
 
     showCategory('kpop');
@@ -287,11 +343,9 @@
     document.getElementById('searchInput').addEventListener('input', function () {
       const filter = this.value.toLowerCase();
       let totalMatch = 0;
-
       sections.forEach(section => {
         const rows = section.querySelectorAll("table tr");
         let hasMatch = false;
-
         rows.forEach((row, index) => {
           if (index === 0) return;
           const text = row.textContent.toLowerCase();
@@ -299,25 +353,23 @@
           row.style.display = match ? "" : "none";
           if (match) hasMatch = true, totalMatch++;
         });
-
         section.style.display = filter ? (hasMatch ? "block" : "none") : (section.id === "kpop" ? "block" : "none");
       });
-
       buttons.forEach(btn => {
         btn.classList.toggle("active", !filter && btn.dataset.category === "kpop");
       });
-
       noResult.style.display = (filter && totalMatch === 0) ? "block" : "none";
     });
 
     function sortByLevel() {
-      const section = document.getElementById('kpop');
-      const table = section.querySelector('table');
+      const activeSection = document.querySelector('.category-section[style*="block"]');
+      if (!activeSection) return;
+      const table = activeSection.querySelector('table');
       const rows = Array.from(table.rows).slice(1);
       rows.sort((a, b) => {
-        const aLevel = a.cells[2].textContent.split('★').length - 1;
-        const bLevel = b.cells[2].textContent.split('★').length - 1;
-        return bLevel - aLevel;
+        const aStars = a.cells[2].textContent.split('★').length - 1;
+        const bStars = b.cells[2].textContent.split('★').length - 1;
+        return bStars - aStars;
       });
       rows.forEach(row => table.appendChild(row));
     }
