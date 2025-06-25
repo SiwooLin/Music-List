@@ -4,15 +4,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>시우린의 노래책 🎵</title>
-  <!-- 구글폰트: 귀여운 + 기본 -->
-  <link href="https://fonts.googleapis.com/css2?family=Gamja+Flower&family=Pretendard:wght@400;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Dongle&family=Pretendard:wght@400;700&display=swap" rel="stylesheet"/>
   <style>
     :root {
       --main-pink: #ff7ea5;
       --light-pink: #fff1f7;
       --bg-color: #fffdfd;
       --shadow: 0 4px 10px rgba(0,0,0,0.05);
-      --lemon: #ffe066;
+      --lemon: #fff2b2;
+      --text-dark: #6b4e2d;
     }
 
     * { box-sizing: border-box; }
@@ -21,7 +21,7 @@
       margin: 0;
       background: var(--bg-color);
       font-family: 'Pretendard', sans-serif;
-      color: #333;
+      color: var(--text-dark);
     }
 
     header {
@@ -33,7 +33,7 @@
       color: var(--main-pink);
       font-size: 2.4em;
       margin-bottom: 0.6em;
-      font-family: 'Gamja Flower', cursive;
+      font-family: 'Dongle', cursive;
     }
 
     h1 a {
@@ -53,24 +53,24 @@
       margin-bottom: 1.5em;
     }
 
-    .search-wrapper::before {
-      content: '🔍';
-      position: absolute;
-      left: 8%;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 1.1em;
-      color: #aaa;
-    }
-
-    #searchInput {
+    .search-wrapper input {
       width: 90%;
       max-width: 400px;
-      padding: 0.7em 1em 0.7em 2.5em;
+      padding: 0.7em 2.5em 0.7em 1em;
       border: 2px solid var(--main-pink);
       border-radius: 999px;
       font-size: 1em;
       outline: none;
+    }
+
+    .search-icon {
+      position: absolute;
+      right: 7%;
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+      color: #aaa;
+      font-size: 1.1em;
     }
 
     .category-nav {
@@ -89,9 +89,9 @@
       border-radius: 20px;
       cursor: pointer;
       font-weight: 600;
-      transition: 0.2s;
       box-shadow: var(--shadow);
       font-family: 'Pretendard', sans-serif;
+      transition: 0.2s ease;
     }
 
     .category-btn.active {
@@ -99,11 +99,16 @@
       color: white;
     }
 
+    .category-btn:hover {
+      background-color: #ffd6e5;
+      transform: scale(1.05);
+    }
+
     .sort-btn {
       display: block;
       margin: 0 auto 2em auto;
       background-color: var(--lemon);
-      color: #444;
+      color: var(--text-dark);
       padding: 0.5em 1.2em;
       border: none;
       border-radius: 999px;
@@ -127,14 +132,14 @@
       border-radius: 12px;
       overflow: hidden;
       box-shadow: var(--shadow);
-      font-family: 'Gamja Flower', cursive;
+      font-family: 'Dongle', cursive;
     }
 
     th, td {
       padding: 1em;
       text-align: center;
-      font-family: 'Gamja Flower', cursive;
-      font-size: 1.1em;
+      font-family: 'Dongle', cursive;
+      font-size: 1.6em;
     }
 
     th {
@@ -161,17 +166,17 @@
       border-left: 5px solid var(--main-pink);
       margin-bottom: 1em;
       border-radius: 6px;
-      font-family: 'Gamja Flower', cursive;
-      font-size: 1.1em;
+      font-family: 'Dongle', cursive;
+      font-size: 1.5em;
     }
 
     .no-result {
       text-align: center;
-      font-size: 1em;
+      font-size: 1.3em;
       color: #999;
       margin-top: 2em;
       display: none;
-      font-family: 'Gamja Flower', cursive;
+      font-family: 'Dongle', cursive;
     }
 
     footer {
@@ -192,8 +197,8 @@
         align-items: center;
       }
 
-      .search-wrapper::before {
-        left: 12%;
+      .search-icon {
+        right: 10%;
       }
     }
   </style>
@@ -203,6 +208,7 @@
     <h1><a href="#" onclick="showCategory('kpop')">🎵 시우린의 노래책</a></h1>
     <div class="search-wrapper">
       <input type="text" id="searchInput" placeholder="노래 제목 또는 가수 검색...">
+      <span class="search-icon">🔍</span>
     </div>
     <nav class="category-nav">
       <button class="category-btn active" data-category="kpop">K-pop</button>
@@ -282,7 +288,7 @@
 
     showCategory('kpop');
 
-    // 검색 기능 (전체 카테고리 대상)
+    // 검색 기능
     const searchInput = document.getElementById('searchInput');
     searchInput.addEventListener('input', function () {
       const filter = this.value.toLowerCase();
@@ -322,14 +328,12 @@
       const activeSection = document.querySelector('.category-section[style*="block"]');
       if (!activeSection) return;
       const table = activeSection.querySelector('table');
-      const rows = Array.from(table.rows).slice(1); // 헤더 제외
-
+      const rows = Array.from(table.rows).slice(1);
       rows.sort((a, b) => {
         const aStars = a.cells[2].textContent.split('★').length - 1;
         const bStars = b.cells[2].textContent.split('★').length - 1;
         return bStars - aStars;
       });
-
       rows.forEach(row => table.appendChild(row));
     }
   </script>
