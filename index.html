@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>시우린의 노래책 🎵</title>
-  <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet"/>
   <style>
     :root {
       --main-pink: #ff99cc;
@@ -13,7 +13,8 @@
       --cloud-white: #fffdfd;
       --text-soft: #a06d3b;
       --lemon: #fff7b3;
-      --purple-dark: #693a75;
+      --pastel-purple: #f3e8ff;
+      --deep-purple: #704d9e;
     }
 
     * { box-sizing: border-box; }
@@ -21,56 +22,36 @@
     body {
       margin: 0;
       font-family: 'Jua', sans-serif;
-      background: linear-gradient(to bottom, #ffeef8, #e4d1ff);
-      color: var(--text-soft);
+      background: url('images/bgmain.png') no-repeat center center fixed;
+      background-size: cover;
       overflow-x: hidden;
     }
 
     header {
       text-align: center;
-      padding: 2em 1em 1em;
+      padding: 1em 1em 0;
       position: relative;
       z-index: 10;
     }
 
     h1 {
-      font-size: 3.2em;
+      font-size: 3.5em;
       color: var(--neon-pink);
+      margin-bottom: 0.3em;
       text-shadow: 0 0 5px #ffbde7;
       cursor: pointer;
-      margin: 0 1em;
-    }
-
-    .characters {
-      position: relative;
-      margin-bottom: -1em;
-    }
-
-    .characters img {
-      position: absolute;
-      width: 80px;
-      top: -30px;
-      animation: float 4s ease-in-out infinite;
-    }
-
-    .characters .fan {
-      left: 5%;
-    }
-
-    .characters .siwoolin {
-      right: 5%;
     }
 
     .search-wrapper {
       display: flex;
       justify-content: center;
-      margin: 1em auto;
+      margin: 0.5em auto 1.5em;
     }
 
     .search-wrapper input {
       width: 90%;
       max-width: 400px;
-      padding: 0.7em 1.2em;
+      padding: 0.6em 1em;
       border: 2px solid var(--main-pink);
       border-radius: 999px;
       font-size: 1em;
@@ -86,8 +67,7 @@
       justify-content: center;
       gap: 0.5em;
       flex-wrap: wrap;
-      margin: 1em;
-      z-index: 10;
+      margin-bottom: 1em;
     }
 
     .category-btn {
@@ -98,7 +78,6 @@
       border-radius: 20px;
       cursor: pointer;
       transition: 0.2s;
-      font-weight: bold;
     }
 
     .category-btn:hover {
@@ -126,37 +105,44 @@
       display: none;
       padding: 0 1em;
       animation: fadeIn 0.3s ease;
+      position: relative;
+      z-index: 10;
     }
 
     table {
       width: 100%;
-      border-collapse: collapse;
-      background: white;
-      border-radius: 12px;
-      overflow: hidden;
+      border-collapse: separate;
+      border-spacing: 0;
+      background: #fff;
+      border-radius: 16px;
       font-size: 1.6em;
-      z-index: 10;
-    }
-
-    th, td {
-      padding: 0.6em;
-      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
     }
 
     th {
-      border-bottom: 2px solid var(--main-pink);
+      background-color: #ffddee;
+      color: #d14b8f;
+      padding: 0.8em;
+      text-align: center;
+      font-weight: bold;
+      border-bottom: 2px solid #fbc9e3;
     }
 
-    td:not(:last-child) {
-      border-right: 1px solid #f4c5d6;
+    td {
+      background-color: #fffdfd;
+      padding: 0.8em;
+      text-align: center;
+      transition: background 0.3s ease, transform 0.2s ease;
+      border-bottom: 1px solid #f4e1ec;
     }
 
-    tr:nth-child(even) {
-      background-color: #fff5f9;
+    tr:nth-child(even) td {
+      background-color: #fff6fb;
     }
 
-    tr:hover {
-      background-color: #ffeaf0;
+    tr:hover td {
+      background-color: #ffe8f4;
+      transform: scale(1.01);
     }
 
     .notice {
@@ -165,33 +151,89 @@
       border-left: 5px solid var(--main-pink);
       margin-bottom: 1em;
       border-radius: 6px;
-      font-size: 1.5em;
+      font-size: 1.4em;
     }
 
     .no-result {
       text-align: center;
       font-size: 1.3em;
-      color: var(--purple-dark);
+      color: var(--deep-purple);
       margin-top: 2em;
       display: none;
+    }
+
+    .floating {
+      position: absolute;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-15px); }
+    }
+
+    .cloud, .balloon, .star, .shootingstar {
+      position: absolute;
+      z-index: 0;
+    }
+
+    .cloud { animation: float 8s ease-in-out infinite; }
+    .balloon { animation: float 7s ease-in-out infinite; }
+    .star { animation: float 6s ease-in-out infinite; }
+    .shootingstar {
+      animation: fall 5s linear infinite;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(-100px) translateX(0); opacity: 0; }
+      50% { opacity: 1; }
+      100% { transform: translateY(600px) translateX(100px); opacity: 0; }
+    }
+
+    .character {
+      position: absolute;
+      width: 200px;
+      z-index: 10;
+      animation: float 4s ease-in-out infinite;
+    }
+
+    .character.left {
+      left: 0;
+      top: 1em;
+    }
+
+    .character.right {
+      right: 0;
+      top: 1em;
+    }
+
+    .headset {
+      position: fixed;
+      bottom: 3%;
+      left: 10%;
+      width: 80%;
+      z-index: 2;
+      animation: float 5s ease-in-out infinite;
     }
 
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
     }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-15px); }
-    }
   </style>
 </head>
 <body>
-  <div class="characters">
-    <img src="images/fan.png" alt="팬캐릭터" class="fan">
-    <img src="images/siwoolin.png" alt="시우린" class="siwoolin">
-  </div>
+  <!-- 요소 이미지 -->
+  <img src="images/star.png" class="star" style="top:10%; left:50%; width: 20px;" />
+  <img src="images/shootingstar.png" class="shootingstar" style="top:0; left:30%; width: 80px;" />
+  <img src="images/cloudpink.png" class="cloud" style="top:15%; left:10%; width: 120px;" />
+  <img src="images/cloudblue.png" class="cloud" style="top:35%; right:5%; width: 140px;" />
+  <img src="images/balloonpink.png" class="balloon" style="top:50%; left:20%; width: 90px;" />
+  <img src="images/balloonheart.png" class="balloon" style="top:25%; right:20%; width: 100px;" />
+  <img src="images/balloonholo.png" class="balloon" style="top:60%; right:10%; width: 110px;" />
+  <img src="images/siwoolin.png" class="character right" />
+  <img src="images/fan.png" class="character left" />
+  <img src="images/headset.png" class="headset" />
 
   <header>
     <h1 onclick="showCategory('kpop')">🎵 시우린의 노래책</h1>
