@@ -7,9 +7,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Jua&family=Do+Hyeon&display=swap" rel="stylesheet"/>
 <style>
   :root {
-    --category-bg: #f47ea1; /* 부드러운 코랄핑크 */
-    --category-bg-hover: #f9a9c1; /* 연한 핑크 */
-    --category-text: #9b165d; /* 진한 핑크 */
+    --category-bg: #f47ea1;
+    --category-bg-hover: #f9a9c1;
+    --category-text: #9b165d;
     --text-soft: #a06d3b;
     --siwoolin: #d32aa6;
     --book-pink: #ffcce5;
@@ -25,7 +25,6 @@
     background-size: cover;
     color: var(--text-soft);
     overflow-x: hidden;
-    position: relative;
     min-height: 100vh;
   }
   h1 {
@@ -34,8 +33,6 @@
     text-align: center;
     margin: 0.5em 0 0.3em;
     cursor: pointer;
-    position: relative;
-    z-index: 15;
   }
   h1 .siwoolin { color: var(--siwoolin); }
   h1 .book { color: var(--book-pink); }
@@ -43,11 +40,10 @@
     display: flex;
     justify-content: center;
     margin-bottom: 1em;
-    position: relative;
-    z-index: 15;
     max-width: 400px;
     margin-left: auto;
     margin-right: auto;
+    position: relative;
   }
   .search-wrapper input {
     padding: 0.7em 2.5em 0.7em 1.2em;
@@ -57,8 +53,6 @@
     color: var(--text-soft);
     width: 100%;
     text-align: center;
-    position: relative;
-    z-index: 15;
   }
   .search-wrapper input::placeholder {
     color: #c4a3b1;
@@ -71,7 +65,6 @@
     font-size: 1.2em;
     color: #c4a3b1;
     pointer-events: none;
-    z-index: 16;
   }
   .category-nav {
     display: flex;
@@ -80,8 +73,6 @@
     gap: 0.5em;
     font-weight: bold;
     margin-bottom: 0.8em;
-    position: relative;
-    z-index: 15;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
       Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   }
@@ -94,14 +85,14 @@
     cursor: pointer;
     font-weight: bold;
     transition: background-color 0.3s, color 0.3s;
-    font-family: inherit;
   }
-  .category-btn:hover {
+  .category-btn:hover,
+  .category-btn.active:hover {
     background-color: var(--category-bg-hover);
     color: var(--category-text);
   }
   .category-btn.active {
-    background-color: var(--category-bg-hover);
+    background-color: var(--category-bg);
     color: var(--category-text);
     font-weight: bolder;
   }
@@ -118,8 +109,6 @@
     display: block;
     font-weight: bold;
     transition: background-color 0.3s;
-    position: relative;
-    z-index: 15;
     width: max-content;
   }
   .sort-btn:hover {
@@ -132,14 +121,13 @@
     margin: 1em;
     border-radius: 6px;
     font-size: 1.1em;
-    position: relative;
-    z-index: 15;
   }
   .category-section {
     padding: 0 1em;
     display: none;
-    position: relative;
-    z-index: 15;
+  }
+  .category-section.active {
+    display: block;
   }
   table {
     width: 100%;
@@ -185,8 +173,6 @@
     font-weight: bold;
     margin-top: 2em;
     display: none;
-    position: relative;
-    z-index: 15;
   }
   .character {
     animation: float 4s ease-in-out infinite;
@@ -197,21 +183,12 @@
   .character.left {
     top: 50px;
     left: 10px;
+    position: absolute;
   }
   .character.right {
     top: 50px;
     right: 10px;
-  }
-  @media (min-width: 768px) {
-    .character {
-      position: absolute;
-    }
-    .character.left {
-      left: 30px;
-    }
-    .character.right {
-      right: 30px;
-    }
+    position: absolute;
   }
   @media (max-width: 767px) {
     .character {
@@ -223,71 +200,11 @@
       top: 90px;
     }
   }
-  .bg-element.cloud,
-  .bg-element.balloon {
-    position: fixed;
-    animation: float 4s ease-in-out infinite;
-    z-index: 3;
-    width: 80px;
-  }
-  @media (min-width: 768px) {
-    .bg-element.cloud,
-    .bg-element.balloon {
-      width: 130px;
-    }
-  }
-  .headset {
-    position: fixed;
-    bottom: 10%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80%;
-    z-index: 10;
-    animation: float 6s ease-in-out infinite;
-  }
-  .bg-element.shooting {
-    position: fixed;
-    top: -10vh;
-    width: 50px;
-    opacity: 0.8;
-    z-index: 8;
-    transform-origin: center center;
-    animation-timing-function: linear;
-  }
-  @keyframes diagonal-fall {
-    0% {
-      transform: translateX(0) translateY(0) rotate(0deg);
-      opacity: 0.8;
-    }
-    100% {
-      transform: translateX(-100vw) translateY(110vh) rotate(0deg);
-      opacity: 0;
-    }
-  }
-  @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-15px); }
-  }
 </style>
 </head>
 <body>
   <img src="images/fan.png" class="character left" alt="팬캐릭터" />
   <img src="images/siwoolin.png" class="character right" alt="시우린" />
-  <img src="images/headset.png" class="headset" alt="헤드셋" />
-  
-  <!-- 유성우 여러 개 -->
-  <img src="images/shootingstar.png" class="bg-element shooting" alt="유성우" />
-  <img src="images/shootingstar.png" class="bg-element shooting" alt="유성우" />
-  <img src="images/shootingstar.png" class="bg-element shooting" alt="유성우" />
-  <img src="images/shootingstar.png" class="bg-element shooting" alt="유성우" />
-  <img src="images/shootingstar.png" class="bg-element shooting" alt="유성우" />
-  <img src="images/shootingstar.png" class="bg-element shooting" alt="유성우" />
-
-  <!-- 구름과 풍선 -->
-  <img src="images/cloudpink.png" class="bg-element cloud" style="top: 20%; left: 20%;" alt="분홍 구름" />
-  <img src="images/cloudblue.png" class="bg-element cloud" style="top: 50%; left: 60%;" alt="파란 구름" />
-  <img src="images/balloonholo.png" class="bg-element balloon" style="top: 60%; left: 30%;" alt="홀로그램 풍선" />
-  <img src="images/balloonpink.png" class="bg-element balloon" style="top: 40%; left: 80%;" alt="핑크 풍선" />
 
   <h1><span class="siwoolin">시우린</span><span class="book">의 노래책</span></h1>
 
@@ -309,7 +226,7 @@
   <main>
     <div class="notice">🌧️ 필독 공지: 이 리스트는 연습용으로 제작되었습니다. 무단 배포를 금합니다!</div>
 
-    <section class="category-section" id="kpop">
+    <section class="category-section active" id="kpop">
       <table>
         <thead><tr><th>제목</th><th>가수</th><th>숙련도</th></tr></thead>
         <tbody>
@@ -380,11 +297,14 @@
   const sections = document.querySelectorAll('.category-section');
   const noResult = document.getElementById('noResult');
   const sortBtn = document.getElementById('sortBtn');
-  const shootingStars = document.querySelectorAll('.bg-element.shooting');
 
   function showCategory(id) {
     sections.forEach(sec => {
-      sec.style.display = sec.id === id ? 'block' : 'none';
+      if (sec.id === id) {
+        sec.classList.add('active');
+      } else {
+        sec.classList.remove('active');
+      }
     });
     buttons.forEach(btn => {
       btn.classList.toggle('active', btn.dataset.category === id);
@@ -412,7 +332,19 @@
         row.style.display = match ? "" : "none";
         if (match) hasMatch = true, totalMatch++;
       });
-      section.style.display = filter ? (hasMatch ? "block" : "none") : (section.id === "kpop" ? "block" : "none");
+      if(filter) {
+        if(hasMatch) {
+          section.classList.add('active');
+        } else {
+          section.classList.remove('active');
+        }
+      } else {
+        if(section.id === 'kpop') {
+          section.classList.add('active');
+        } else {
+          section.classList.remove('active');
+        }
+      }
     });
     buttons.forEach(btn => {
       btn.classList.toggle("active", !filter && btn.dataset.category === "kpop");
@@ -420,8 +352,25 @@
     noResult.style.display = (filter.length > 0 && totalMatch === 0) ? "block" : "none";
   });
 
+  function countStars(starStr) {
+    return (starStr.match(/★/g) || []).length;
+  }
+
   function sortByLevel() {
-    const activeSection = document.querySelector('.category-section[style*="block"]');
+    const activeSection = document.querySelector('.category-section.active');
     if (!activeSection) return;
 
-    const table = activeSection.querySelector('table
+    const table = activeSection.querySelector('table');
+    const rows = Array.from(table.rows).slice(1);
+
+    rows.sort((a, b) => {
+      return countStars(b.cells[2].textContent) - countStars(a.cells[2].textContent);
+    });
+
+    rows.forEach(row => table.appendChild(row));
+  }
+
+  sortBtn.addEventListener('click', sortByLevel);
+</script>
+</body>
+</html>
