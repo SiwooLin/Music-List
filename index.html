@@ -7,17 +7,17 @@
 <link href="https://fonts.googleapis.com/css2?family=Jua&family=Do+Hyeon&display=swap" rel="stylesheet"/>
 <style>
   :root {
-    --category-bg-default: #c8759e;
-    --category-text-default: #7a3d5b;
-    --category-bg-hover: #f9d6e0;
-    --category-text-hover: #a43d6b;
+    --category-bg-default: #ffd9e8;    /* 벚꽃 화사한 핑크 배경 */
+    --category-text-default: #b15a80;  /* 핑크 진한 톤 텍스트 */
+    --category-bg-hover: #ffe9f1;      /* 더 연한 핑크 (호버 배경) */
+    --category-text-hover: #e364a5;    /* 밝고 화사한 핑크 텍스트 */
 
-    --header-bg: #9b1f58; /* 좀 더 진한 핑크 */
-    --header-text: #fff;
-    --row-bg-even: #f8f1f4;
-    --row-text: #8a6f4d;
-    --hover-bg: #f7d1dd;
-    --border-pink: #f8aac4;
+    --header-bg: #c72e73;              /* 헤더 진한 핑크 */
+    --header-text: #fff;               /* 하얀 글씨 */
+    --row-bg-even: #fff2f6;            /* 표 홀수행 연핑크 */
+    --row-text: #9b5b7a;               /* 표 글씨 진핑크 */
+    --hover-bg: #ffd5e2;               /* 표 호버시 연핑크 */
+    --border-pink: #f9aaca;            /* 점선 구분선 연핑크 */
   }
   body {
     margin: 0;
@@ -27,6 +27,7 @@
     color: var(--row-text);
     overflow-x: hidden;
     min-height: 100vh;
+    position: relative;
   }
   h1 {
     font-family: 'Do Hyeon', sans-serif;
@@ -34,6 +35,8 @@
     text-align: center;
     margin: 0.5em 0 0.3em;
     cursor: pointer;
+    z-index: 100;
+    position: relative;
   }
   h1 .siwoolin {
     color: #d5008f; /* 밝은 마젠타 */
@@ -49,6 +52,7 @@
     margin-left: auto;
     margin-right: auto;
     position: relative;
+    z-index: 100;
   }
   .search-wrapper input {
     padding: 0.7em 2.5em 0.7em 1.2em;
@@ -80,6 +84,8 @@
     margin-bottom: 0.8em;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
       Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    z-index: 100;
+    position: relative;
   }
   .category-btn {
     background-color: var(--category-bg-default);
@@ -99,7 +105,7 @@
   .sort-btn {
     font-family: 'Jua', sans-serif;
     font-size: 0.9em;
-    background-color: #fff7b3; /* 연한 노랑 */
+    background-color: #fff7b3;
     color: var(--category-text-default);
     padding: 0.4em 1em;
     border: none;
@@ -110,23 +116,29 @@
     font-weight: bold;
     transition: background-color 0.3s, color 0.3s;
     width: max-content;
+    z-index: 100;
+    position: relative;
   }
   .sort-btn:hover {
-    background-color: #fffacc; /* 레몬색 */
-    color: var(--category-text-default);
+    background-color: #fffacc;
+    color: var(--category-text-hover);
   }
   .notice {
-    background-color: #fff0f6;
+    background-color: #ffe6f0;
     padding: 1em;
     border-left: 5px solid var(--category-text-hover);
     margin: 1em;
     border-radius: 6px;
     font-size: 1.1em;
     color: var(--category-text-hover);
+    z-index: 100;
+    position: relative;
   }
   .category-section {
     padding: 0 1em;
     display: none;
+    position: relative;
+    z-index: 100;
   }
   .category-section.active {
     display: block;
@@ -137,8 +149,8 @@
     background: white;
     font-size: 1.1em;
     font-family: 'Jua', sans-serif;
-    border: 2px dotted var(--category-bg-hover);
-    box-shadow: 4px 4px 0px #ccc;
+    border: 2px dotted var(--border-pink);
+    box-shadow: 4px 4px 0px #ffb9d7;
     margin-bottom: 4em;
     border-radius: 12px;
     overflow: hidden;
@@ -163,7 +175,7 @@
     border-right: none;
   }
   tr:nth-child(odd) td {
-    background-color: white;
+    background-color: #fff4fa;
   }
   tr:not(:first-child):hover td {
     background-color: var(--hover-bg);
@@ -174,46 +186,108 @@
     font-weight: bold;
     margin-top: 2em;
     display: none;
+    position: relative;
+    z-index: 100;
   }
+  /* 캐릭터 */
   .character {
     animation: float 4s ease-in-out infinite;
-    z-index: 12;
+    z-index: 10;
     width: 140px;
     transition: all 0.3s ease;
+    position: absolute;
+    top: 50px;
   }
   .character.left {
-    top: 50px;
     left: 10px;
-    position: absolute;
   }
   .character.right {
-    top: 50px;
     right: 10px;
-    position: absolute;
   }
   @media (max-width: 767px) {
     .character {
       position: fixed;
       width: 120px;
+      top: 90px !important;
     }
-    .character.left,
+    .character.left {
+      left: 10px;
+    }
     .character.right {
-      top: 90px;
+      right: 10px;
     }
+  }
+  /* 둥실 애니메이션 */
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  /* 헤드셋 */
+  .headset {
+    position: fixed;
+    width: 80%;
+    bottom: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 5;
+    animation: float 6s ease-in-out infinite;
+  }
+
+  /* 배경 요소 */
+  .bg-element {
+    position: fixed;
+    z-index: 1;
+  }
+  .star {
+    width: 40px;
+    animation: twinkle 3s infinite ease-in-out alternate;
+  }
+  .cloud, .balloon {
+    animation: floatItem 10s ease-in-out infinite;
+  }
+  .cloud {
+    width: 150px;
+  }
+  .balloon {
+    width: 100px;
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+  }
+  @keyframes floatItem {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
   }
 </style>
 </head>
 <body>
+  <!-- 배경 요소 -->
+  <img src="images/star.png" class="bg-element star" style="top:10%; left:15%;">
+  <img src="images/cloudpink.png" class="bg-element cloud" style="top:25%; left:10%;">
+  <img src="images/cloudblue.png" class="bg-element cloud" style="top:60%; left:30%;">
+  <img src="images/balloonpink.png" class="bg-element balloon" style="top:40%; left:70%;">
+  <img src="images/balloonheart.png" class="bg-element balloon" style="top:55%; left:50%;">
+  <img src="images/balloonholo.png" class="bg-element balloon" style="top:20%; left:80%;">
+
+  <!-- 캐릭터 -->
   <img src="images/fan.png" class="character left" alt="팬캐릭터" />
   <img src="images/siwoolin.png" class="character right" alt="시우린" />
 
+  <!-- 헤드셋 -->
+  <img src="images/headset.png" class="headset" alt="헤드셋" />
+
+  <!-- 페이지 타이틀 -->
   <h1><span class="siwoolin">시우린</span><span class="book">의 노래책</span></h1>
 
+  <!-- 검색창 -->
   <div class="search-wrapper">
     <input type="text" id="searchInput" placeholder="노래 제목 또는 가수 검색... 🔍" />
     <span class="search-icon">🔍</span>
   </div>
 
+  <!-- 카테고리 -->
   <nav class="category-nav">
     <button class="category-btn active" data-category="kpop">K-pop</button>
     <button class="category-btn" data-category="jpop">J-pop</button>
@@ -222,6 +296,7 @@
     <button class="category-btn" data-category="practice">연습곡</button>
   </nav>
 
+  <!-- 정렬 버튼 -->
   <button class="sort-btn" id="sortBtn">숙련도 높은 순 정렬</button>
 
   <main>
@@ -365,13 +440,4 @@
     const rows = Array.from(table.rows).slice(1);
 
     rows.sort((a, b) => {
-      return countStars(b.cells[2].textContent) - countStars(a.cells[2].textContent);
-    });
-
-    rows.forEach(row => table.appendChild(row));
-  }
-
-  sortBtn.addEventListener('click', sortByLevel);
-</script>
-</body>
-</html>
+      return countStars(b.cells
