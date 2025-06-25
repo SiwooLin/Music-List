@@ -7,27 +7,23 @@
 <link href="https://fonts.googleapis.com/css2?family=Jua&family=Do+Hyeon&display=swap" rel="stylesheet"/>
 <style>
   :root {
-    --category-bg-default: #ffd9e8;    /* 벚꽃 화사한 핑크 배경 */
-    --category-text-default: #b15a80;  /* 핑크 진한 톤 텍스트 */
-    --category-bg-hover: #ffe9f1;      /* 더 연한 핑크 (호버 배경) */
-    --category-text-hover: #e364a5;    /* 밝고 화사한 핑크 텍스트 */
-
-    --header-bg: #c72e73;              /* 헤더 진한 핑크 */
-    --header-text: #fff;               /* 하얀 글씨 */
-    --row-bg-even: #fff2f6;            /* 표 홀수행 연핑크 */
-    --row-text: #9b5b7a;               /* 표 글씨 진핑크 */
-    --hover-bg: #ffd5e2;               /* 표 호버시 연핑크 */
-    --border-pink: #f9aaca;            /* 점선 구분선 연핑크 */
+    --main-pink: #d32aa6; /* 진한 핑크 */
+    --light-pink: #fff0f6; /* 연한 핑크 */
+    --hover-bg-pink: #ffd6e8; /* 호버 연한 핑크 */
+    --hover-text-pink: #d32aa6; /* 호버 진한 핑크 */
+    --header-pink: #ff8db3; /* 헤더 밝은 핑크 */
+    --border-pink: #ffcce5;
+    --text-soft: #a06d3b;
   }
   body {
     margin: 0;
     font-family: 'Jua', sans-serif;
     background: url('images/bgmain.png') no-repeat center center fixed;
     background-size: cover;
-    color: var(--row-text);
+    color: var(--text-soft);
     overflow-x: hidden;
-    min-height: 100vh;
     position: relative;
+    min-height: 100vh;
   }
   h1 {
     font-family: 'Do Hyeon', sans-serif;
@@ -35,33 +31,31 @@
     text-align: center;
     margin: 0.5em 0 0.3em;
     cursor: pointer;
-    z-index: 100;
     position: relative;
+    z-index: 15;
   }
-  h1 .siwoolin {
-    color: #d5008f; /* 밝은 마젠타 */
-  }
-  h1 .book {
-    color: var(--category-bg-hover);
-  }
+  h1 .siwoolin { color: var(--main-pink); }
+  h1 .book { color: var(--light-pink); }
   .search-wrapper {
     display: flex;
     justify-content: center;
     margin-bottom: 1em;
+    position: relative;
+    z-index: 15;
     max-width: 400px;
     margin-left: auto;
     margin-right: auto;
-    position: relative;
-    z-index: 100;
   }
   .search-wrapper input {
     padding: 0.7em 2.5em 0.7em 1.2em;
-    border: 2px solid var(--category-text-hover);
+    border: 2px solid var(--main-pink);
     border-radius: 999px;
     font-size: 1em;
-    color: var(--row-text);
+    color: var(--text-soft);
     width: 100%;
     text-align: center;
+    position: relative;
+    z-index: 15;
   }
   .search-wrapper input::placeholder {
     color: #c4a3b1;
@@ -74,6 +68,7 @@
     font-size: 1.2em;
     color: #c4a3b1;
     pointer-events: none;
+    z-index: 16;
   }
   .category-nav {
     display: flex;
@@ -82,229 +77,241 @@
     gap: 0.5em;
     font-weight: bold;
     margin-bottom: 0.8em;
+    position: relative;
+    z-index: 15;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
       Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    z-index: 100;
-    position: relative;
   }
   .category-btn {
-    background-color: var(--category-bg-default);
-    color: var(--category-text-default);
+    background-color: var(--main-pink);
+    color: white;
     padding: 0.5em 1em;
     border-radius: 20px;
     border: none;
     cursor: pointer;
     font-weight: bold;
-    transition: background-color 0.3s, color 0.3s;
+    transition: background-color 0.2s, color 0.2s;
+    font-family: inherit;
   }
-  .category-btn:hover,
+  .category-btn:hover {
+    background-color: var(--hover-bg-pink);
+    color: var(--hover-text-pink);
+  }
   .category-btn.active {
-    background-color: var(--category-bg-hover);
-    color: var(--category-text-hover);
+    background-color: var(--main-pink);
+    color: white;
   }
   .sort-btn {
     font-family: 'Jua', sans-serif;
     font-size: 0.9em;
-    background-color: #fff7b3;
-    color: var(--category-text-default);
+    background-color: var(--light-pink);
+    color: var(--main-pink);
     padding: 0.4em 1em;
-    border: none;
+    border: 2px solid var(--main-pink);
     border-radius: 999px;
     cursor: pointer;
     margin: 0 auto 2em;
     display: block;
     font-weight: bold;
     transition: background-color 0.3s, color 0.3s;
-    width: max-content;
-    z-index: 100;
     position: relative;
+    z-index: 15;
+    width: max-content;
   }
   .sort-btn:hover {
-    background-color: #fffacc;
-    color: var(--category-text-hover);
+    background-color: var(--main-pink);
+    color: white;
   }
   .notice {
-    background-color: #ffe6f0;
+    background-color: var(--light-pink);
     padding: 1em;
-    border-left: 5px solid var(--category-text-hover);
+    border-left: 5px solid var(--main-pink);
     margin: 1em;
     border-radius: 6px;
     font-size: 1.1em;
-    color: var(--category-text-hover);
-    z-index: 100;
     position: relative;
+    z-index: 15;
   }
   .category-section {
     padding: 0 1em;
     display: none;
     position: relative;
-    z-index: 100;
-  }
-  .category-section.active {
-    display: block;
+    z-index: 15;
   }
   table {
     width: 100%;
     border-collapse: collapse;
-    background: white;
+    background: rgba(255, 255, 255, 0.95);
     font-size: 1.1em;
     font-family: 'Jua', sans-serif;
     border: 2px dotted var(--border-pink);
-    box-shadow: 4px 4px 0px #ffb9d7;
+    box-shadow: 4px 4px 0px #ccc;
     margin-bottom: 4em;
     border-radius: 12px;
     overflow: hidden;
   }
   th {
-    background-color: var(--header-bg);
-    color: var(--header-text);
+    background-color: var(--header-pink);
+    color: white;
     padding: 0.8em;
+    border: 2px solid white;
     user-select: none;
-    border-right: 2px dotted var(--border-pink);
+    border-right: 1px dotted var(--border-pink);
   }
   td {
     text-align: center;
     padding: 0.7em;
-    background-color: var(--row-bg-even);
+    background-color: white;
     user-select: text;
-    border-right: 2px dotted var(--border-pink);
-    color: var(--row-text);
-    transition: background-color 0.3s;
+    border-right: 1px dotted var(--border-pink);
   }
   th:last-child, td:last-child {
     border-right: none;
   }
-  tr:nth-child(odd) td {
-    background-color: #fff4fa;
+  tr:nth-child(even) td {
+    background-color: var(--light-pink);
   }
-  tr:not(:first-child):hover td {
-    background-color: var(--hover-bg);
+  tr:hover td {
+    background-color: var(--hover-bg-pink);
   }
   .no-result {
     text-align: center;
-    color: var(--category-text-hover);
+    color: var(--text-soft);
     font-weight: bold;
     margin-top: 2em;
     display: none;
     position: relative;
-    z-index: 100;
+    z-index: 15;
   }
-  /* 캐릭터 */
   .character {
     animation: float 4s ease-in-out infinite;
-    z-index: 10;
+    z-index: 12;
     width: 140px;
     transition: all 0.3s ease;
-    position: absolute;
-    top: 50px;
   }
   .character.left {
+    top: 50px;
     left: 10px;
   }
   .character.right {
+    top: 50px;
     right: 10px;
+  }
+  @media (min-width: 768px) {
+    .character {
+      position: absolute;
+    }
+    .character.left {
+      left: 30px;
+    }
+    .character.right {
+      right: 30px;
+    }
   }
   @media (max-width: 767px) {
     .character {
       position: fixed;
       width: 120px;
-      top: 90px !important;
     }
-    .character.left {
-      left: 10px;
-    }
+    .character.left,
     .character.right {
-      right: 10px;
+      top: 90px;
     }
   }
-  /* 둥실 애니메이션 */
-  @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
+  .bg-element.cloud,
+  .bg-element.balloon {
+    position: fixed;
+    animation: float 4s ease-in-out infinite;
+    z-index: 3;
+    width: 80px;
   }
-
-  /* 헤드셋 */
+  @media (min-width: 768px) {
+    .bg-element.cloud,
+    .bg-element.balloon {
+      width: 130px;
+    }
+  }
   .headset {
     position: fixed;
-    width: 80%;
-    bottom: 20%;
+    bottom: 10%;
     left: 50%;
     transform: translateX(-50%);
-    z-index: 5;
+    width: 80%;
+    max-width: 600px;
+    z-index: 10;
     animation: float 6s ease-in-out infinite;
   }
-
-  /* 배경 요소 */
-  .bg-element {
+  /* 유성우 대각선 낙하 애니메이션 */
+  @keyframes shootingFall {
+    0% {
+      transform: translate(0, 0);
+      opacity: 1;
+    }
+    100% {
+      transform: translate(-100px, 150vh);
+      opacity: 0;
+    }
+  }
+  .bg-element.shooting {
     position: fixed;
-    z-index: 1;
-  }
-  .star {
     width: 40px;
-    animation: twinkle 3s infinite ease-in-out alternate;
+    z-index: 8;
+    pointer-events: none;
+    animation-name: shootingFall;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
   }
-  .cloud, .balloon {
-    animation: floatItem 10s ease-in-out infinite;
-  }
-  .cloud {
-    width: 150px;
-  }
-  .balloon {
-    width: 100px;
-  }
-  @keyframes twinkle {
-    0%, 100% { opacity: 0.3; }
-    50% { opacity: 1; }
-  }
-  @keyframes floatItem {
+  @keyframes float {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-15px); }
   }
 </style>
 </head>
 <body>
-  <!-- 배경 요소 -->
-  <img src="images/star.png" class="bg-element star" style="top:10%; left:15%;">
-  <img src="images/cloudpink.png" class="bg-element cloud" style="top:25%; left:10%;">
-  <img src="images/cloudblue.png" class="bg-element cloud" style="top:60%; left:30%;">
-  <img src="images/balloonpink.png" class="bg-element balloon" style="top:40%; left:70%;">
-  <img src="images/balloonheart.png" class="bg-element balloon" style="top:55%; left:50%;">
-  <img src="images/balloonholo.png" class="bg-element balloon" style="top:20%; left:80%;">
-
   <!-- 캐릭터 -->
   <img src="images/fan.png" class="character left" alt="팬캐릭터" />
   <img src="images/siwoolin.png" class="character right" alt="시우린" />
-
-  <!-- 헤드셋 -->
   <img src="images/headset.png" class="headset" alt="헤드셋" />
 
-  <!-- 페이지 타이틀 -->
-  <h1><span class="siwoolin">시우린</span><span class="book">의 노래책</span></h1>
+  <!-- 유성우 여러 개 -->
+  <img src="images/shootingstar.png" class="bg-element shooting" alt="유성우" />
+  <img src="images/shootingstar.png" class="bg-element shooting" alt="유성우" />
+  <img src="images/shootingstar.png" class="bg-element shooting" alt="유성우" />
+  <img src="images/shootingstar.png" class="bg-element shooting" alt="유성우" />
+  <img src="images/shootingstar.png" class="bg-element shooting" alt="유성우" />
+  <img src="images/shootingstar.png" class="bg-element shooting" alt="유성우" />
 
-  <!-- 검색창 -->
+  <!-- 구름과 풍선 -->
+  <img src="images/cloudpink.png" class="bg-element cloud" style="top: 20%; left: 20%;" alt="분홍 구름" />
+  <img src="images/cloudblue.png" class="bg-element cloud" style="top: 50%; left: 60%;" alt="파란 구름" />
+  <img src="images/balloonholo.png" class="bg-element balloon" style="top: 60%; left: 30%;" alt="홀로그램 풍선" />
+  <img src="images/balloonpink.png" class="bg-element balloon" style="top: 40%; left: 80%;" alt="핑크 풍선" />
+
+  <h1 id="mainTitle"><span class="siwoolin">시우린</span><span class="book">의 노래책</span></h1>
+
   <div class="search-wrapper">
-    <input type="text" id="searchInput" placeholder="노래 제목 또는 가수 검색... 🔍" />
+    <input type="text" id="searchInput" placeholder="노래 제목 또는 가수 검색... 🔍" autocomplete="off" />
     <span class="search-icon">🔍</span>
   </div>
 
-  <!-- 카테고리 -->
-  <nav class="category-nav">
-    <button class="category-btn active" data-category="kpop">K-pop</button>
-    <button class="category-btn" data-category="jpop">J-pop</button>
-    <button class="category-btn" data-category="pop">Pop</button>
-    <button class="category-btn" data-category="cute">애교송</button>
-    <button class="category-btn" data-category="practice">연습곡</button>
+  <nav class="category-nav" role="navigation" aria-label="카테고리 선택">
+    <button class="category-btn active" data-category="kpop" type="button">K-pop</button>
+    <button class="category-btn" data-category="jpop" type="button">J-pop</button>
+    <button class="category-btn" data-category="pop" type="button">Pop</button>
+    <button class="category-btn" data-category="cute" type="button">애교송</button>
+    <button class="category-btn" data-category="practice" type="button">연습곡</button>
   </nav>
 
-  <!-- 정렬 버튼 -->
-  <button class="sort-btn" id="sortBtn">숙련도 높은 순 정렬</button>
+  <button class="sort-btn" id="sortBtn" type="button">숙련도 높은 순 정렬</button>
 
   <main>
-    <div class="notice">🌧️ 필독 공지: 이 리스트는 연습용으로 제작되었습니다. 무단 배포를 금합니다!</div>
+    <div class="notice" role="alert" aria-live="polite">🌧️ 필독 공지: 이 리스트는 연습용으로 제작되었습니다. 무단 배포를 금합니다!</div>
 
-    <section class="category-section active" id="kpop">
+    <section class="category-section" id="kpop" aria-label="K-pop 노래 리스트" style="display:block;">
       <table>
-        <thead><tr><th>제목</th><th>가수</th><th>숙련도</th></tr></thead>
+        <thead>
+          <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
+        </thead>
         <tbody>
           <tr><td>Love Dive</td><td>IVE</td><td>★☆☆</td></tr>
           <tr><td>Dynamite</td><td>BTS</td><td>★★★</td></tr>
@@ -312,132 +319,65 @@
           <tr><td>ELEVEN</td><td>IVE</td><td>★★☆</td></tr>
           <tr><td>Butter</td><td>BTS</td><td>★★★</td></tr>
           <tr><td>Antifragile</td><td>LE SSERAFIM</td><td>★★★</td></tr>
-          <tr><td>Next Level</td><td>AESPA</td><td>★★★</td></tr>
-          <tr><td>Feel My Rhythm</td><td>Red Velvet</td><td>★★☆</td></tr>
+          <tr><td>Butterfly</td><td>이달의 소녀</td><td>★★☆</td></tr>
+          <tr><td>Next Level</td><td>aespa</td><td>★★★</td></tr>
+          <tr><td>Feel Special</td><td>TWICE</td><td>★★☆</td></tr>
         </tbody>
       </table>
     </section>
 
-    <section class="category-section" id="jpop">
+    <section class="category-section" id="jpop" aria-label="J-pop 노래 리스트">
       <table>
-        <thead><tr><th>제목</th><th>가수</th><th>숙련도</th></tr></thead>
+        <thead>
+          <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
+        </thead>
         <tbody>
           <tr><td>Pretender</td><td>Official髭男dism</td><td>★★☆</td></tr>
           <tr><td>紅蓮華 (Gurenge)</td><td>LiSA</td><td>★★★</td></tr>
           <tr><td>乾杯</td><td>長渕剛 (Nagabuchi Tsuyoshi)</td><td>★★☆</td></tr>
-          <tr><td>Lemon</td><td>Kenshi Yonezu</td><td>★★★</td></tr>
+          <tr><td>Lemon</td><td>米津玄師</td><td>★★★</td></tr>
+          <tr><td>Blue Bird</td><td>嵐</td><td>★★☆</td></tr>
+          <tr><td>夜に駆ける</td><td>YOASOBI</td><td>★★★</td></tr>
         </tbody>
       </table>
     </section>
 
-    <section class="category-section" id="pop">
+    <section class="category-section" id="pop" aria-label="Pop 노래 리스트">
       <table>
-        <thead><tr><th>제목</th><th>가수</th><th>숙련도</th></tr></thead>
+        <thead>
+          <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
+        </thead>
         <tbody>
           <tr><td>Shape of You</td><td>Ed Sheeran</td><td>★★★</td></tr>
           <tr><td>Let It Go</td><td>Idina Menzel</td><td>★★☆</td></tr>
           <tr><td>Shallow</td><td>Lady Gaga & Bradley Cooper</td><td>★★☆</td></tr>
           <tr><td>Blinding Lights</td><td>The Weeknd</td><td>★★★</td></tr>
+          <tr><td>Happy</td><td>Pharrell Williams</td><td>★★☆</td></tr>
+          <tr><td>Someone Like You</td><td>Adele</td><td>★★★</td></tr>
         </tbody>
       </table>
     </section>
 
-    <section class="category-section" id="cute">
+    <section class="category-section" id="cute" aria-label="애교송 리스트">
       <table>
-        <thead><tr><th>제목</th><th>가수</th><th>숙련도</th></tr></thead>
+        <thead>
+          <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
+        </thead>
         <tbody>
           <tr><td>오또케송</td><td>아이유</td><td>★★☆</td></tr>
           <tr><td>하트하트송</td><td>트와이스</td><td>★☆☆</td></tr>
           <tr><td>사랑을 했다</td><td>아이콘</td><td>★☆☆</td></tr>
+          <tr><td>뽀짝뽀짝</td><td>아이린</td><td>★☆☆</td></tr>
+          <tr><td>귀염뽀짝</td><td>엘리스</td><td>★☆☆</td></tr>
+          <tr><td>심쿵해</td><td>볼빨간사춘기</td><td>★★☆</td></tr>
         </tbody>
       </table>
     </section>
 
-    <section class="category-section" id="practice">
+    <section class="category-section" id="practice" aria-label="연습곡 리스트">
       <table>
-        <thead><tr><th>제목</th><th>가수</th><th>숙련도</th></tr></thead>
+        <thead>
+          <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
+        </thead>
         <tbody>
-          <tr><td>기억을 걷는 시간</td><td>넬</td><td>★★★</td></tr>
-          <tr><td>야생화</td><td>박효신</td><td>★★★</td></tr>
-          <tr><td>눈의 꽃</td><td>박효신</td><td>★★☆</td></tr>
-          <tr><td>내 마음에 비친 내 모습</td><td>유재하</td><td>★★☆</td></tr>
-        </tbody>
-      </table>
-    </section>
-  </main>
-
-  <div class="no-result" id="noResult">검색 결과가 없어요 😢<br>없는 노래는 채팅으로 신청해주세요!</div>
-
-<script>
-  const buttons = document.querySelectorAll('.category-btn');
-  const sections = document.querySelectorAll('.category-section');
-  const noResult = document.getElementById('noResult');
-  const sortBtn = document.getElementById('sortBtn');
-
-  function showCategory(id) {
-    sections.forEach(sec => {
-      if (sec.id === id) {
-        sec.classList.add('active');
-      } else {
-        sec.classList.remove('active');
-      }
-    });
-    buttons.forEach(btn => {
-      btn.classList.toggle('active', btn.dataset.category === id);
-    });
-    noResult.style.display = 'none';
-  }
-
-  buttons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      showCategory(btn.dataset.category);
-    });
-  });
-
-  showCategory('kpop');
-
-  document.getElementById('searchInput').addEventListener('input', function () {
-    const filter = this.value.toLowerCase();
-    let totalMatch = 0;
-    sections.forEach(section => {
-      const rows = section.querySelectorAll("table tbody tr");
-      let hasMatch = false;
-      rows.forEach(row => {
-        const text = row.textContent.toLowerCase();
-        const match = text.includes(filter);
-        row.style.display = match ? "" : "none";
-        if (match) hasMatch = true, totalMatch++;
-      });
-      if(filter) {
-        if(hasMatch) {
-          section.classList.add('active');
-        } else {
-          section.classList.remove('active');
-        }
-      } else {
-        if(section.id === 'kpop') {
-          section.classList.add('active');
-        } else {
-          section.classList.remove('active');
-        }
-      }
-    });
-    buttons.forEach(btn => {
-      btn.classList.toggle("active", !filter && btn.dataset.category === "kpop");
-    });
-    noResult.style.display = (filter.length > 0 && totalMatch === 0) ? "block" : "none";
-  });
-
-  function countStars(starStr) {
-    return (starStr.match(/★/g) || []).length;
-  }
-
-  function sortByLevel() {
-    const activeSection = document.querySelector('.category-section.active');
-    if (!activeSection) return;
-
-    const table = activeSection.querySelector('table');
-    const rows = Array.from(table.rows).slice(1);
-
-    rows.sort((a, b) => {
-      return countStars(b.cells
+          <tr><td>기억을 걷는 시간</td><td>넬</td><td>★★★</td></
