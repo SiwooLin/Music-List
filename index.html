@@ -1,295 +1,115 @@
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>시우린의 노래책 🎵</title>
-  <link href="https://fonts.googleapis.com/css2?family=Jua&family=Do+Hyeon&family=Poiret+One&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Jua&family=Do+Hyeon&display=swap" rel="stylesheet"/>
   <style>
-    :root {
-      --main-pink: #ff99cc;
-      --light-pink: #fff0f6;
-      --neon-pink: #ff7fe0;
-      --cloud-white: #fffdfd;
-      --text-soft: #a06d3b;
-      --lemon: #fff7b3;
-      --soft-yellow: #ffe9b3;
-      --siwoolin: #d32aa6;
-      --book-pink: #ffcce5;
-      --deep-purple: #774c82;
-      --dot-border: #d9b0c0;
-      --dot-bg: #fff5f9;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
     body {
       margin: 0;
       font-family: 'Jua', sans-serif;
       background: url('images/bgmain.png') no-repeat center center fixed;
       background-size: cover;
-      color: var(--text-soft);
       overflow-x: hidden;
-    }
-
-    header {
-      text-align: center;
-      padding: 2em 1em 0;
-      position: relative;
-    }
-
-    h1 {
-      font-family: 'Do Hyeon', sans-serif;
-      font-size: 3.5em;
-      cursor: pointer;
-    }
-
-    h1 span.siwoolin {
-      color: var(--siwoolin);
-    }
-
-    h1 span.book {
-      color: var(--book-pink);
-    }
-
-    .search-wrapper {
-      display: flex;
-      justify-content: center;
-      margin: 1em auto;
-    }
-
-    .search-wrapper input {
-      width: 90%;
-      max-width: 400px;
-      padding: 0.7em 1.2em;
-      border: 2px solid var(--main-pink);
-      border-radius: 999px;
-      font-size: 1em;
-      color: var(--text-soft);
-      text-align: center;
-    }
-
-    .search-wrapper input::placeholder {
-      color: #c4a3b1;
-    }
-
-    .category-nav {
-      display: flex;
-      justify-content: center;
-      gap: 0.5em;
-      flex-wrap: wrap;
-      margin: 1em;
-      font-weight: bold;
-    }
-
-    .category-btn {
-      background-color: var(--light-pink);
-      border: none;
-      color: var(--main-pink);
-      padding: 0.5em 1em;
-      border-radius: 20px;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-
-    .category-btn:hover {
-      background-color: #ffddee;
-    }
-
-    .category-btn.active {
-      background-color: var(--main-pink);
-      color: white;
-    }
-
-    .sort-btn {
-      font-family: 'Jua', sans-serif;
-      font-size: 0.9em;
-      background-color: var(--soft-yellow);
-      color: var(--text-soft);
-      padding: 0.4em 1em;
-      border: none;
-      border-radius: 999px;
-      cursor: pointer;
-      margin: 0 auto 2em;
-      display: block;
-      font-weight: bold;
-    }
-
-    .category-section {
-      display: none;
-      padding: 0 1em;
-      animation: fadeIn 0.3s ease;
+      color: #a06d3b;
     }
 
     table {
       width: 100%;
-      border-collapse: collapse;
-      background: var(--dot-bg);
-      border: 3px dotted var(--dot-border);
-      border-radius: 12px;
-      overflow: hidden;
-      font-size: 1.2em;
-      margin-bottom: 4em;
+      border-collapse: separate;
+      border-spacing: 0;
+      border: 2px dotted #ccc;
+      background: #fff;
+      font-family: 'Jua', sans-serif;
+      font-size: 1.1em;
+      box-shadow: 2px 2px 4px rgba(0,0,0,0.1);
     }
 
-    th, td {
+    th {
+      background-color: #ffddee;
+      color: #444;
+      border-bottom: 2px solid #ff99cc;
+      padding: 0.8em;
+      font-weight: bold;
+    }
+
+    td {
+      border-top: 1px solid #eee;
       padding: 0.8em;
       text-align: center;
     }
 
-    th {
-      border-bottom: 2px dotted var(--dot-border);
-      font-weight: bold;
+    tr:nth-child(even) td {
+      background-color: #f9f9f9;
     }
 
-    td:not(:last-child), th:not(:last-child) {
-      border-right: 1px dotted var(--dot-border);
-    }
-
-    tr:nth-child(even) {
-      background-color: #fff0f7;
-    }
-
-    tr:hover {
-      background-color: #ffeaf0;
-    }
-
-    .notice {
+    tr:nth-child(odd) td {
       background-color: #fff0f6;
-      padding: 1em;
-      border-left: 5px solid var(--main-pink);
-      margin-bottom: 1em;
-      border-radius: 6px;
-      font-size: 1.1em;
     }
 
-    .no-result {
-      text-align: center;
-      font-size: 1.2em;
-      color: var(--deep-purple);
-      margin-top: 2em;
-      display: none;
-      font-weight: bold;
-      position: relative;
-      z-index: 1000;
+    tr:hover td {
+      background-color: #f9c9dd;
+      transition: background-color 0.3s;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
+    .character, .balloon, .cloud, .headset, .shooting-star, .star {
+      position: absolute;
+      animation: floatItem 6s ease-in-out infinite;
+    }
+
+    @keyframes floatItem {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .headset {
+      width: 80%;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 20%;
+      z-index: 1;
+    }
+
+    .character.left {
+      left: 10px;
+      top: 30px;
+      width: 120px;
+      z-index: 10;
+    }
+
+    .character.right {
+      right: 10px;
+      top: 30px;
+      width: 120px;
+      z-index: 10;
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1 onclick="showCategory('kpop')"><span class="siwoolin">시우린</span><span class="book">의 노래책</span></h1>
-    <div class="search-wrapper">
-      <input type="text" id="searchInput" placeholder="노래 제목 또는 가수 검색... 🔍">
-    </div>
-    <nav class="category-nav">
-      <button class="category-btn active" data-category="kpop">K-pop</button>
-      <button class="category-btn" data-category="jpop">J-pop</button>
-      <button class="category-btn" data-category="pop">Pop</button>
-      <button class="category-btn" data-category="cute">애교송</button>
-      <button class="category-btn" data-category="practice">연습곡</button>
-    </nav>
-    <button class="sort-btn" onclick="sortByLevel()">숙련도 높은 순 정렬</button>
-  </header>
+  <!-- 캐릭터 -->
+  <img src="images/fan.png" class="character left" />
+  <img src="images/siwoolin.png" class="character right" />
 
-  <main>
-    <section class="category-section" id="kpop">
-      <div class="notice">🌧️ 필독 공지: 이 리스트는 연습용으로 제작되었습니다. 무단 배포를 금합니다!</div>
-      <table>
-        <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
-        <tr><td>Love Dive</td><td>IVE</td><td>★☆☆</td></tr>
-        <tr><td>Dynamite</td><td>BTS</td><td>★★★</td></tr>
-      </table>
-    </section>
-    <section class="category-section" id="jpop">
-      <table>
-        <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
-        <tr><td>Pretender</td><td>Official髭男dism</td><td>★★☆</td></tr>
-      </table>
-    </section>
-    <section class="category-section" id="pop">
-      <table>
-        <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
-        <tr><td>Shape of You</td><td>Ed Sheeran</td><td>★★★</td></tr>
-      </table>
-    </section>
-    <section class="category-section" id="cute">
-      <table>
-        <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
-        <tr><td>오또케송</td><td>아이유</td><td>★★☆</td></tr>
-      </table>
-    </section>
-    <section class="category-section" id="practice">
-      <table>
-        <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
-        <tr><td>기억을 걷는 시간</td><td>넬</td><td>★★★</td></tr>
-      </table>
-    </section>
-    <div class="no-result" id="noResult">검색 결과가 없어요 😢<br>없는 노래는 채팅으로 신청해주세요!</div>
-  </main>
+  <!-- 헤드셋 -->
+  <img src="images/headset.png" class="headset" />
 
-  <script>
-    const buttons = document.querySelectorAll('.category-btn');
-    const sections = document.querySelectorAll('.category-section');
-    const noResult = document.getElementById('noResult');
+  <!-- 배경 요소 -->
+  <img src="images/star.png" class="star" style="top: 10%; left: 15%; width: 40px;">
+  <img src="images/cloudpink.png" class="cloud" style="top: 25%; left: 10%; width: 120px;">
+  <img src="images/cloudblue.png" class="cloud" style="top: 60%; left: 30%; width: 150px;">
+  <img src="images/balloonpink.png" class="balloon" style="top: 40%; left: 70%; width: 100px;">
+  <img src="images/balloonheart.png" class="balloon" style="top: 55%; left: 50%; width: 90px;">
+  <img src="images/balloonholo.png" class="balloon" style="top: 20%; left: 80%; width: 110px;">
+  <img src="images/shootingstar.png" class="shooting-star" style="top: 0; left: 80%;">
 
-    function showCategory(id) {
-      sections.forEach(sec => {
-        sec.style.display = sec.id === id ? 'block' : 'none';
-      });
-      buttons.forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.category === id);
-      });
-      noResult.style.display = 'none';
-    }
+  <h1><span style="color:#d32aa6">시우린</span><span style="color:#ffcce5">의 노래책</span></h1>
 
-    buttons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        showCategory(btn.dataset.category);
-      });
-    });
-
-    showCategory('kpop');
-
-    document.getElementById('searchInput').addEventListener('input', function () {
-      const filter = this.value.toLowerCase();
-      let totalMatch = 0;
-      sections.forEach(section => {
-        const rows = section.querySelectorAll("table tr");
-        let hasMatch = false;
-        rows.forEach((row, index) => {
-          if (index === 0) return;
-          const text = row.textContent.toLowerCase();
-          const match = text.includes(filter);
-          row.style.display = match ? "" : "none";
-          if (match) hasMatch = true, totalMatch++;
-        });
-        section.style.display = filter ? (hasMatch ? "block" : "none") : (section.id === "kpop" ? "block" : "none");
-      });
-      buttons.forEach(btn => {
-        btn.classList.toggle("active", !filter && btn.dataset.category === "kpop");
-      });
-      noResult.style.display = (filter && totalMatch === 0) ? "block" : "none";
-    });
-
-    function sortByLevel() {
-      const activeSection = document.querySelector('.category-section[style*="block"]');
-      if (!activeSection) return;
-      const table = activeSection.querySelector('table');
-      const rows = Array.from(table.rows).slice(1);
-      rows.sort((a, b) => {
-        const aStars = a.cells[2].textContent.split('★').length - 1;
-        const bStars = b.cells[2].textContent.split('★').length - 1;
-        return bStars - aStars;
-      });
-      rows.forEach(row => table.appendChild(row));
-    }
-  </script>
+  <table>
+    <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
+    <tr><td>Love Dive</td><td>IVE</td><td>★☆☆</td></tr>
+    <tr><td>Dynamite</td><td>BTS</td><td>★★★</td></tr>
+  </table>
 </body>
 </html>
