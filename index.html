@@ -14,8 +14,8 @@
     --book-pink: #ffcce5;
     --deep-purple: #774c82;
     --hover-pink: #ffd6e8;
-    --header-pink: #f474a0; /* 핑크+주황 섞은 코랄핑크 느낌 */
-    --header-pink-hover: #ff7ebf;
+    --category-pink: #f474a0; /* 코랄핑크 느낌 */
+    --category-pink-hover: #ff7ebf;
     --soft-yellow: #fff7b3;
     --border-pink: #ffcce5;
   }
@@ -87,7 +87,7 @@
       Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   }
   .category-btn {
-    background-color: var(--header-pink);
+    background-color: var(--category-pink);
     color: white;
     padding: 0.5em 1em;
     border-radius: 20px;
@@ -98,7 +98,7 @@
     font-family: inherit;
   }
   .category-btn:hover {
-    background-color: var(--header-pink-hover);
+    background-color: var(--category-pink-hover);
     color: white;
   }
   .category-btn.active {
@@ -154,7 +154,7 @@
     overflow: hidden;
   }
   th {
-    background-color: var(--header-pink);
+    background-color: var(--category-pink);
     color: white;
     padding: 0.8em;
     border: 2px solid white;
@@ -317,6 +317,8 @@
         <tr><td>ELEVEN</td><td>IVE</td><td>★★☆</td></tr>
         <tr><td>Butter</td><td>BTS</td><td>★★★</td></tr>
         <tr><td>Antifragile</td><td>LE SSERAFIM</td><td>★★★</td></tr>
+        <tr><td>Next Level</td><td>AESPA</td><td>★★★</td></tr>
+        <tr><td>Feel My Rhythm</td><td>Red Velvet</td><td>★★☆</td></tr>
       </table>
     </section>
 
@@ -326,6 +328,7 @@
         <tr><td>Pretender</td><td>Official髭男dism</td><td>★★☆</td></tr>
         <tr><td>紅蓮華 (Gurenge)</td><td>LiSA</td><td>★★★</td></tr>
         <tr><td>乾杯</td><td>長渕剛 (Nagabuchi Tsuyoshi)</td><td>★★☆</td></tr>
+        <tr><td>Lemon</td><td>Kenshi Yonezu</td><td>★★★</td></tr>
       </table>
     </section>
 
@@ -335,6 +338,7 @@
         <tr><td>Shape of You</td><td>Ed Sheeran</td><td>★★★</td></tr>
         <tr><td>Let It Go</td><td>Idina Menzel</td><td>★★☆</td></tr>
         <tr><td>Shallow</td><td>Lady Gaga & Bradley Cooper</td><td>★★☆</td></tr>
+        <tr><td>Blinding Lights</td><td>The Weeknd</td><td>★★★</td></tr>
       </table>
     </section>
 
@@ -419,16 +423,3 @@
 
     rows.sort((a, b) => {
       return countStars(b.cells[2].textContent) - countStars(a.cells[2].textContent);
-    });
-
-    rows.forEach(row => table.appendChild(row));
-  }
-
-  sortBtn.addEventListener('click', sortByLevel);
-
-  // 유성우 위치와 딜레이 랜덤화
-  function randomizeShootingStars() {
-    shootingStars.forEach((star, index) => {
-      const vw = window.innerWidth;
-      const vh = window.innerHeight;
-      const leftPos = Math.random() * 80 + 10; // 10vw~90vw
