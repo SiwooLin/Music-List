@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>시우린의 노래책</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&family=Jua&display=swap" rel="stylesheet">
+  <style>
+    /* 기본 설정 */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Noto Sans KR', sans-serif;
+      background: url('images/bgmain.png') no-repeat center center fixed;
+      background-size: cover;
+      overflow-x: hidden;
+    }
+
+    /* 별 반짝임 */
+    .star {
+      position: absolute;
+      width: 30px;
+      animation: twinkle 2s infinite alternate;
+    }
+    @keyframes twinkle {
+      0% { opacity: 0.3; transform: scale(1); }
+      100% { opacity: 1; transform: scale(1.2); }
+    }
+
+    /* 유성우 */
+    .shootingstar {
+      position: absolute;
+      width: 80px;
+      animation: shooting 6s linear infinite;
+    }
+    @keyframes shooting {
+      0% { top: -100px; left: 90%; opacity: 0; transform: rotate(45deg); }
+      30% { opacity: 1; }
+      100% { top: 100%; left: -10%; opacity: 0; }
+    }
+
+    /* 구름 & 풍선 공통 */
+    .floating {
+      position: absolute;
+      animation: float 6s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+
+    /* 헤드셋 애니메이션 */
+    .headset {
+      position: fixed;
+      bottom: 50px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 300px;
+      opacity: 0.8;
+      animation: float 5s ease-in-out infinite;
+      z-index: 2;
+    }
+
+    /* 제목 영역 */
+    header {
+      text-align: center;
+      font-family: 'Jua', sans-serif;
+      font-size: 2.5rem;
+      padding: 2rem 1rem 1rem;
+      color: #fcddec;
+      position: relative;
+      z-index: 3;
+    }
+
+    header img {
+      width: 80px;
+      vertical-align: middle;
+    }
+
+    header span {
+      cursor: pointer;
+    }
+
+    /* 검색창 */
+    .search-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 1rem;
+      gap: 10px;
+    }
+
+    .search-container input {
+      padding: 0.5rem 1rem;
+      width: 60%;
+      max-width: 400px;
+      border-radius: 20px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+      background-color: #fffafc;
+    }
+
+    .search-container input::placeholder {
+      color: #aaa;
+      font-size: 0.95rem;
+      background: url('data:image/svg+xml;utf8,<svg fill="%23aaa" height="18" viewBox="0 0 24 24" width="18" xmlns="http://www.w3.org/2000/svg"><path d="M15.5 14h-.79l-.28-.27a6.471 6.471 0 001.48-5.34C15.07 5.59 12.36 3 9 3S2.93 5.59 2.93 8.39c0 2.8 2.71 5.39 6.07 5.39a6.471 6.471 0 005.34-1.48l.27.28v.79l5 4.99L20.49 19l-4.99-5z"/></svg>') no-repeat right 10px center;
+      background-size: 18px 18px;
+    }
+
+    /* 필독공지 */
+    .notice {
+      text-align: center;
+      font-family: 'Jua', sans-serif;
+      color: #b56c87;
+      margin-bottom: 1rem;
+    }
+
+    /* 카테고리 */
+    .category-buttons {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 1rem;
+    }
+
+    .category-buttons button {
+      padding: 0.5rem 1.2rem;
+      border-radius: 20px;
+      border: none;
+      background: #ffbbdc;
+      color: #5c3b3b;
+      font-size: 1rem;
+      transition: transform 0.2s, background 0.3s;
+      cursor: pointer;
+    }
+
+    .category-buttons button:hover {
+      transform: scale(1.05);
+      background: #ffcce9;
+    }
+
+    .category-buttons .active {
+      background: #ffe0f4;
+      font-weight: bold;
+    }
+
+    .sort-button {
+      padding: 0.3rem 0.8rem;
+      font-size: 0.9rem;
+      border: none;
+      border-radius: 10px;
+      background-color: #fef3b0;
+      color: #a66e00;
+      cursor: pointer;
+    }
+
+    /* 표 스타일 */
+    .song-list {
+      width: 90%;
+      max-width: 600px;
+      margin: 0 auto 3rem;
+      border-spacing: 0;
+      font-size: 1.05rem;
+      z-index: 3;
+      position: relative;
+    }
+
+    .song-list th, .song-list td {
+      padding: 0.8rem;
+      text-align: center;
+      color: #442626;
+    }
+
+    .song-list th {
+      border-bottom: 2px solid #ccc;
+      font-family: 'Jua', sans-serif;
+      font-size: 1.2rem;
+    }
+
+    .song-list td {
+      border-right: 1px solid #f1c5d8;
+    }
+
+    .song-list td:last-child {
+      border-right: none;
+    }
+
+    .star-rating {
+      color: gold;
+      font-size: 1.2rem;
+    }
+
+    .no-result {
+      text-align: center;
+      margin-top: 1rem;
+      font-weight: bold;
+      color: #c06060;
+    }
+  </style>
+</head>
+<body>
+  <!-- 배경 요소 -->
+  <img class="headset" src="images/headset.png" alt="헤드셋">
+  <img class="star" src="images/star.png" style="top: 100px; left: 20%;" />
+  <img class="star" src="images/star.png" style="top: 200px; left: 60%;" />
+  <img class="shootingstar" src="images/shootingstar.png" />
+
+  <img class="floating" src="images/cloudpink.png" style="top: 30%; left: 10%;" />
+  <img class="floating" src="images/cloudblue.png" style="top: 50%; left: 70%;" />
+  <img class="floating" src="images/balloonpink.png" style="top: 60%; left: 20%;" />
+  <img class="floating" src="images/balloonholo.png" style="top: 20%; left: 80%;" />
+  <img class="floating" src="images/balloonheart.png" style="top: 40%; left: 40%;" />
+
+  <!-- 제목 -->
+  <header>
+    <img src="images/siwoolin.png" alt="시우린 캐릭터" />
+    <span onclick="location.reload()">시우린의 노래책 🎵🌂</span>
+    <img src="images/fan.png" alt="팬 캐릭터" />
+  </header>
+
+  <!-- 검색 -->
+  <div class="search-container">
+    <input type="text" id="searchInput" placeholder="노래 제목 또는 가수 검색..." oninput="filterSongs()" />
+    <button class="sort-button" onclick="sortByDifficulty()">⭐ 숙련도 높은 순</button>
+  </div>
+
+  <!-- 공지 -->
+  <div class="notice">📌 필독: 이 페이지는 연습용 곡 모음집입니다. 개인 참고용으로만 사용해 주세요!</div>
+
+  <!-- 카테고리 -->
+  <div class="category-buttons">
+    <button onclick="filterCategory('전체')" class="active">전체</button>
+    <button onclick="filterCategory('KPOP')">KPOP</button>
+    <button onclick="filterCategory('JPOP')">JPOP</button>
+    <button onclick="filterCategory('POP')">POP</button>
+    <button onclick="filterCategory('애교송')">애교송</button>
+    <button onclick="filterCategory('연습곡')">연습곡</button>
+  </div>
+
+  <!-- 노래 리스트 -->
+  <table class="song-list" id="songTable">
+    <thead>
+      <tr>
+        <th>제목</th>
+        <th>가수</th>
+        <th>숙련도</th>
+      </tr>
+    </thead>
+    <tbody id="songBody">
+      <!-- JavaScript로 삽입됨 -->
+    </tbody>
+  </table>
+
+  <div class="no-result" id="noResult" style="display: none;">❗ 없는 노래는 채팅으로 신청해 주세요!</div>
+
+  <script>
+    const songs = [
+      { title: "아이브 - LOVE DIVE", artist: "IVE", difficulty: 2, category: "KPOP" },
+      { title: "요네즈 켄시 - Lemon", artist: "Yonezu Kenshi", difficulty: 3, category: "JPOP" },
+      { title: "Taylor Swift - Lover", artist: "Taylor Swift", difficulty: 1, category: "POP" },
+      { title: "야미야미송", artist: "유튜브", difficulty: 2, category: "애교송" },
+      { title: "보컬연습1", artist: "연습곡", difficulty: 1, category: "연습곡" }
+    ];
+
+    let currentCategory = "전체";
+
+    function displaySongs(data) {
+      const tbody = document.getElementById("songBody");
+      const noResult = document.getElementById("noResult");
+      tbody.innerHTML = "";
+      if (data.length === 0) {
+        noResult.style.display = "block";
+      } else {
+        noResult.style.display = "none";
+        data.forEach(song => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td>${song.title}</td>
+            <td>${song.artist}</td>
+            <td class="star-rating">${'⭐'.repeat(song.difficulty)}</td>
+          `;
+          tbody.appendChild(tr);
+        });
+      }
+    }
+
+    function filterCategory(category) {
+      currentCategory = category;
+      document.querySelectorAll('.category-buttons button').forEach(btn => {
+        btn.classList.toggle('active', btn.textContent === category);
+      });
+      filterSongs();
+    }
+
+    function filterSongs() {
+      const keyword = document.getElementById("searchInput").value.toLowerCase();
+      const filtered = songs.filter(song => {
+        const matchesCategory = currentCategory === "전체" || song.category === currentCategory;
+        const matchesSearch = song.title.toLowerCase().includes(keyword) || song.artist.toLowerCase().includes(keyword);
+        return matchesCategory && matchesSearch;
+      });
+      displaySongs(filtered);
+    }
+
+    function sortByDifficulty() {
+      const keyword = document.getElementById("searchInput").value.toLowerCase();
+      const filtered = songs.filter(song => {
+        const matchesCategory = currentCategory === "전체" || song.category === currentCategory;
+        const matchesSearch = song.title.toLowerCase().includes(keyword) || song.artist.toLowerCase().includes(keyword);
+        return matchesCategory && matchesSearch;
+      });
+      const sorted = [...filtered].sort((a, b) => b.difficulty - a.difficulty);
+      displaySongs(sorted);
+    }
+
+    // 초기 표시
+    displaySongs(songs);
+  </script>
+</body>
+</html>
