@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>시우린의 노래책 🎵</title>
+  <link href="https://fonts.googleapis.com/css2?family=Jua&family=Do+Hyeon&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --siwoolin: #d32aa6;
+      --category-bg: #fbe1f2;
+      --category-hover-bg: #d32aa6;
+      --category-hover-text: white;
+    }
+    body {
+      margin: 0;
+      font-family: 'Jua', sans-serif;
+      background: url('images/bgmain.png') no-repeat center center fixed;
+      background-size: cover;
+      overflow-x: hidden;
+      color: #5a2a45;
+    }
+    h1 {
+      font-family: 'Do Hyeon', sans-serif;
+      font-size: 3.5em;
+      text-align: center;
+      margin: 1em 0 0.5em;
+    }
+    h1 span:first-child { color: var(--siwoolin); }
+    h1 span:last-child { color: pink; }
+
+    .search-wrapper {
+      text-align: center;
+      margin-bottom: 1em;
+    }
+    .search-wrapper input {
+      padding: 0.6em 1.2em;
+      border-radius: 999px;
+      border: 2px solid var(--siwoolin);
+      font-size: 1em;
+      text-align: center;
+    }
+
+    .category-nav {
+      text-align: center;
+      margin-bottom: 1em;
+    }
+    .category-btn {
+      background-color: var(--category-bg);
+      color: var(--siwoolin);
+      border: none;
+      padding: 0.5em 1.2em;
+      border-radius: 999px;
+      margin: 0.3em;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .category-btn:hover {
+      background-color: var(--category-hover-bg);
+      color: var(--category-hover-text);
+    }
+    .category-btn.active {
+      background-color: var(--siwoolin);
+      color: white;
+    }
+
+    .sort-btn {
+      display: block;
+      margin: 1em auto;
+      background: #fff7b3;
+      padding: 0.5em 1.5em;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    table {
+      width: 90%;
+      margin: 1em auto;
+      border-collapse: collapse;
+      background: white;
+      box-shadow: 4px 4px 12px rgba(0,0,0,0.1);
+      z-index: 30;
+      position: relative;
+    }
+    th, td {
+      padding: 0.8em;
+      text-align: center;
+      border-bottom: 1px solid #f0cadd;
+    }
+    th {
+      background-color: #ffcce5;
+      color: white;
+    }
+    tr:nth-child(even) td {
+      background-color: #fff0f6;
+    }
+
+    .character {
+      width: 120px;
+      position: absolute;
+      top: 60px;
+      z-index: 10;
+      animation: float 4s ease-in-out infinite;
+    }
+    .left { left: 10px; }
+    .right { right: 10px; }
+
+    .headset {
+      width: 80%;
+      position: fixed;
+      bottom: 10%;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 8;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .shooting {
+      position: fixed;
+      top: -10vh;
+      width: 50px;
+      animation: diagonal-fall 6s linear infinite;
+      opacity: 0.8;
+      z-index: 2;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+    @keyframes diagonal-fall {
+      0% { transform: translateX(0) translateY(0); opacity: 0.8; }
+      100% { transform: translateX(-100vw) translateY(100vh); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <img src="images/fan.png" class="character left" alt="팬캐릭터">
+  <img src="images/siwoolin.png" class="character right" alt="시우린">
+  <img src="images/headset.png" class="headset" alt="헤드셋">
+  <img src="images/shootingstar.png" class="shooting" style="left: 20vw;">
+  <img src="images/shootingstar.png" class="shooting" style="left: 50vw;">
+  <img src="images/shootingstar.png" class="shooting" style="left: 80vw;">
+
+  <h1><span>시우린</span><span>의 노래책</span></h1>
+
+  <div class="search-wrapper">
+    <input type="text" id="searchInput" placeholder="노래 제목 또는 가수 검색...">
+  </div>
+
+  <div class="category-nav">
+    <button class="category-btn active" data-category="kpop">K-pop</button>
+    <button class="category-btn" data-category="jpop">J-pop</button>
+    <button class="category-btn" data-category="pop">Pop</button>
+    <button class="category-btn" data-category="cute">애교송</button>
+    <button class="category-btn" data-category="practice">연습곡</button>
+  </div>
+
+  <button class="sort-btn" id="sortBtn">숙련도 높은 순 정렬</button>
+
+  <div class="category-section" id="kpop">
+    <table>
+      <thead><tr><th>제목</th><th>가수</th><th>숙련도</th></tr></thead>
+      <tbody>
+        <tr><td>Love Dive</td><td>IVE</td><td>★☆☆</td></tr>
+        <tr><td>Dynamite</td><td>BTS</td><td>★★★</td></tr>
+        <tr><td>Ditto</td><td>NewJeans</td><td>★★☆</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="category-section" id="jpop" style="display:none">
+    <table><thead><tr><th>제목</th><th>가수</th><th>숙련도</th></tr></thead>
+      <tbody><tr><td>Pretender</td><td>Official髭男dism</td><td>★★☆</td></tr></tbody>
+    </table>
+  </div>
+
+  <div class="category-section" id="pop" style="display:none">
+    <table><thead><tr><th>제목</th><th>가수</th><th>숙련도</th></tr></thead>
+      <tbody><tr><td>Shape of You</td><td>Ed Sheeran</td><td>★★★</td></tr></tbody>
+    </table>
+  </div>
+
+  <div class="category-section" id="cute" style="display:none">
+    <table><thead><tr><th>제목</th><th>가수</th><th>숙련도</th></tr></thead>
+      <tbody><tr><td>오또케송</td><td>아이유</td><td>★★☆</td></tr></tbody>
+    </table>
+  </div>
+
+  <div class="category-section" id="practice" style="display:none">
+    <table><thead><tr><th>제목</th><th>가수</th><th>숙련도</th></tr></thead>
+      <tbody><tr><td>야생화</td><td>박효신</td><td>★★★</td></tr></tbody>
+    </table>
+  </div>
+
+  <div id="noResult" style="text-align:center; display:none; margin:2em; font-weight:bold; color:#a06d3b;">
+    검색 결과가 없어요 😢<br>없는 노래는 채팅으로 신청해주세요!
+  </div>
+
+  <script>
+    const buttons = document.querySelectorAll('.category-btn');
+    const sections = document.querySelectorAll('.category-section');
+    const search = document.getElementById('searchInput');
+    const sortBtn = document.getElementById('sortBtn');
+    const noResult = document.getElementById('noResult');
+
+    function showCategory(id) {
+      sections.forEach(sec => {
+        sec.style.display = sec.id === id ? 'block' : 'none';
+      });
+      buttons.forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.category === id);
+      });
+      search.value = '';
+      noResult.style.display = 'none';
+    }
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => showCategory(btn.dataset.category));
+    });
+
+    search.addEventListener('input', function () {
+      const filter = this.value.toLowerCase();
+      let matchCount = 0;
+      sections.forEach(section => {
+        if (section.style.display === 'block') {
+          const rows = section.querySelectorAll("tbody tr");
+          rows.forEach(row => {
+            const text = row.textContent.toLowerCase();
+            const matched = text.includes(filter);
+            row.style.display = matched ? "" : "none";
+            if (matched) matchCount++;
+          });
+        }
+      });
+      noResult.style.display = filter && matchCount === 0 ? 'block' : 'none';
+    });
+
+    sortBtn.addEventListener('click', () => {
+      sections.forEach(section => {
+        if (section.style.display === 'block') {
+          const tbody = section.querySelector('tbody');
+          const rows = Array.from(tbody.querySelectorAll('tr'));
+          rows.sort((a, b) => {
+            const starsA = (a.cells[2].textContent.match(/★/g) || []).length;
+            const starsB = (b.cells[2].textContent.match(/★/g) || []).length;
+            return starsB - starsA;
+          });
+          rows.forEach(row => tbody.appendChild(row));
+        }
+      });
+    });
+
+    showCategory("kpop");
+  </script>
+</body>
+</html>
