@@ -35,7 +35,7 @@
     margin: 0.5em 0 0.3em;
     cursor: pointer;
     position: relative;
-    z-index: 10;
+    z-index: 15;
   }
   h1 .siwoolin { color: var(--siwoolin); }
   h1 .book { color: var(--book-pink); }
@@ -44,7 +44,7 @@
     justify-content: center;
     margin-bottom: 1em;
     position: relative;
-    z-index: 10;
+    z-index: 15;
   }
   .search-wrapper input {
     padding: 0.7em 2.5em 0.7em 1.2em;
@@ -56,7 +56,7 @@
     max-width: 400px;
     text-align: center;
     position: relative;
-    z-index: 10;
+    z-index: 15;
   }
   .search-wrapper input::placeholder {
     color: #c4a3b1;
@@ -69,7 +69,7 @@
     font-size: 1.2em;
     color: #c4a3b1;
     pointer-events: none;
-    z-index: 11;
+    z-index: 16;
   }
   .category-nav {
     display: flex;
@@ -79,7 +79,7 @@
     font-weight: bold;
     margin-bottom: 0.8em;
     position: relative;
-    z-index: 10;
+    z-index: 15;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
       Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   }
@@ -115,7 +115,7 @@
     font-weight: bold;
     transition: background-color 0.3s;
     position: relative;
-    z-index: 10;
+    z-index: 15;
     width: max-content;
   }
   .sort-btn:hover {
@@ -130,13 +130,13 @@
     border-radius: 6px;
     font-size: 1.1em;
     position: relative;
-    z-index: 10;
+    z-index: 15;
   }
   .category-section {
     padding: 0 1em;
     display: none;
     position: relative;
-    z-index: 10;
+    z-index: 15;
   }
   table {
     width: 100%;
@@ -181,13 +181,13 @@
     margin-top: 2em;
     display: none;
     position: relative;
-    z-index: 10;
+    z-index: 15;
   }
 
   /* 캐릭터 위치 및 스크롤 따라다님/고정 분기 */
   .character {
     animation: float 4s ease-in-out infinite;
-    z-index: 6;
+    z-index: 12;
     width: 140px;
     transition: all 0.3s ease;
   }
@@ -223,12 +223,12 @@
     }
   }
 
-  /* 풍선과 구름 항상 fixed (스크롤 고정) */
+  /* 풍선과 구름 항상 fixed (스크롤 고정) 아래로 z-index 낮게 */
   .bg-element.cloud,
   .bg-element.balloon {
     position: fixed;
     animation: float 4s ease-in-out infinite;
-    z-index: 6;
+    z-index: 3; /* 캐릭터(12), 헤드셋(10)보다 낮게 */
     width: 80px;
   }
   @media (min-width: 768px) {
@@ -245,7 +245,7 @@
     left: 50%;
     transform: translateX(-50%);
     width: 80%;
-    z-index: 3;
+    z-index: 10;
     animation: float 6s ease-in-out infinite;
   }
 
@@ -256,7 +256,7 @@
     width: 50px;
     animation: diagonal-fall 6s linear infinite;
     opacity: 0.8;
-    z-index: 4;
+    z-index: 8;
     transform-origin: center center;
   }
   @keyframes diagonal-fall {
@@ -436,5 +436,4 @@
   // 유성우 랜덤 위치 및 애니메이션 딜레이 설정
   function randomizeShootingStars() {
     shootingStars.forEach((star, index) => {
-      star.style.left = Math.random() * 90 + 'vw'; // 0~90vw 사이
-      star.style.animationDelay = (index * 2
+      // 화면 내 랜덤 좌표 (vw
