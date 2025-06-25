@@ -45,6 +45,9 @@
     margin-bottom: 1em;
     position: relative;
     z-index: 15;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
   }
   .search-wrapper input {
     padding: 0.7em 2.5em 0.7em 1.2em;
@@ -52,8 +55,7 @@
     border-radius: 999px;
     font-size: 1em;
     color: var(--text-soft);
-    width: 90%;
-    max-width: 400px;
+    width: 100%;
     text-align: center;
     position: relative;
     z-index: 15;
@@ -236,31 +238,29 @@
     left: 50%;
     transform: translateX(-50%);
     width: 80%;
+    max-width: 600px;
     z-index: 10;
     animation: float 6s ease-in-out infinite;
   }
   .bg-element.shooting {
     position: fixed;
     top: -10vh;
-    width: 50px;
-    animation: diagonal-fall 6s linear infinite;
+    width: 40px;
     opacity: 0.8;
     z-index: 8;
     transform-origin: center center;
+    animation-timing-function: linear;
   }
-  @keyframes diagonal-fall {
-    0% {
-      transform: translateX(0) translateY(0) rotate(0deg);
-      opacity: 0.8;
-    }
-    100% {
-      transform: translateX(-100vw) translateY(110vh) rotate(0deg);
-      opacity: 0;
-    }
-  }
+
+  /* 대각선 낙하 애니메이션을 JS에서 랜덤으로 할당 */
   @keyframes float {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-15px); }
+  }
+
+  /* 돋보기 아이콘은 하나만 */
+  .search-wrapper .search-icon {
+    pointer-events: none;
   }
 </style>
 </head>
@@ -269,7 +269,7 @@
   <img src="images/siwoolin.png" class="character right" alt="시우린" />
   <img src="images/headset.png" class="headset" alt="헤드셋" />
   
-  <!-- 유성우 여러 개 -->
+  <!-- 유성우 여러 개 (JS에서 위치, 속도, 딜레이 조절) -->
   <img src="images/shootingstar.png" class="bg-element shooting" alt="유성우" />
   <img src="images/shootingstar.png" class="bg-element shooting" alt="유성우" />
   <img src="images/shootingstar.png" class="bg-element shooting" alt="유성우" />
@@ -283,78 +283,97 @@
   <img src="images/balloonholo.png" class="bg-element balloon" style="top: 60%; left: 30%;" alt="홀로그램 풍선" />
   <img src="images/balloonpink.png" class="bg-element balloon" style="top: 40%; left: 80%;" alt="핑크 풍선" />
 
-  <h1><span class="siwoolin">시우린</span><span class="book">의 노래책</span></h1>
+  <h1 id="mainTitle"><span class="siwoolin">시우린</span><span class="book">의 노래책</span></h1>
 
   <div class="search-wrapper">
-    <input type="text" id="searchInput" placeholder="노래 제목 또는 가수 검색... 🔍" />
+    <input type="text" id="searchInput" placeholder="노래 제목 또는 가수 검색... 🔍" autocomplete="off" />
     <span class="search-icon">🔍</span>
   </div>
 
-  <nav class="category-nav">
-    <button class="category-btn active" data-category="kpop">K-pop</button>
-    <button class="category-btn" data-category="jpop">J-pop</button>
-    <button class="category-btn" data-category="pop">Pop</button>
-    <button class="category-btn" data-category="cute">애교송</button>
-    <button class="category-btn" data-category="practice">연습곡</button>
+  <nav class="category-nav" role="navigation" aria-label="카테고리 선택">
+    <button class="category-btn active" data-category="kpop" type="button">K-pop</button>
+    <button class="category-btn" data-category="jpop" type="button">J-pop</button>
+    <button class="category-btn" data-category="pop" type="button">Pop</button>
+    <button class="category-btn" data-category="cute" type="button">애교송</button>
+    <button class="category-btn" data-category="practice" type="button">연습곡</button>
   </nav>
 
-  <button class="sort-btn" id="sortBtn">숙련도 높은 순 정렬</button>
+  <button class="sort-btn" id="sortBtn" type="button">숙련도 높은 순 정렬</button>
 
   <main>
-    <div class="notice">🌧️ 필독 공지: 이 리스트는 연습용으로 제작되었습니다. 무단 배포를 금합니다!</div>
+    <div class="notice" role="alert" aria-live="polite">🌧️ 필독 공지: 이 리스트는 연습용으로 제작되었습니다. 무단 배포를 금합니다!</div>
 
-    <section class="category-section" id="kpop">
+    <section class="category-section" id="kpop" aria-label="K-pop 노래 리스트">
       <table>
-        <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
-        <tr><td>Love Dive</td><td>IVE</td><td>★☆☆</td></tr>
-        <tr><td>Dynamite</td><td>BTS</td><td>★★★</td></tr>
-        <tr><td>Ditto</td><td>NewJeans</td><td>★★☆</td></tr>
-        <tr><td>ELEVEN</td><td>IVE</td><td>★★☆</td></tr>
-        <tr><td>Butter</td><td>BTS</td><td>★★★</td></tr>
-        <tr><td>Antifragile</td><td>LE SSERAFIM</td><td>★★★</td></tr>
+        <thead>
+          <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Love Dive</td><td>IVE</td><td>★☆☆</td></tr>
+          <tr><td>Dynamite</td><td>BTS</td><td>★★★</td></tr>
+          <tr><td>Ditto</td><td>NewJeans</td><td>★★☆</td></tr>
+          <tr><td>ELEVEN</td><td>IVE</td><td>★★☆</td></tr>
+          <tr><td>Butter</td><td>BTS</td><td>★★★</td></tr>
+          <tr><td>Antifragile</td><td>LE SSERAFIM</td><td>★★★</td></tr>
+        </tbody>
       </table>
     </section>
 
-    <section class="category-section" id="jpop">
+    <section class="category-section" id="jpop" aria-label="J-pop 노래 리스트">
       <table>
-        <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
-        <tr><td>Pretender</td><td>Official髭男dism</td><td>★★☆</td></tr>
-        <tr><td>紅蓮華 (Gurenge)</td><td>LiSA</td><td>★★★</td></tr>
-        <tr><td>乾杯</td><td>長渕剛 (Nagabuchi Tsuyoshi)</td><td>★★☆</td></tr>
+        <thead>
+          <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Pretender</td><td>Official髭男dism</td><td>★★☆</td></tr>
+          <tr><td>紅蓮華 (Gurenge)</td><td>LiSA</td><td>★★★</td></tr>
+          <tr><td>乾杯</td><td>長渕剛 (Nagabuchi Tsuyoshi)</td><td>★★☆</td></tr>
+        </tbody>
       </table>
     </section>
 
-    <section class="category-section" id="pop">
+    <section class="category-section" id="pop" aria-label="Pop 노래 리스트">
       <table>
-        <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
-        <tr><td>Shape of You</td><td>Ed Sheeran</td><td>★★★</td></tr>
-        <tr><td>Let It Go</td><td>Idina Menzel</td><td>★★☆</td></tr>
-        <tr><td>Shallow</td><td>Lady Gaga & Bradley Cooper</td><td>★★☆</td></tr>
+        <thead>
+          <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Shape of You</td><td>Ed Sheeran</td><td>★★★</td></tr>
+          <tr><td>Let It Go</td><td>Idina Menzel</td><td>★★☆</td></tr>
+          <tr><td>Shallow</td><td>Lady Gaga & Bradley Cooper</td><td>★★☆</td></tr>
+        </tbody>
       </table>
     </section>
 
-    <section class="category-section" id="cute">
+    <section class="category-section" id="cute" aria-label="애교송 리스트">
       <table>
-        <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
-        <tr><td>오또케송</td><td>아이유</td><td>★★☆</td></tr>
-        <tr><td>하트하트송</td><td>트와이스</td><td>★☆☆</td></tr>
-        <tr><td>사랑을 했다</td><td>아이콘</td><td>★☆☆</td></tr>
+        <thead>
+          <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>오또케송</td><td>아이유</td><td>★★☆</td></tr>
+          <tr><td>하트하트송</td><td>트와이스</td><td>★☆☆</td></tr>
+          <tr><td>사랑을 했다</td><td>아이콘</td><td>★☆☆</td></tr>
+        </tbody>
       </table>
     </section>
 
-    <section class="category-section" id="practice">
+    <section class="category-section" id="practice" aria-label="연습곡 리스트">
       <table>
-        <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
-        <tr><td>기억을 걷는 시간</td><td>넬</td><td>★★★</td></tr>
-        <tr><td>야생화</td><td>박효신</td><td>★★★</td></tr>
-        <tr><td>눈의 꽃</td><td>박효신</td><td>★★☆</td></tr>
-        <tr><td>내 마음에 비친 내 모습</td><td>유재하</td><td>★★☆</td></tr>
+        <thead>
+          <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>기억을 걷는 시간</td><td>넬</td><td>★★★</td></tr>
+          <tr><td>야생화</td><td>박효신</td><td>★★★</td></tr>
+          <tr><td>눈의 꽃</td><td>박효신</td><td>★★☆</td></tr>
+          <tr><td>내 마음에 비친 내 모습</td><td>유재하</td><td>★★☆</td></tr>
+        </tbody>
       </table>
     </section>
-
   </main>
 
-  <div class="no-result" id="noResult">검색 결과가 없어요 😢<br>없는 노래는 채팅으로 신청해주세요!</div>
+  <div class="no-result" id="noResult" role="alert" aria-live="polite">검색 결과가 없어요 😢<br>없는 노래는 채팅으로 신청해주세요!</div>
 
 <script>
   const buttons = document.querySelectorAll('.category-btn');
@@ -362,74 +381,20 @@
   const noResult = document.getElementById('noResult');
   const sortBtn = document.getElementById('sortBtn');
   const shootingStars = document.querySelectorAll('.bg-element.shooting');
+  const searchInput = document.getElementById('searchInput');
+  const mainTitle = document.getElementById('mainTitle');
 
+  // 카테고리 표시 함수
   function showCategory(id) {
     sections.forEach(sec => {
-      sec.style.display = sec.id === id ? 'block' : 'none';
+      sec.style.display = (sec.id === id) ? 'block' : 'none';
     });
     buttons.forEach(btn => {
       btn.classList.toggle('active', btn.dataset.category === id);
     });
     noResult.style.display = 'none';
+    searchInput.value = ''; // 검색어 초기화
   }
 
   buttons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      showCategory(btn.dataset.category);
-    });
-  });
-
-  showCategory('kpop');
-
-  document.getElementById('searchInput').addEventListener('input', function () {
-    const filter = this.value.toLowerCase();
-    let totalMatch = 0;
-    sections.forEach(section => {
-      const rows = section.querySelectorAll("table tr");
-      let hasMatch = false;
-      rows.forEach((row, index) => {
-        if (index === 0) return;
-        const text = row.textContent.toLowerCase();
-        const match = text.includes(filter);
-        row.style.display = match ? "" : "none";
-        if (match) hasMatch = true, totalMatch++;
-      });
-      section.style.display = filter ? (hasMatch ? "block" : "none") : (section.id === "kpop" ? "block" : "none");
-    });
-    buttons.forEach(btn => {
-      btn.classList.toggle("active", !filter && btn.dataset.category === "kpop");
-    });
-    noResult.style.display = (filter.length > 0 && totalMatch === 0) ? "block" : "none";
-  });
-
-  function sortByLevel() {
-    const activeSection = document.querySelector('.category-section[style*="block"]');
-    if (!activeSection) return;
-
-    const table = activeSection.querySelector('table');
-    const rows = Array.from(table.rows).slice(1);
-
-    function countStars(starStr) {
-      return (starStr.match(/★/g) || []).length;
-    }
-
-    rows.sort((a, b) => {
-      return countStars(b.cells[2].textContent) - countStars(a.cells[2].textContent);
-    });
-
-    rows.forEach(row => table.appendChild(row));
-  }
-
-  sortBtn.addEventListener('click', sortByLevel);
-
-  // 유성우 랜덤 위치 및 애니메이션 딜레이 설정 (화면내에서 다르게)
-  function randomizeShootingStars() {
-    shootingStars.forEach((star, index) => {
-      const vw = window.innerWidth;
-      const vh = window.innerHeight;
-      // 왼쪽에서 너무 치우치지 않도록 최소 10vw ~ 최대 90vw
-      const leftPos = Math.random() * 80 + 10;
-      star.style.left = leftPos + 'vw';
-
-      // 애니메이션 딜레이 시간차
-      star.style.animationDelay = (index * 1.8) + '
+    btn.addEvent
