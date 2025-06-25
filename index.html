@@ -7,14 +7,15 @@
 <link href="https://fonts.googleapis.com/css2?family=Jua&family=Do+Hyeon&display=swap" rel="stylesheet"/>
 <style>
   :root {
-    --main-pink: #d32aa6; /* 진한 핑크 */
-    --light-pink: #fff0f6; /* 연한 핑크 */
-    --hover-bg-pink: #ffddee; /* 호버 연한 핑크 */
-    --hover-text-pink: #d32aa6; /* 호버 진한 핑크 */
+    --main-pink: #ff99cc;
+    --light-pink: #fff0f6;
     --text-soft: #a06d3b;
+    --siwoolin: #d32aa6;
     --book-pink: #ffcce5;
     --deep-purple: #774c82;
-    --header-pink: #ff90c2;
+    --hover-pink: #ffd6e8;
+    --header-pink: #ff6f61; /* 코랄핑크 */
+    --header-pink-hover: #ff8a7a;
     --soft-yellow: #fff7b3;
     --border-pink: #ffcce5;
   }
@@ -37,7 +38,7 @@
     position: relative;
     z-index: 15;
   }
-  h1 .siwoolin { color: var(--main-pink); }
+  h1 .siwoolin { color: var(--siwoolin); }
   h1 .book { color: var(--book-pink); }
   .search-wrapper {
     display: flex;
@@ -85,26 +86,23 @@
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
       Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   }
-  /* 카테고리 버튼 기본 진한 핑크 배경, 흰색 글씨 */
   .category-btn {
-    background-color: var(--main-pink);
+    background-color: var(--header-pink);
     color: white;
     padding: 0.5em 1em;
     border-radius: 20px;
     border: none;
     cursor: pointer;
     font-weight: bold;
-    transition: background-color 0.2s, color 0.2s;
+    transition: background-color 0.3s, color 0.3s;
     font-family: inherit;
   }
-  /* 호버 시 배경 연한 핑크, 글씨 진한 핑크 */
   .category-btn:hover {
-    background-color: var(--hover-bg-pink);
-    color: var(--hover-text-pink);
+    background-color: var(--header-pink-hover);
+    color: white;
   }
-  /* active 상태도 기본과 동일 */
   .category-btn.active {
-    background-color: var(--main-pink);
+    background-color: #ff4c3b;
     color: white;
   }
   .sort-btn {
@@ -128,7 +126,7 @@
     background-color: #fffbcf;
   }
   .notice {
-    background-color: var(--light-pink);
+    background-color: #fff0f6;
     padding: 1em;
     border-left: 5px solid var(--main-pink);
     margin: 1em;
@@ -169,15 +167,16 @@
     background-color: white;
     user-select: text;
     border-right: 1px dotted var(--border-pink);
+    transition: background-color 0.3s;
   }
   th:last-child, td:last-child {
     border-right: none;
   }
   tr:nth-child(even) td {
-    background-color: var(--light-pink);
+    background-color: #fff0f6;
   }
-  tr:hover td {
-    background-color: var(--hover-bg-pink);
+  tr:not(:first-child):hover td {
+    background-color: var(--hover-pink);
   }
   .no-result {
     text-align: center;
@@ -242,18 +241,27 @@
     left: 50%;
     transform: translateX(-50%);
     width: 80%;
-    max-width: 600px;
     z-index: 10;
     animation: float 6s ease-in-out infinite;
   }
   .bg-element.shooting {
     position: fixed;
     top: -10vh;
-    width: 40px;
+    width: 50px;
     opacity: 0.8;
     z-index: 8;
     transform-origin: center center;
     animation-timing-function: linear;
+  }
+  @keyframes diagonal-fall {
+    0% {
+      transform: translateX(0) translateY(0) rotate(0deg);
+      opacity: 0.8;
+    }
+    100% {
+      transform: translateX(-100vw) translateY(110vh) rotate(0deg);
+      opacity: 0;
+    }
   }
   @keyframes float {
     0%, 100% { transform: translateY(0); }
@@ -280,103 +288,126 @@
   <img src="images/balloonholo.png" class="bg-element balloon" style="top: 60%; left: 30%;" alt="홀로그램 풍선" />
   <img src="images/balloonpink.png" class="bg-element balloon" style="top: 40%; left: 80%;" alt="핑크 풍선" />
 
-  <h1 id="mainTitle"><span class="siwoolin">시우린</span><span class="book">의 노래책</span></h1>
+  <h1><span class="siwoolin">시우린</span><span class="book">의 노래책</span></h1>
 
   <div class="search-wrapper">
-    <input type="text" id="searchInput" placeholder="노래 제목 또는 가수 검색... 🔍" autocomplete="off" />
+    <input type="text" id="searchInput" placeholder="노래 제목 또는 가수 검색... 🔍" />
     <span class="search-icon">🔍</span>
   </div>
 
-  <nav class="category-nav" role="navigation" aria-label="카테고리 선택">
-    <button class="category-btn active" data-category="kpop" type="button">K-pop</button>
-    <button class="category-btn" data-category="jpop" type="button">J-pop</button>
-    <button class="category-btn" data-category="pop" type="button">Pop</button>
-    <button class="category-btn" data-category="cute" type="button">애교송</button>
-    <button class="category-btn" data-category="practice" type="button">연습곡</button>
+  <nav class="category-nav">
+    <button class="category-btn active" data-category="kpop">K-pop</button>
+    <button class="category-btn" data-category="jpop">J-pop</button>
+    <button class="category-btn" data-category="pop">Pop</button>
+    <button class="category-btn" data-category="cute">애교송</button>
+    <button class="category-btn" data-category="practice">연습곡</button>
   </nav>
 
-  <button class="sort-btn" id="sortBtn" type="button">숙련도 높은 순 정렬</button>
+  <button class="sort-btn" id="sortBtn">숙련도 높은 순 정렬</button>
 
   <main>
-    <div class="notice" role="alert" aria-live="polite">🌧️ 필독 공지: 이 리스트는 연습용으로 제작되었습니다. 무단 배포를 금합니다!</div>
+    <div class="notice">🌧️ 필독 공지: 이 리스트는 연습용으로 제작되었습니다. 무단 배포를 금합니다!</div>
 
-    <!-- 카테고리별 섹션 -->
-    <section class="category-section" id="kpop" aria-label="K-pop 노래 리스트" style="display:block;">
+    <section class="category-section" id="kpop">
       <table>
-        <thead>
-          <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>Love Dive</td><td>IVE</td><td>★☆☆</td></tr>
-          <tr><td>Dynamite</td><td>BTS</td><td>★★★</td></tr>
-          <tr><td>Ditto</td><td>NewJeans</td><td>★★☆</td></tr>
-          <tr><td>ELEVEN</td><td>IVE</td><td>★★☆</td></tr>
-          <tr><td>Butter</td><td>BTS</td><td>★★★</td></tr>
-          <tr><td>Antifragile</td><td>LE SSERAFIM</td><td>★★★</td></tr>
-          <tr><td>Butterfly</td><td>이달의 소녀</td><td>★★☆</td></tr>
-          <tr><td>Next Level</td><td>aespa</td><td>★★★</td></tr>
-          <tr><td>Feel Special</td><td>TWICE</td><td>★★☆</td></tr>
-        </tbody>
+        <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
+        <tr><td>Love Dive</td><td>IVE</td><td>★☆☆</td></tr>
+        <tr><td>Dynamite</td><td>BTS</td><td>★★★</td></tr>
+        <tr><td>Ditto</td><td>NewJeans</td><td>★★☆</td></tr>
+        <tr><td>ELEVEN</td><td>IVE</td><td>★★☆</td></tr>
+        <tr><td>Butter</td><td>BTS</td><td>★★★</td></tr>
+        <tr><td>Antifragile</td><td>LE SSERAFIM</td><td>★★★</td></tr>
       </table>
     </section>
 
-    <section class="category-section" id="jpop" aria-label="J-pop 노래 리스트">
+    <section class="category-section" id="jpop">
       <table>
-        <thead>
-          <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>Pretender</td><td>Official髭男dism</td><td>★★☆</td></tr>
-          <tr><td>紅蓮華 (Gurenge)</td><td>LiSA</td><td>★★★</td></tr>
-          <tr><td>乾杯</td><td>長渕剛 (Nagabuchi Tsuyoshi)</td><td>★★☆</td></tr>
-          <tr><td>Lemon</td><td>米津玄師</td><td>★★★</td></tr>
-          <tr><td>Blue Bird</td><td>嵐</td><td>★★☆</td></tr>
-          <tr><td>夜に駆ける</td><td>YOASOBI</td><td>★★★</td></tr>
-        </tbody>
+        <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
+        <tr><td>Pretender</td><td>Official髭男dism</td><td>★★☆</td></tr>
+        <tr><td>紅蓮華 (Gurenge)</td><td>LiSA</td><td>★★★</td></tr>
+        <tr><td>乾杯</td><td>長渕剛 (Nagabuchi Tsuyoshi)</td><td>★★☆</td></tr>
       </table>
     </section>
 
-    <section class="category-section" id="pop" aria-label="Pop 노래 리스트">
+    <section class="category-section" id="pop">
       <table>
-        <thead>
-          <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>Shape of You</td><td>Ed Sheeran</td><td>★★★</td></tr>
-          <tr><td>Let It Go</td><td>Idina Menzel</td><td>★★☆</td></tr>
-          <tr><td>Shallow</td><td>Lady Gaga & Bradley Cooper</td><td>★★☆</td></tr>
-          <tr><td>Blinding Lights</td><td>The Weeknd</td><td>★★★</td></tr>
-          <tr><td>Happy</td><td>Pharrell Williams</td><td>★★☆</td></tr>
-          <tr><td>Someone Like You</td><td>Adele</td><td>★★★</td></tr>
-        </tbody>
+        <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
+        <tr><td>Shape of You</td><td>Ed Sheeran</td><td>★★★</td></tr>
+        <tr><td>Let It Go</td><td>Idina Menzel</td><td>★★☆</td></tr>
+        <tr><td>Shallow</td><td>Lady Gaga & Bradley Cooper</td><td>★★☆</td></tr>
       </table>
     </section>
 
-    <section class="category-section" id="cute" aria-label="애교송 리스트">
+    <section class="category-section" id="cute">
       <table>
-        <thead>
-          <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>오또케송</td><td>아이유</td><td>★★☆</td></tr>
-          <tr><td>하트하트송</td><td>트와이스</td><td>★☆☆</td></tr>
-          <tr><td>사랑을 했다</td><td>아이콘</td><td>★☆☆</td></tr>
-          <tr><td>뽀짝뽀짝</td><td>아이린</td><td>★☆☆</td></tr>
-          <tr><td>귀염뽀짝</td><td>엘리스</td><td>★☆☆</td></tr>
-          <tr><td>심쿵해</td><td>볼빨간사춘기</td><td>★★☆</td></tr>
-        </tbody>
+        <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
+        <tr><td>오또케송</td><td>아이유</td><td>★★☆</td></tr>
+        <tr><td>하트하트송</td><td>트와이스</td><td>★☆☆</td></tr>
+        <tr><td>사랑을 했다</td><td>아이콘</td><td>★☆☆</td></tr>
       </table>
     </section>
 
-    <section class="category-section" id="practice" aria-label="연습곡 리스트">
+    <section class="category-section" id="practice">
       <table>
-        <thead>
-          <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>기억을 걷는 시간</td><td>넬</td><td>★★★</td></tr>
-          <tr><td>야생화</td><td>박효신</td><td>★★★</td></tr>
-          <tr><td>눈의 꽃</td><td>박효신</td><td>★★☆</td></tr>
-          <tr><td>내 마음에 비친 내 모습</td><td>유재하</td><td>★★☆</td></tr>
-          <tr><td>봄날</td><td>BTS</td><td>★★★</td></tr>
-          <tr><td>벚꽃 엔딩</td><td>버스커 버스커</
+        <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
+        <tr><td>기억을 걷는 시간</td><td>넬</td><td>★★★</td></tr>
+        <tr><td>야생화</td><td>박효신</td><td>★★★</td></tr>
+        <tr><td>눈의 꽃</td><td>박효신</td><td>★★☆</td></tr>
+        <tr><td>내 마음에 비친 내 모습</td><td>유재하</td><td>★★☆</td></tr>
+      </table>
+    </section>
+  </main>
+
+  <div class="no-result" id="noResult">검색 결과가 없어요 😢<br>없는 노래는 채팅으로 신청해주세요!</div>
+
+<script>
+  const buttons = document.querySelectorAll('.category-btn');
+  const sections = document.querySelectorAll('.category-section');
+  const noResult = document.getElementById('noResult');
+  const sortBtn = document.getElementById('sortBtn');
+  const shootingStars = document.querySelectorAll('.bg-element.shooting');
+
+  function showCategory(id) {
+    sections.forEach(sec => {
+      sec.style.display = sec.id === id ? 'block' : 'none';
+    });
+    buttons.forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.category === id);
+    });
+    noResult.style.display = 'none';
+  }
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      showCategory(btn.dataset.category);
+    });
+  });
+
+  showCategory('kpop');
+
+  document.getElementById('searchInput').addEventListener('input', function () {
+    const filter = this.value.toLowerCase();
+    let totalMatch = 0;
+    sections.forEach(section => {
+      const rows = section.querySelectorAll("table tr");
+      let hasMatch = false;
+      rows.forEach((row, index) => {
+        if (index === 0) return;
+        const text = row.textContent.toLowerCase();
+        const match = text.includes(filter);
+        row.style.display = match ? "" : "none";
+        if (match) hasMatch = true, totalMatch++;
+      });
+      section.style.display = filter ? (hasMatch ? "block" : "none") : (section.id === "kpop" ? "block" : "none");
+    });
+    buttons.forEach(btn => {
+      btn.classList.toggle("active", !filter && btn.dataset.category === "kpop");
+    });
+    noResult.style.display = (filter.length > 0 && totalMatch === 0) ? "block" : "none";
+  });
+
+  function sortByLevel() {
+    const activeSection = document.querySelector('.category-section[style*="block"]');
+    if (!activeSection) return;
+
+    const
