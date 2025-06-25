@@ -31,7 +31,7 @@
       margin: 1em 0 0.5em;
       cursor: pointer;
       position: relative;
-      z-index: 15;
+      z-index: 20;
     }
     h1 span:first-child { color: var(--siwoolin); }
     h1 span:last-child { color: var(--header-bg); }
@@ -40,7 +40,7 @@
       text-align: center;
       margin-bottom: 1em;
       position: relative;
-      z-index: 15;
+      z-index: 20;
     }
     .search-wrapper input {
       padding: 0.6em 1.2em;
@@ -54,7 +54,7 @@
       text-align: center;
       margin-bottom: 1em;
       position: relative;
-      z-index: 15;
+      z-index: 20;
     }
     .category-btn {
       background-color: var(--category-bg);
@@ -66,6 +66,8 @@
       font-weight: bold;
       cursor: pointer;
       transition: 0.3s;
+      position: relative;
+      z-index: 20;
     }
     .category-btn:hover {
       background-color: var(--category-hover-bg);
@@ -86,7 +88,7 @@
       cursor: pointer;
       font-weight: bold;
       position: relative;
-      z-index: 15;
+      z-index: 20;
     }
 
     table {
@@ -96,13 +98,13 @@
       background: white;
       box-shadow: 4px 4px 12px rgba(0,0,0,0.1);
       position: relative;
-      z-index: 30;
+      z-index: 25; /* 표는 가장 위에 */
       font-family: 'Jua', sans-serif;
     }
     th, td {
       padding: 0.8em;
       text-align: center;
-      border-right: 1px dotted #aaa;
+      border-right: 1px dotted #aaa; /* 세로 점선 */
     }
     th:last-child, td:last-child {
       border-right: none;
@@ -119,7 +121,7 @@
       width: 120px;
       position: absolute;
       top: 60px;
-      z-index: 20;
+      z-index: 10; /* 버튼들(z-index:20) 아래 */
       animation: float 4s ease-in-out infinite;
     }
     .left { left: 10px; }
@@ -141,7 +143,7 @@
       width: 50px;
       animation: diagonal-fall 6s linear infinite;
       opacity: 0.8;
-      z-index: 2; /* 버튼들 아래 */
+      z-index: 5; /* 버튼들 아래 */
     }
 
     @keyframes float {
@@ -160,7 +162,17 @@
       color: var(--no-result-color);
       display: none;
       position: relative;
-      z-index: 15;
+      z-index: 20;
+    }
+
+    /* 모바일에서 캐릭터 스크롤 고정 */
+    @media (max-width: 767px) {
+      .character {
+        position: fixed;
+        top: 60px; /* 화면 상단에서 고정 위치 */
+      }
+      .left { left: 10px; }
+      .right { right: 10px; }
     }
   </style>
 </head>
@@ -199,25 +211,25 @@
       <tr><td>Ditto</td><td>NewJeans</td><td>★★☆</td></tr>
     </table>
   </div>
-  <div class="category-section" id="jpop">
+  <div class="category-section" id="jpop" style="display:none">
     <table>
       <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
       <tr><td>Pretender</td><td>Official髭男dism</td><td>★★☆</td></tr>
     </table>
   </div>
-  <div class="category-section" id="pop">
+  <div class="category-section" id="pop" style="display:none">
     <table>
       <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
       <tr><td>Shape of You</td><td>Ed Sheeran</td><td>★★★</td></tr>
     </table>
   </div>
-  <div class="category-section" id="cute">
+  <div class="category-section" id="cute" style="display:none">
     <table>
       <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
       <tr><td>오또케송</td><td>아이유</td><td>★★☆</td></tr>
     </table>
   </div>
-  <div class="category-section" id="practice">
+  <div class="category-section" id="practice" style="display:none">
     <table>
       <tr><th>제목</th><th>가수</th><th>숙련도</th></tr>
       <tr><td>야생화</td><td>박효신</td><td>★★★</td></tr>
@@ -256,7 +268,6 @@
       const filter = this.value.toLowerCase();
       let totalMatch = 0;
       sections.forEach(section => {
-        // 검색: 모든 카테고리를 대상으로 탐색
         const rows = section.querySelectorAll("table tr");
         let hasMatch = false;
         rows.forEach((row, index) => {
@@ -269,19 +280,33 @@
             totalMatch++;
           }
         });
-        // 카테고리 전환 없이 검색 시, 모든 카테고리 보이기 or 숨기기
-        section.style.display = filter === "" ? (section.id === 'kpop' ? 'block' : 'none') 
-                                : (hasMatch ? 'block' : 'none');
+        // 검색 시: 필터가 비어있으면 선택된 카테고리만 보이게, 아니면 매칭된 카테고리 보이게
+        if (filter === "") {
+          // 초기 선택된 카테고리(버튼 active)에 해당 섹션만
+          const activeBtn = document.querySelector('.category-btn.active');
+          const activeCat = activeBtn ? activeBtn.dataset.category : 'kpop';
+          section.style.display = (section.id === activeCat) ? 'block' : 'none';
+        } else {
+          section.style.display = hasMatch ? 'block' : 'none';
+        }
       });
       // NoResult 처리: 전체 검색 결과 없을 때
       noResult.style.display = (filter.length > 0 && totalMatch === 0) ? 'block' : 'none';
-      // 카테고리 버튼 스타일: 검색 중에는 비활성화 시각 강조 해제
-      buttons.forEach(btn => btn.classList.remove('active'));
+      // 검색 중에는 버튼 active 비활성화
+      if (filter.length > 0) {
+        buttons.forEach(btn => btn.classList.remove('active'));
+      } else {
+        // 검색이 비어질 때, active 버튼 복원
+        const activeBtn = document.querySelector('.category-btn.active');
+        if (!activeBtn) {
+          showCategory('kpop');
+        }
+      }
     });
 
     sortBtn.addEventListener('click', function () {
       sections.forEach(section => {
-        // 정렬: 현재 보이는 섹션뿐 아니라, 검색 결과가 보이는 테이블들을 정렬
+        // 현재 보이는 섹션(검색 결과 또는 선택된 카테고리)
         if (section.style.display === 'block') {
           const table = section.querySelector("table");
           const rows = Array.from(table.querySelectorAll("tr")).slice(1);
